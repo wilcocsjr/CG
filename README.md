@@ -1,7 +1,8 @@
 # CG
 projeto de cg
 
-//Para ter o repositorio no pc (so se faz uma vez)\n
+//Para ter o repositorio no pc (so se faz uma vez)
+
 $ cd pasta_onde_querem_ter_o_trabalho
 $ git clone https://github.com/wilcocsjr/CG
 
