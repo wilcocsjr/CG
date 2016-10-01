@@ -1,6 +1,4 @@
 var _ship;
-var _material, _geometry, _mesh;
-var _x, _y, _z;
 
 class Ship{
 
@@ -8,9 +6,12 @@ class Ship{
 
 	createShip(x, y, z){
 		'use strict';
-		_x = x;
-		_y = y;
-		_z = z;
+
+		this._material;
+
+		this._geometry;
+
+		this._mesh;
 
 		_ship = new THREE.Object3D();
 
@@ -131,13 +132,13 @@ class Ship{
 	}
 
 	moveLeft(){
-		_x = _x - 5;
-		_ship.position.set(_x, _y, _z);
+		_ship.position.x -= 5;
+		_ship.position.set(_ship.position.x, _ship.position.y, _ship.position.z);
 	}
 
 	moveRight(){
-		_x = _x + 5;
-		_ship.position.set(_x, _y, _z);
+		_ship.position.x += 5;
+		_ship.position.set(_ship.position.x, _ship.position.y, _ship.position.z);
 	}
 }
 

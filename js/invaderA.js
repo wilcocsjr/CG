@@ -1,5 +1,4 @@
 var _invaderA;
-var _x1, _y1, _z1;
 
 class InvaderA{
 
@@ -7,9 +6,6 @@ class InvaderA{
 
 	createInvaderA(x, y ,z){
 	'use strict';
-	_x1 = x;
-	_y1 = y;
-	_z1 = z;
 
 	this._material;
 

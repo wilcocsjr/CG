@@ -2,11 +2,8 @@
 
 
 var camera, scene, renderer;
-var geometry, material, mesh;
 var ship, invaderA, invaderB;
 var oldClock, now; 
-
-var viewSize, aspectRatio;
 
 function init(){
 	'use strict';
@@ -57,9 +54,10 @@ function createScene(){
 
 function createCamera(){
 	'use strict';
-	viewSize = 200;
+	// Check on function onResize() viewSize is the same (it must be!)
+	var viewSize = 200;
 
-	aspectRatio = window.innerWidth / window.innerHeight;
+	var aspectRatio = window.innerWidth / window.innerHeight;
 
 	camera = new THREE.OrthographicCamera(-aspectRatio * viewSize / 2, aspectRatio * viewSize / 2, viewSize /2, -viewSize / 2, -1000, 1000);
 
@@ -78,6 +76,11 @@ function createCamera(){
 
 function onResize(){
 	'use strict';
+
+	// Check on function createCamera() viewSize is the same (it must be!)
+	var viewSize = 200;
+
+	var aspectRatio = window.innerWidth / window.innerHeight;
 
 	renderer.setSize(window.innerWidth, window.innerHeight);
 

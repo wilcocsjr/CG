@@ -1,15 +1,11 @@
 var _invaderB;
-var _x, _y, _z;
 
 class InvaderB{
 
 	constructor(){}
 
 	createInvaderB(x, y, z){
-
-		_x = x;
-		_y = y;
-		_z = z;
+		'use strict';
 
 		this._material;
 
