@@ -38,12 +38,17 @@ function createScene(){
     
 
 	//ADD SHIPS HERE
+	for (var i = 0; i < 4; i++){
+
+		invaderA = new InvaderA();
+		scene.add(invaderA.createInvaderA(-30 + 20 * i, 20, 0));
+
+		invaderB = new InvaderB();
+		scene.add(invaderB.createInvaderB(-30 + 20 * i, 0, 0));
+	}
+
 	ship = new Ship();
 	scene.add(ship.createShip(0, -40, 0));
-	invaderB = new InvaderB();
-	scene.add(invaderB.createInvaderB(0, 0, 0));
-	invaderA = new InvaderA();
-	scene.add(invaderA.createInvaderA(0, 40, 0));
 }
 
 

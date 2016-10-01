@@ -14,14 +14,14 @@ class Ship{
 
 		_ship = new THREE.Object3D();
 
-		this.addBody(_x, _y, _z);
-		this.addCockpit(_x, _y + 12.5, _z);
-		this.addLeftWing(_x - 5, _y + 10, _z + 4);
-		this.addRightWing(_x + 5, _y + 10, _z + 4);
-		this.addTopWing(_x, _y + 10, _z + 4);
-		this.addEngine(_x + 2.5, _y - 10, _z);
-		this.addEngine(_x - 2.5, _y - 10, _z);
-		_ship.position.set(_x, _y, _z);
+		this.addBody(x, y, z);
+		this.addCockpit(x, y + 12.5, z);
+		this.addLeftWing(x - 5, y + 10, z + 4);
+		this.addRightWing(x + 5, y + 10, z + 4);
+		this.addTopWing(x, y + 10, z + 4);
+		this.addEngine(x + 2.5, y - 10, z);
+		this.addEngine(x - 2.5, y - 10, z);
+		_ship.position.set(x, y, z);
 
 		return _ship;
 	}
@@ -132,12 +132,12 @@ class Ship{
 
 	moveLeft(){
 		_x = _x - 5;
-		_ship.position.set(_x, _y-80, _z);
+		_ship.position.set(_x, _y, _z);
 	}
 
 	moveRight(){
 		_x = _x + 5;
-		_ship.position.set(_x, _y-80, _z);
+		_ship.position.set(_x, _y, _z);
 	}
 }
 

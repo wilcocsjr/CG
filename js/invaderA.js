@@ -1,5 +1,5 @@
-var ball, cube, pyramid, cylinder, invader;
-var _x, _y, _z;
+var _invaderA;
+var _x1, _y1, _z1;
 
 class InvaderA{
 
@@ -7,55 +7,99 @@ class InvaderA{
 
 	createInvaderA(x, y ,z){
 	'use strict';
-	_x = x;
-	_y = y;
-	_z = z;
+	_x1 = x;
+	_y1 = y;
+	_z1 = z;
 
+	this._material;
 
-	cube = new Cube();
-	scene.add(cube.createCube(_x, _y, _z, 10, 5, 5)); //(5, 2.5, 0, 10, 5, 5)
+	this._geometry;
 
-	pyramid = new Pyramid();
-	_x = x + 2.5;
-	_y = y + 5;
-	_z = z;
-	scene.add(pyramid.createPyramid(_x, _y, _z, 0, 1.5, 5, 10)); //(7.5, 7.5, 0, 0, 1.5, 5, 10)
-	_x = x - 2.5;
-	_y = y + 5;
-	_z = z;
-	scene.add(pyramid.createPyramid(_x, _y, _z, 0, 1.5, 5, 10)); //(2.5, 7.5, 0, 0, 1.5, 5, 10)
+	this._mesh;
 
-	cylinder = new Cylinder();
-	_x = x - 3.5;
-	_y = y;
-	_z = z + 2.5;
-	scene.add(cylinder.createCylinder(_x, _y, _z, 1, 1, 0, 0));   //(1.5, 2.5, 2.5, 1, 1, 0, 0)
-	_x = x + 3;
-	_y = y;
-	_z = z + 2.5;
-	scene.add(cylinder.createCylinder(_x, _y, _z, 1, 1, 0, 0));     //(8, 2.5, 2.5, 1, 1, 0, 0)
-	_x = x - 1;
-	_y = y + 1;
-	_z = z + 2.5;
-	scene.add(cylinder.createCylinder(_x, _y, _z, 1, 1, 0, 0)); //(3.5, 3.5, 2.5, 1, 1, 0, 0)
-	_x = x + 1;
-	_y = y + 1;
-	_z = z + 2.5;
-	scene.add(cylinder.createCylinder(_x, _y, _z, 1, 1, 0, 0)); 			  //(6, 3.5, 2.5, 1, 1, 0, 0)
-	_x = x;
-	_y = y - 1.5;
-	_z = z + 2.5;
-	scene.add(cylinder.createMouth(_x, _y, _z, 1, 1, 0, 0));					  //(5, 1, 2.5, 1, 1, 0, 0)
+	_invaderA = new THREE.Object3D();
 
-	ball = new Ball();
-	_x = x - 4.25;
-	_y = y;
-	_z = z;
-	scene.add(ball.createBall(_x, _y, _z, 2, 10, 10)); //(0.75, 2.5, 0, 2, 10, 10)
-	_x = x + 4.75;
-	_y = y;
-	_z = z;
-	scene.add(ball.createBall(_x, _y, _z, 2, 10, 10)); //(9.75, 2.5, 0, 2, 10, 10)
-    
+	this.addHead(x, y, z);
+
+	this.addHorn(x + 2.5, y + 5, z);
+
+	this.addHorn(x - 2.5, y + 5, z)
+
+	this.addEye(x - 3.5, y, z + 2.5);
+
+	this.addEye(x + 3, y, z + 2.5);
+
+	this.addEye(x - 1, y + 1, z + 2.5);
+
+	this.addEye(x + 1, y + 1, z + 2.5);
+
+	this.addMouth(x, y - 1.5, z + 2.5);
+
+	this.addEar(x - 4.25, y, z, -1.55);
+
+	this.addEar(x + 4.75, y, z, 1.55);
+
+	return _invaderA;
 	}
+
+	addHead(x, y, z){
+
+		_material = new THREE.MeshBasicMaterial({color:0x004e00, wireframe:true})
+		_geometry = new THREE.CubeGeometry(10, 5, 5);
+		_mesh = new THREE.Mesh(_geometry, _material);
+
+		_mesh.position.set(x, y, z);
+
+		_invaderA.add(_mesh)
+	}
+
+	addHorn(x,y,z){
+
+		_material = new THREE.MeshBasicMaterial({color:0xc3c3c3, wireframe:true});
+		_geometry = new THREE.CylinderGeometry(0, 1.5, 5, 10, false);
+		_mesh = new THREE.Mesh(_geometry, _material);
+
+		_mesh.position.set(x , y, z);
+
+		_invaderA.add(_mesh);
+	}
+
+	addEye(x,y,z){
+
+		_material = new THREE.MeshBasicMaterial({color:0xaf0000, wireframe:true});
+		_geometry = new THREE.CylinderGeometry(1, 1, 0, 0, false);
+		_mesh = new THREE.Mesh(_geometry, _material);
+
+		_mesh.position.set(x, y, z);
+		_mesh.rotateX(1.57079633);
+
+		_invaderA.add(_mesh);
+	}
+
+	addMouth(x,y,z){
+
+		_material = new THREE.MeshBasicMaterial({color:0xa1e1e1e, wireframe:true});
+		_geometry = new THREE.CylinderGeometry(1, 1, 0, 0, false);
+		_mesh = new THREE.Mesh(_geometry, _material);
+
+		_mesh.position.set(x, y, z);
+
+		_mesh.rotateX(1.75);
+
+		_invaderA.add(_mesh);
+	}
+
+	addEar(x,y,z){
+
+		_material = new THREE.MeshBasicMaterial({color:0x3232ff, wireframe:true});
+		_geometry = new THREE.SphereGeometry(2, 10, 10);
+		_mesh = new THREE.Mesh(_geometry, _material);
+
+		_mesh.position.set(0 , 0, 0);
+		_mesh.rotateX(1)
+		_mesh.position.set(x, y, z);
+
+		_invaderA.add(_mesh)
+	}
+
 }

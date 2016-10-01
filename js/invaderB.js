@@ -1,10 +1,15 @@
 var _invaderB;
+var _x, _y, _z;
 
 class InvaderB{
 
 	constructor(){}
 
 	createInvaderB(x, y, z){
+
+		_x = x;
+		_y = y;
+		_z = z;
 
 		this._material;
 
@@ -16,9 +21,9 @@ class InvaderB{
 
 		this.addHead(x, y, z);
 
-		this.addComunnicater(x, y, z);
+		this.addComunnicater(x, y + 3, z);
 
-		this.addBall(x, y, z)
+		this.addBall(x, y + 6, z)
 
 		this.addEye(x - 2, y, z + 2);
 
@@ -28,7 +33,7 @@ class InvaderB{
 
 		this.addEar(x + 5.5, y, z, 1.55);
 
-		scene.add(_invaderB);
+		return _invaderB;
 	}
 
 	addHead(x, y, z){
@@ -50,7 +55,7 @@ class InvaderB{
 		_geometry = new THREE.CylinderGeometry(0.5,0.5,2,2, 1, false, 20, 7); //(2, 10, 10)
 		_mesh = new THREE.Mesh(_geometry, _material);
 
-		_mesh.position.set(x , y + 3, z);
+		_mesh.position.set(x , y, z);
 
 		_invaderB.add(_mesh);
 	}
@@ -58,10 +63,10 @@ class InvaderB{
 	addBall(x,y,z){
 
 		_material = new THREE.MeshBasicMaterial({color:0x3232ff, wireframe:true});
-		_geometry = new THREE.SphereGeometry(2,20,20); //(2, 10, 10)
+		_geometry = new THREE.SphereGeometry(2,20,20);
 		_mesh = new THREE.Mesh(_geometry, _material);
 
-		_mesh.position.set(x, y + 6, z);
+		_mesh.position.set(x, y, z);
 
 		_invaderB.add(_mesh);
 
@@ -70,7 +75,7 @@ class InvaderB{
 	addEye(x,y,z){
 
 		_material = new THREE.MeshBasicMaterial({color:0xffffff, wireframe:true});
-		_geometry = new THREE.CubeGeometry(1,2,0.5); //(2, 10, 10)
+		_geometry = new THREE.CubeGeometry(1,2,0.5);
 		_mesh = new THREE.Mesh(_geometry, _material);
 
 		_mesh.position.set(x, y, z);
@@ -80,8 +85,8 @@ class InvaderB{
 
 	addEar(x,y,z,rotate){
 
-		_geometry = new THREE.CylinderGeometry(0, 1.5, 2, 10, false);
 		_material = new THREE.MeshBasicMaterial({color:0xc3c3c3, wireframe:true});
+		_geometry = new THREE.CylinderGeometry(0, 1.5, 2, 10, false);
 		_mesh = new THREE.Mesh(_geometry, _material);
 
 		_mesh.position.set(0 , 0, 0);
