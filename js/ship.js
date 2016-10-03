@@ -130,6 +130,15 @@ var Ship = function(){
 		this._ship.add(_mesh);
 	}
 
+	this.changeWireframe = function(){
+
+		for(var i=0; i < this._ship.children.length; i++){
+			var object = this._ship.children[i];
+
+			object.material.wireframe = !object.material.wireframe;
+		}
+	}
+
 	this.moveLeft = function(){
 		if(this._leftEngine == false){
 			this._leftEngine = true;
@@ -154,5 +163,4 @@ var Ship = function(){
 		}
 	}
 }
-
 

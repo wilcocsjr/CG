@@ -84,4 +84,13 @@ var InvaderA = function(){
 		this._invaderA.add(_mesh)
 	}
 
+	this.changeWireframe = function(){
+
+		for(var i=0; i < this._invaderA.children.length; i++){
+			var object = this._invaderA.children[i];
+
+			object.material.wireframe = !object.material.wireframe;
+		}
+	}
+
 }

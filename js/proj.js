@@ -3,6 +3,7 @@
 
 var camera, scene, renderer;
 var ship, invaderA, invaderB;
+var obj = [];
 var oldClock, now; 
 
 function init(){
@@ -38,17 +39,20 @@ function createScene(){
 	for (var i = 0; i < 4; i++){
 
 		invaderA = new InvaderA();
-		invaderA.createInvaderA(-30 + 20 * i, 20, 0)
+		invaderA.createInvaderA(-30 + 20 * i, 20, 0);
 		scene.add(invaderA.getObject());
+		obj.push(invaderA);
 
 		invaderB = new InvaderB();
-		invaderB.createInvaderB(-30 + 20 * i, 0, 0)
+		invaderB.createInvaderB(-30 + 20 * i, 0, 0);
 		scene.add(invaderB.getObject());
+		obj.push(invaderB);
 	}
 
 	ship = new Ship();
 	ship.createShip(0, -40, 0)
 	scene.add(ship.getObject());
+	obj.push(ship);
 }
 
 
@@ -105,11 +109,9 @@ function onKeyDown(e){
 	switch(e.keyCode){
 		case 65:
 		case 97:
-			scene.traverse(function (node){
-				if(node instanceof THREE.Mesh){
-					node.material.wireframe = !node.material.wireframe;
-				}
-			});
+			for(var i = 0; i < obj.length; i++){
+				obj[i].changeWireframe();
+			}
 			break;
 		case 37: // left
 			ship.moveLeft();
