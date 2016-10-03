@@ -110,16 +110,27 @@ function onKeyDown(e){
 			break;
 		case 37: // left
 			ship.moveLeft();
-        break;
+        	break;
         case 39: // right
         	ship.moveRight();
-        break;
+        	break;
 	}
-	render();
 }
 
 
 function render() {
 	'use strict';
 	renderer.render(scene, camera);
+}
+
+function animate(){
+	'use strict';
+
+	//old clock here
+
+	render();
+
+	//calculate delta
+
+	requestAnimationFrame(animate);
 }

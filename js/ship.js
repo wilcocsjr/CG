@@ -1,19 +1,15 @@
-var _ship;
+function Ship(){
 
-class Ship{
+	this._ship = new THREE.Object3D();
+	this._material;
+	this._geometry;
+	this._mesh;
 
-	constructor(){}
+	this._leftEngine = false;
+	this._leftEngine = true;
 
-	createShip(x, y, z){
+	this.createShip = function(x, y, z){
 		'use strict';
-
-		this._material;
-
-		this._geometry;
-
-		this._mesh;
-
-		_ship = new THREE.Object3D();
 
 		this.addBody(x, y, z);
 		this.addCockpit(x, y + 12.5, z);
@@ -22,12 +18,12 @@ class Ship{
 		this.addTopWing(x, y + 10, z + 4);
 		this.addEngine(x + 2.5, y - 10, z);
 		this.addEngine(x - 2.5, y - 10, z);
-		_ship.position.set(x, y, z);
+		this._ship.position.set(x, y, z);
 
-		return _ship;
+		return this._ship;
 	}
 
-	addBody(x, y, z){
+	this.addBody = function(x, y, z){
 		'use strict';
 		_material = new THREE.MeshBasicMaterial({color: 0xcacaca, wireframe:true});
 
@@ -35,10 +31,10 @@ class Ship{
 		_mesh = new THREE.Mesh(_geometry, _material);
 		_mesh.position.set(x, y, z);
 
-		_ship.add(_mesh);
+		this._ship.add(_mesh);
 	}
 
-	addEngine(x, y, z){
+	this.addEngine = function(x, y, z){
 		'use strict';
 		_material = new THREE.MeshBasicMaterial({color: 0x0077ee, wireframe:true});
 
@@ -47,10 +43,10 @@ class Ship{
 		_mesh.position.set(x, y, z);
 		_mesh.scale.set(0.2, 0.2, 0.2);
 
-		_ship.add(_mesh);
+		this._ship.add(_mesh);
 	}
 
-	addCockpit(x, y, z){
+	this.addCockpit = function(x, y, z){
 		'use strict';
 		_material = new THREE.MeshBasicMaterial({color: 0xcacaca, wireframe:true});
 
@@ -61,10 +57,10 @@ class Ship{
 		var axis = new THREE.Vector3(0, 1, 0);
 		_mesh.rotateOnAxis(axis, Math.PI/4);
 
-		_ship.add(_mesh);
+		this._ship.add(_mesh);
 	}
 
-	addLeftWing(x, y, z){
+	this.addLeftWing = function(x, y, z){
 		'use strict';
 		_material = new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:true});
 
@@ -83,11 +79,11 @@ class Ship{
 		var axis = new THREE.Vector3(0, 1, 0);
 		_mesh.translateZ(7);
 		_mesh.rotateOnAxis(axis, -Math.PI/4);
-		_ship.add(_mesh);
+		this._ship.add(_mesh);
 	}
 
 
-	addRightWing(x, y, z){
+	this.addRightWing = function(x, y, z){
 		'use strict';
 		_material = new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:true});
 
@@ -106,10 +102,10 @@ class Ship{
 		var axis = new THREE.Vector3(0, 1, 0);
 		_mesh.translateZ(7);
 		_mesh.rotateOnAxis(axis, Math.PI/4);
-		_ship.add(_mesh);
+		this._ship.add(_mesh);
 	}
 
-	addTopWing(x, y, z){
+	this.addTopWing = function(x, y, z){
 		'use strict';
 		_material = new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:true});
 
@@ -128,17 +124,31 @@ class Ship{
 		_mesh.translateX(0.5);
 		var axis = new THREE.Vector3(0, 1, 0);
 		_mesh.rotateOnAxis(axis, -Math.PI/2);
-		_ship.add(_mesh);
+		this._ship.add(_mesh);
 	}
 
-	moveLeft(){
-		_ship.position.x -= 5;
-		_ship.position.set(_ship.position.x, _ship.position.y, _ship.position.z);
+	this.moveLeft = function(){
+		if(this._leftEngine == false){
+			this._leftEngine = true;
+			this._ship.position.x -= 5;
+			this._ship.position.set(_ship.position.x, _ship.position.y, _ship.position.z);
+		}
+		else{
+			this._ship.position.x -= 5;
+			this._ship.position.set(_ship.position.x, _ship.position.y, _ship.position.z);
+		}
 	}
 
-	moveRight(){
-		_ship.position.x += 5;
-		_ship.position.set(_ship.position.x, _ship.position.y, _ship.position.z);
+	this.moveRight = function(){
+		if(this._rightEngine == false){
+			this._rightEngine = true;
+			this._ship.position.x += 5;
+			this._ship.position.set(_ship.position.x, _ship.position.y, _ship.position.z);
+		}
+		else{
+			this._ship.position.x += 5;
+			this._ship.position.set(_ship.position.x, _ship.position.y, _ship.position.z);
+		}
 	}
 }
 
