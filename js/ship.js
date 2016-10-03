@@ -7,7 +7,7 @@ var Ship = function(){
 	this._mesh;
 
 	this._leftEngine = false;
-	this._leftEngine = true;
+	this._rightEngine = true;
 
 	this.getObject = function(){
 		return this._ship;
@@ -143,11 +143,11 @@ var Ship = function(){
 		if(this._leftEngine == false){
 			this._leftEngine = true;
 			this._ship.position.x -= 5;
-			this._ship.position.set(_ship.position.x, _ship.position.y, _ship.position.z);
+			this._ship.position.set(this._ship.position.x, this._ship.position.y, this._ship.position.z);
 		}
 		else{
 			this._ship.position.x -= 5;
-			this._ship.position.set(_ship.position.x, _ship.position.y, _ship.position.z);
+			this._ship.position.set(this._ship.position.x, this._ship.position.y, this._ship.position.z);
 		}
 	}
 
@@ -155,11 +155,11 @@ var Ship = function(){
 		if(this._rightEngine == false){
 			this._rightEngine = true;
 			this._ship.position.x += 5;
-			this._ship.position.set(_ship.position.x, _ship.position.y, _ship.position.z);
+			this._ship.position.set(this._ship.position.x, this._ship.position.y, this._ship.position.z);
 		}
 		else{
 			this._ship.position.x += 5;
-			this._ship.position.set(_ship.position.x, _ship.position.y, _ship.position.z);
+			this._ship.position.set(this._ship.position.x, this._ship.position.y, this._ship.position.z);
 		}
 	}
 }
