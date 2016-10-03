@@ -1,4 +1,5 @@
-function Ship(){
+
+var Ship = function(){
 
 	this._ship = new THREE.Object3D();
 	this._material;
@@ -7,6 +8,10 @@ function Ship(){
 
 	this._leftEngine = false;
 	this._leftEngine = true;
+
+	this.getObject = function(){
+		return this._ship;
+	}
 
 	this.createShip = function(x, y, z){
 		'use strict';
@@ -19,8 +24,6 @@ function Ship(){
 		this.addEngine(x + 2.5, y - 10, z);
 		this.addEngine(x - 2.5, y - 10, z);
 		this._ship.position.set(x, y, z);
-
-		return this._ship;
 	}
 
 	this.addBody = function(x, y, z){

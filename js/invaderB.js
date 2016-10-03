@@ -1,9 +1,14 @@
-function InvaderB(){
+
+var InvaderB = function(){
 
 	this._invaderB = new THREE.Object3D();
 	this._material;
 	this._geometry;
 	this._mesh;
+
+	this.getObject = function(){
+		return this._invaderB;
+	}
 
 	this.createInvaderB = function(x, y, z){
 		'use strict';
@@ -15,8 +20,6 @@ function InvaderB(){
 		this.addEye(x + 2, y, z + 2);
 		this.addEar(x - 5.5, y, z, -1.55);
 		this.addEar(x + 5.5, y, z, 1.55);
-
-		return this._invaderB;
 	}
 
 	this.addHead = function(x, y, z){
