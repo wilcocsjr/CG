@@ -4,10 +4,13 @@
 var camera, scene, renderer;
 var ship, invaderA, invaderB;
 var obj = [];
-var oldClock, now; 
+var oldClock, now;
+var v, a; 
 
 function init(){
 	'use strict';
+	oldClock = Date.now();
+	a = 0;
 
 	renderer = new THREE.WebGLRenderer({antialias: true});
 
@@ -19,6 +22,7 @@ function init(){
 	createCamera();
 	
 	render();
+	animate();
 
 	window.addEventListener("resize", onResize);
 	window.addEventListener("keydown", onKeyDown);
@@ -57,7 +61,6 @@ function createScene(){
 
 
 
-//CENAS NAO IMPORTANTES, COISAS DA AULA
 
 function createCamera(){
 	'use strict';
@@ -100,7 +103,7 @@ function onResize(){
         camera.updateProjectionMatrix();
 	}
 	
-	render();
+	//render();
 }
 
 function onKeyDown(e){
@@ -132,10 +135,39 @@ function animate(){
 	'use strict';
 
 	//old clock here
+	var rotated = false;
+	var now = Date.now();
+	var delta = now - oldClock;
+	oldClock = now;
+	if(ship._rightEngine){
+		a += 0.001;
+		v = a * delta;
+		ship.moveShip(v, delta);
+		ship._rightEngine = false;
+		rotated = true;
+	}
+	else if(ship._leftEngine){
+		a -= 0.001;
+		v = a * delta;
+		ship.moveShip(v, delta);
+		ship._leftEngine = false;
+		rotated = true;
+	}
+	else if(v > 0.0001){
+		a -= 0.0002;
+		v = a * delta;
+		ship.moveShip(v, delta);
+	}
+	else if(v < -0.0001){
+		a += 0.0002;
+		v = a * delta;
+		ship.moveShip(v, delta);
+	}else{v=0;}
+	
+
 
 	render();
 
-	//calculate delta
 
 	requestAnimationFrame(animate);
 }
