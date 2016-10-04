@@ -5,12 +5,11 @@ var camera, scene, renderer;
 var ship, invaderA, invaderB;
 var obj = [];
 var oldClock, now;
-var v, a; 
+var delta; 
 
 function init(){
 	'use strict';
 	oldClock = Date.now();
-	a = 0;
 
 	renderer = new THREE.WebGLRenderer({antialias: true});
 
@@ -106,6 +105,38 @@ function onResize(){
 	//render();
 }
 
+function checkLimitLeft(){
+	if (ship.position.x == -50) //ajustar valores, etc
+		break;
+	}
+
+function checkLimitRight(){    
+	if (ship.position.x == 50) //ajustar valores, etc
+		break;
+	}
+
+function onResize(){
+	'use strict';
+
+	// Check on function createCamera() viewSize is the same (it must be!)
+	var viewSize = 200;
+
+	var aspectRatio = window.innerWidth / window.innerHeight;
+
+	renderer.setSize(window.innerWidth, window.innerHeight);
+
+	if(window.innerHeight > 0 && window.innerWidth > 0){
+        aspectRatio = window.innerWidth / window.innerHeight;
+        camera.left = -aspectRatio * viewSize / 2;
+        camera.right = aspectRatio * viewSize / 2;
+        camera.top = viewSize /2;
+        camera.bottom = -viewSize /2;
+        camera.updateProjectionMatrix();
+	}
+	
+	//render();
+}
+
 function onKeyDown(e){
 	'use strict';
 
@@ -117,25 +148,16 @@ function onKeyDown(e){
 			}
 			break;
 		case 37: // left
-			//checkLimitLeft();
 			ship.moveLeft();
         	break;
         case 39: // right
-		//checkLimitRight();
         	ship.moveRight();
+        	break;
+        default:
         	break;
 	}
 }
 
-function checkLimitLeft(){
-	if (ship.position.x == -50) //ajustar valores, etc
-		break;
-	}
-
-function checkLimitRight(){    
-	if (ship.position.x == 50) //ajustar valores, etc
-		break;
-	}
 
 function render() {
 	'use strict';
@@ -144,41 +166,13 @@ function render() {
 
 function animate(){
 	'use strict';
-
-	//old clock here
-	var rotated = false;
 	var now = Date.now();
-	var delta = now - oldClock;
+	delta = now - oldClock;
 	oldClock = now;
-	if(ship._rightEngine){
-		a += 0.001;
-		v = a * delta;
-		ship.moveShip(v, delta);
-		ship._rightEngine = false;
-		rotated = true;
-	}
-	else if(ship._leftEngine){
-		a -= 0.001;
-		v = a * delta;
-		ship.moveShip(v, delta);
-		ship._leftEngine = false;
-		rotated = true;
-	}
-	else if(v > 0.0001){
-		a -= 0.0002;
-		v = a * delta;
-		ship.moveShip(v, delta);
-	}
-	else if(v < -0.0001){
-		a += 0.0002;
-		v = a * delta;
-		ship.moveShip(v, delta);
-	}else{v=0;}
+
+	ship.moveInercia();
 	
-
-
 	render();
-
 
 	requestAnimationFrame(animate);
 }
