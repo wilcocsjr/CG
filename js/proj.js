@@ -117,14 +117,25 @@ function onKeyDown(e){
 			}
 			break;
 		case 37: // left
+			//checkLimitLeft();
 			ship.moveLeft();
         	break;
         case 39: // right
+		//checkLimitRight();
         	ship.moveRight();
         	break;
 	}
 }
 
+function checkLimitLeft(){
+	if (ship.position.x == -50) //ajustar valores, etc
+		break;
+	}
+
+function checkLimitRight(){    
+	if (ship.position.x == 50) //ajustar valores, etc
+		break;
+	}
 
 function render() {
 	'use strict';
