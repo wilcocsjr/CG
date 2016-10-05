@@ -64,11 +64,11 @@ function createScene(){
 function createCamera(){
 	'use strict';
 	// Check on function onResize() viewSize is the same (it must be!)
-	var viewSize = 200;
+	var viewSize = 100;
 
 	var aspectRatio = window.innerWidth / window.innerHeight;
 
-	camera = new THREE.OrthographicCamera(-aspectRatio * viewSize / 2, aspectRatio * viewSize / 2, viewSize /2, -viewSize / 2, -1000, 1000);
+	camera = new THREE.OrthographicCamera(-aspectRatio * viewSize, aspectRatio * viewSize, viewSize, -viewSize, -1000, 1000);
 
 
 	// 2D
@@ -87,7 +87,7 @@ function onResize(){
 	'use strict';
 
 	// Check on function createCamera() viewSize is the same (it must be!)
-	var viewSize = 200;
+	var viewSize = 100;
 
 	var aspectRatio = window.innerWidth / window.innerHeight;
 
@@ -95,46 +95,12 @@ function onResize(){
 
 	if(window.innerHeight > 0 && window.innerWidth > 0){
         aspectRatio = window.innerWidth / window.innerHeight;
-        camera.left = -aspectRatio * viewSize / 2;
-        camera.right = aspectRatio * viewSize / 2;
-        camera.top = viewSize /2;
-        camera.bottom = -viewSize /2;
+        camera.left = -aspectRatio * viewSize;
+        camera.right = aspectRatio * viewSize;
+        camera.top = viewSize;
+        camera.bottom = -viewSize;
         camera.updateProjectionMatrix();
 	}
-	
-	//render();
-}
-
-function checkLimitLeft(){
-	if (ship.position.x == -50) //ajustar valores, etc
-		break;
-	}
-
-function checkLimitRight(){    
-	if (ship.position.x == 50) //ajustar valores, etc
-		break;
-	}
-
-function onResize(){
-	'use strict';
-
-	// Check on function createCamera() viewSize is the same (it must be!)
-	var viewSize = 200;
-
-	var aspectRatio = window.innerWidth / window.innerHeight;
-
-	renderer.setSize(window.innerWidth, window.innerHeight);
-
-	if(window.innerHeight > 0 && window.innerWidth > 0){
-        aspectRatio = window.innerWidth / window.innerHeight;
-        camera.left = -aspectRatio * viewSize / 2;
-        camera.right = aspectRatio * viewSize / 2;
-        camera.top = viewSize /2;
-        camera.bottom = -viewSize /2;
-        camera.updateProjectionMatrix();
-	}
-	
-	//render();
 }
 
 function onKeyDown(e){
@@ -175,3 +141,13 @@ function animate(){
 
 	requestAnimationFrame(animate);
 }
+
+/*function checkLimitLeft(){
+	if (ship.position.x == -50) //ajustar valores, etc
+		break;
+	}
+
+function checkLimitRight(){    
+	if (ship.position.x == 50) //ajustar valores, etc
+		break;
+	}*/
