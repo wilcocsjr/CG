@@ -144,7 +144,7 @@ var Ship = function(){
 
 	// camera.right - 15...isto porque metade do cockpit + comprimento da asa ≈ 13 
 	this.moveLeft = function(){
-		if (this._ship.position.x > -(camera.right -15)){
+		//if (this._ship.position.x > -(camera.right -15)){
 			if (this._rotateValue >= 0){
 				if (this._rotateValue > 0)
 					this._ship.rotateY(-0.15);
@@ -154,11 +154,11 @@ var Ship = function(){
 			this._acceleration -= 0.006;
 			this._velocity -= this._acceleration * delta;
 			this.moveShip();
-		}
+		//}
 	}
 
 	this.moveRight = function(){
-		if (this._ship.position.x < (camera.right -15)){
+		//if (this._ship.position.x < (camera.right -15)){
 			if (this._rotateValue <= 0){
 				if (this._rotateValue < 0)
 					this._ship.rotateY(0.15);
@@ -168,7 +168,7 @@ var Ship = function(){
 			this._acceleration += 0.006;
 			this._velocity += this._acceleration * delta;
 			this.moveShip();
-		}
+		//}
 	}
 
 	this.moveInercia = function(){
@@ -191,11 +191,11 @@ var Ship = function(){
 	}
 
 	this.moveShip = function(){
-		if(this._ship.position.x <= (camera.right -15) && this._ship.position.x >= -(camera.right -15)){
+		//if(this._ship.position.x <= (camera.right -15) && this._ship.position.x >= -(camera.right -15)){
 			this._ship.position.x += this._velocity;
 			this._ship.position.set(this._ship.position.x, this._ship.position.y, this._ship.position.z);
-		}
-		if (this._ship.position.x > (camera.right -15))
+		//}
+		/*if (this._ship.position.x > (camera.right -15))
 			this._ship.position.x = (camera.right -15);
 			// this._acceleration = 0;
 			// this.velocity = 0;
@@ -203,7 +203,7 @@ var Ship = function(){
 		else if (this._ship.position.x < -(camera.right -15))
 			this._ship.position.x = -(camera.right -15);
 			// this._acceleration = 0;
-			// this.velocity = 0;
+			// this.velocity = 0;*/
 	}
 }
 
