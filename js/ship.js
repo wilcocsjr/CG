@@ -140,26 +140,30 @@ var Ship = function(){
 	}
 
 	this.moveLeft = function(){
-		this._acceleration -= 0.003;
+		this._acceleration -= 0.006;
 		this._velocity -= this._acceleration * delta;
-		ship.moveShip(this._velocity, delta);
+		this.moveShip();
 	}
 
 	this.moveRight = function(){
-		this._acceleration += 0.003;
+		this._acceleration += 0.006;
 		this._velocity += this._acceleration * delta;
-		ship.moveShip(this._velocity, delta);
+		this.moveShip();
 	}
 
 	this.moveInercia = function(){
-		if(this._velocity > 0.0001)
-			this._acceleration -= 0.0002;
+		if (this._velocity > 0.0001){
+			this._acceleration -= 0.00035;
+			this._velocity = this._acceleration * delta;
+			this.moveShip();
+		}
 
-		else if(this._velocity < -0.0001)
-			this._acceleration += 0.0002;
-
-		this._velocity = this._acceleration * delta;
-		ship.moveShip(this._velocity);
+		else if (this._velocity < -0.0001){
+			this._acceleration += 0.00035;
+			this._velocity = this._acceleration * delta;
+			this.moveShip();
+		}
+		
 	}
 
 	this.moveShip = function(){

@@ -158,7 +158,6 @@ function onKeyDown(e){
 	}
 }
 
-
 function render() {
 	'use strict';
 	renderer.render(scene, camera);
