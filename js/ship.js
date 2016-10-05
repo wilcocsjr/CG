@@ -69,21 +69,13 @@ var Ship = function(){
 		'use strict';
 		_material = new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:true});
 
-		var triangleShape = new THREE.Shape();
-		triangleShape.moveTo(x, y);
-		triangleShape.lineTo(x-10, y-10);
-		triangleShape.lineTo(x-10, y-20); 
-		triangleShape.lineTo(x, y-20); 
-		triangleShape.lineTo(x, y);
-
-		var extrudeSettings = {amount: 1, bevelEnabled: false, bevelSegments: 1, steps: 1, bevelSize: 1, bevelThickness: 1};
-		_geometry = new THREE.ExtrudeGeometry(triangleShape, extrudeSettings);
+		
+		_geometry = this.buildWing();
 		_mesh = new THREE.Mesh(_geometry, _material);
 		
-		_mesh.position.set(0, 0, 0);
 		var axis = new THREE.Vector3(0, 1, 0);
-		_mesh.translateZ(7);
-		_mesh.rotateOnAxis(axis, -Math.PI/4);
+		_mesh.rotateOnAxis(axis, -5*Math.PI/4);
+		_mesh.position.set(x, y, z);
 		this._ship.add(_mesh);
 	}
 
@@ -92,21 +84,12 @@ var Ship = function(){
 		'use strict';
 		_material = new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:true});
 
-		var triangleShape = new THREE.Shape();
-		triangleShape.moveTo(x, y);
-		triangleShape.lineTo(x+10, y-10);
-		triangleShape.lineTo(x+10, y-20); 
-		triangleShape.lineTo(x, y-20); 
-		triangleShape.lineTo(x, y);
-
-		var extrudeSettings = {amount: 1, bevelEnabled: false, bevelSegments: 1, steps: 1, bevelSize: 1, bevelThickness: 1};
-		_geometry = new THREE.ExtrudeGeometry(triangleShape, extrudeSettings);
+		_geometry = this.buildWing();
 		_mesh = new THREE.Mesh(_geometry, _material);
 		
-		_mesh.position.set(0, 0, 0);
 		var axis = new THREE.Vector3(0, 1, 0);
-		_mesh.translateZ(7);
 		_mesh.rotateOnAxis(axis, Math.PI/4);
+		_mesh.position.set(x-(Math.sqrt(2)/2), y, z-(Math.sqrt(2)/2));
 		this._ship.add(_mesh);
 	}
 
@@ -114,22 +97,25 @@ var Ship = function(){
 		'use strict';
 		_material = new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:true});
 
-		var triangleShape = new THREE.Shape();
-		triangleShape.moveTo(z, y);
-		triangleShape.lineTo(z+10, y-10);
-		triangleShape.lineTo(z+10, y-20); 
-		triangleShape.lineTo(z, y-20); 
-		triangleShape.lineTo(z, y);
-
-		var extrudeSettings = {amount: 1, bevelEnabled: false, bevelSegments: 1, steps: 1, bevelSize: 1, bevelThickness: 1};
-		_geometry = new THREE.ExtrudeGeometry(triangleShape, extrudeSettings);
+		_geometry = this.buildWing();
 		_mesh = new THREE.Mesh(_geometry, _material);
 		
-		_mesh.position.set(0, 0, 0);
-		_mesh.translateX(0.5);
 		var axis = new THREE.Vector3(0, 1, 0);
 		_mesh.rotateOnAxis(axis, -Math.PI/2);
+		_mesh.position.set(x, y, z);
+		_mesh.translateZ(-0.5);
 		this._ship.add(_mesh);
+	}
+
+	this.buildWing = function(){
+		var triangleShape = new THREE.Shape();
+		triangleShape.moveTo(0, 0);
+		triangleShape.lineTo(10, -10);
+		triangleShape.lineTo(10, -20); 
+		triangleShape.lineTo(0, -20); 
+		triangleShape.lineTo(0, 0);
+		var extrudeSettings = {amount: 1, bevelEnabled: false, bevelSegments: 1, steps: 1, bevelSize: 1, bevelThickness: 1};
+		return new THREE.ExtrudeGeometry(triangleShape, extrudeSettings);
 	}
 
 	this.changeWireframe = function(){
@@ -172,13 +158,13 @@ var Ship = function(){
 	}
 
 	this.moveInercia = function(){
-		if (this._velocity > 0.001){
+		if (this._velocity > 0.005){
 			this._acceleration -= 0.00035;
 			this._velocity = this._acceleration * delta;
 			this.moveShip();
 		}
 
-		else if (this._velocity < -0.001){
+		else if (this._velocity < -0.005){
 			this._acceleration += 0.00035;
 			this._velocity = this._acceleration * delta;
 			this.moveShip();

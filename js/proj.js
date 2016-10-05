@@ -28,7 +28,6 @@ function init(){
 }
 
 //CRIAR A CENA E CHAMAR OS OBJETOS
-
 function createScene(){
 	'use strict';
 
