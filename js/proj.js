@@ -32,11 +32,7 @@ function createScene(){
 	'use strict';
 
 	scene = new THREE.Scene();
-
-	//scene.add(new THREE.AxisHelper(50));
     
-    
-
 	//ADD SHIPS HERE
 	for (var i = 0; i < 4; i++){
 
@@ -75,11 +71,6 @@ function createCamera(){
 	camera.position.y = 0;
 	camera.position.z = 1;
 	camera.lookAt(scene.position);
-	/*camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-	camera.position.x = 0;
-	camera.position.y = 0;
-	camera.position.z = 50;
-	camera.lookAt(scene.position);*/
 }
 
 function onResize(){
@@ -140,13 +131,3 @@ function animate(){
 
 	requestAnimationFrame(animate);
 }
-
-/*function checkLimitLeft(){
-	if (ship.position.x == -50) //ajustar valores, etc
-		break;
-	}
-
-function checkLimitRight(){    
-	if (ship.position.x == 50) //ajustar valores, etc
-		break;
-	}*/
