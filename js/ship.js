@@ -6,7 +6,7 @@ var Ship = function(){
 	this._geometry;
 	this._mesh;
 
-	this._acceleration = 0.002;
+	this._acceleration = 0.0005;
 	this._velocity = 0;
 
 	this._leftEngine = false;
@@ -147,15 +147,15 @@ var Ship = function(){
 	}
 
 	this.move = function(){
-		if(ship._leftEngine){
-			if (ship._velocity > 0)
-				ship._velocity = 0
-			ship.moveLeft();
+		if(this._leftEngine){
+			if (this._velocity > 0)
+				this._velocity = -this._velocity/3;
+			this.moveLeft();
 		}
-		else if(ship._rightEngine){
-			if (ship._velocity < 0)
-				ship._velocity = 0
-			ship.moveRight();
+		else if(this._rightEngine){
+			if (this._velocity < 0)
+				this._velocity = -this._velocity/3;
+			this.moveRight();
 		}
 	}
 
@@ -185,12 +185,12 @@ var Ship = function(){
 
 	this.moveInercia = function(){
 		if (this._velocity > 0.005){
-			this._velocity -= (this._acceleration/10 * delta) ;
+			this._velocity -= (this._acceleration/3 * delta) ;
 			this.moveShip();
 		}
 
 		else if (this._velocity < -0.005){
-			this._velocity += (this._acceleration/10 * delta) ;
+			this._velocity += (this._acceleration/3 * delta) ;
 			this.moveShip();
 		}
 		else{
