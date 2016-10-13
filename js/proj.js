@@ -5,14 +5,11 @@ var camera, scene, renderer;
 var ship, invaderA, invaderB;
 var obj = [];
 var oldClock, now;
-var delta; 
-var moveLeft, moveRight;
+var delta;
 
 function init(){
 	'use strict';
 	oldClock = Date.now();
-	moveRight = false;
-	moveLeft = false;
 
 	renderer = new THREE.WebGLRenderer({antialias: true});
 
@@ -107,11 +104,11 @@ function onKeyDown(e){
 			}
 			break;
 		case 37: // left
-			moveLeft = true;
+			ship.turnOnLeftEngine();
 			//ship.moveLeft();
         	break;
         case 39: // right
-        	moveRight = true;
+        	ship.turnOnRightEngine();
         	//ship.moveRight();
         	break;
         default:
@@ -124,10 +121,10 @@ function onKeyUp(e){
 
 	switch(e.keyCode){
 		case 37: // left
-			moveLeft = false;
+			ship.turnOfLeftEngine();
         	break;
         case 39: // right
-        	moveRight = false;
+        	ship.turnOfRightEngine();
         	break;
         default:
         	//break;
@@ -145,12 +142,8 @@ function animate(){
 	delta = now - oldClock;
 	oldClock = now;
 
-	if(moveLeft){
-		ship.moveLeft();
-	}
-	if(moveRight){
-		ship.moveRight();
-	}
+	ship.move();
+
 	ship.moveInercia();
 	
 	render();

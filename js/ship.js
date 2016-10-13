@@ -6,13 +6,32 @@ var Ship = function(){
 	this._geometry;
 	this._mesh;
 
-	this._acceleration = 0;
+	this._acceleration = 0.002;
 	this._velocity = 0;
+
+	this._leftEngine = false;
+	this._rightEngine = false;
 
 	this._rotateValue = 0;
 
 	this.getObject = function(){
 		return this._ship;
+	}
+
+	this.turnOnRightEngine = function(){
+		this._rightEngine = true;
+	}
+
+	this.turnOfRightEngine = function(){
+		this._rightEngine = false;
+	}
+
+	this.turnOnLeftEngine = function(){
+		this._leftEngine = true;
+	}
+
+	this.turnOfLeftEngine = function(){
+		this._leftEngine = false;
 	}
 
 	this.createShip = function(x, y, z){
@@ -127,6 +146,19 @@ var Ship = function(){
 		}
 	}
 
+	this.move = function(){
+		if(ship._leftEngine){
+			if (ship._velocity > 0)
+				ship._velocity = 0
+			ship.moveLeft();
+		}
+		if(ship._rightEngine){
+			if (ship._velocity < 0)
+				ship._velocity = 0
+			ship.moveRight();
+		}
+	}
+
 	this.moveLeft = function(){
 		if (this._rotateValue >= 0){
 			if (this._rotateValue > 0)
@@ -134,8 +166,8 @@ var Ship = function(){
 			this._rotateValue = -0.15
 			this._ship.rotateY(this._rotateValue);
 		}
-		this._acceleration -= 0.002;
-		this._velocity -= this._acceleration * delta;
+		if (this._velocity > -1)
+			this._velocity -= this._acceleration * delta;
 		this.moveShip();
 	}
 
@@ -146,21 +178,19 @@ var Ship = function(){
 			this._rotateValue = 0.15
 			this._ship.rotateY(this._rotateValue);
 		}
-		this._acceleration += 0.002; //0.012
-		this._velocity += this._acceleration * delta;
+		if (this._velocity < 1)
+			this._velocity += this._acceleration * delta;
 		this.moveShip();
 	}
 
 	this.moveInercia = function(){
 		if (this._velocity > 0.001){
-			this._acceleration -= 0.0005;
-			this._velocity = this._acceleration * delta;
+			this._velocity -= (this._acceleration * delta) / 5;
 			this.moveShip();
 		}
 
 		else if (this._velocity < -0.001){
-			this._acceleration += 0.0005; //0.0007
-			this._velocity = this._acceleration * delta;
+			this._velocity += (this._acceleration * delta) / 5;
 			this.moveShip();
 		}
 		else{
