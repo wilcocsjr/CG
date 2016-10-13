@@ -152,7 +152,7 @@ var Ship = function(){
 				ship._velocity = 0
 			ship.moveLeft();
 		}
-		if(ship._rightEngine){
+		else if(ship._rightEngine){
 			if (ship._velocity < 0)
 				ship._velocity = 0
 			ship.moveRight();
@@ -166,7 +166,7 @@ var Ship = function(){
 			this._rotateValue = -0.15
 			this._ship.rotateY(this._rotateValue);
 		}
-		if (this._velocity > -1)
+		if (this._velocity > -0.5)
 			this._velocity -= this._acceleration * delta;
 		this.moveShip();
 	}
@@ -178,19 +178,19 @@ var Ship = function(){
 			this._rotateValue = 0.15
 			this._ship.rotateY(this._rotateValue);
 		}
-		if (this._velocity < 1)
+		if (this._velocity < 0.5)
 			this._velocity += this._acceleration * delta;
 		this.moveShip();
 	}
 
 	this.moveInercia = function(){
 		if (this._velocity > 0.005){
-			this._velocity -= (this._acceleration/5 * delta) ;
+			this._velocity -= (this._acceleration/10 * delta) ;
 			this.moveShip();
 		}
 
 		else if (this._velocity < -0.005){
-			this._velocity += (this._acceleration/5 * delta) ;
+			this._velocity += (this._acceleration/10 * delta) ;
 			this.moveShip();
 		}
 		else{
