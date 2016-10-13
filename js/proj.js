@@ -6,10 +6,13 @@ var ship, invaderA, invaderB;
 var obj = [];
 var oldClock, now;
 var delta; 
+var moveLeft, moveRight;
 
 function init(){
 	'use strict';
 	oldClock = Date.now();
+	moveRight = false;
+	moveLeft = false;
 
 	renderer = new THREE.WebGLRenderer({antialias: true});
 
@@ -25,6 +28,7 @@ function init(){
 
 	window.addEventListener("resize", onResize);
 	window.addEventListener("keydown", onKeyDown);
+	window.addEventListener("keyup", onKeyUp);
 }
 
 //CRIAR A CENA E CHAMAR OS OBJETOS
@@ -98,19 +102,35 @@ function onKeyDown(e){
 
 	switch(e.keyCode){
 		case 65:
-		case 97:
 			for(var i = 0; i < obj.length; i++){
 				obj[i].changeWireframe();
 			}
 			break;
 		case 37: // left
-			ship.moveLeft();
+			moveLeft = true;
+			//ship.moveLeft();
         	break;
         case 39: // right
-        	ship.moveRight();
+        	moveRight = true;
+        	//ship.moveRight();
         	break;
         default:
+        	//break;
+	}
+}
+
+function onKeyUp(e){
+	'use strict';
+
+	switch(e.keyCode){
+		case 37: // left
+			moveLeft = false;
         	break;
+        case 39: // right
+        	moveRight = false;
+        	break;
+        default:
+        	//break;
 	}
 }
 
@@ -125,6 +145,12 @@ function animate(){
 	delta = now - oldClock;
 	oldClock = now;
 
+	if(moveLeft){
+		ship.moveLeft();
+	}
+	if(moveRight){
+		ship.moveRight();
+	}
 	ship.moveInercia();
 	
 	render();
