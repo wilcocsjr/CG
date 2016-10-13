@@ -184,13 +184,13 @@ var Ship = function(){
 	}
 
 	this.moveInercia = function(){
-		if (this._velocity > 0.001){
-			this._velocity -= (this._acceleration * delta) / 5;
+		if (this._velocity > 0.005){
+			this._velocity -= (this._acceleration/5 * delta) ;
 			this.moveShip();
 		}
 
-		else if (this._velocity < -0.001){
-			this._velocity += (this._acceleration * delta) / 5;
+		else if (this._velocity < -0.005){
+			this._velocity += (this._acceleration/5 * delta) ;
 			this.moveShip();
 		}
 		else{
