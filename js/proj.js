@@ -6,7 +6,7 @@ var ship, invaderA, invaderB;
 var obj = [];
 var oldClock, now;
 var delta;
-var camera_1, camera_2, camera_3
+var camera_1, camera_2, camera_3, camera_ort, camera_pers;
 
 function init(){
 	'use strict';
@@ -71,9 +71,10 @@ function createCamera(){
 	camera.position.y = 0;
 	camera.position.z = 1;
 	camera.lookAt(scene.position);
-	camera_1 = true;
-	camera_2 = false;
-	camera_3 = false;
+	camera_ort = true;
+	camera_1 = camera;
+	camera2();
+	camera3();
 	
 }
 
@@ -83,35 +84,28 @@ function camera2(){
 
 	var aspectRatio = window.innerWidth / window.innerHeight;
 
-	camera = new THREE.PerspectiveCamera(viewSize, aspectRatio, 1, 1000);
+	camera_2 = new THREE.PerspectiveCamera(viewSize, aspectRatio, 1, 1000);
 
-	camera.position.x = 0;
-	camera.position.y = -150;
-	camera.position.z = 200;
-	camera.lookAt(scene.position);
-	camera_1 = false;
-	camera_2 = true;
-	camera_3 = false;
+	camera_2.position.x = 0;
+	camera_2.position.y = -150;
+	camera_2.position.z = 200;
+	camera_2.lookAt(scene.position);
 	
 }
 
 function camera3(){
 	'use strict';
-	var x, y,z;
 	var viewSize = 60;
 
 	var aspectRatio = window.innerWidth / window.innerHeight;
 
-	camera = new THREE.PerspectiveCamera(viewSize, aspectRatio, 1, 1000);
+	camera_3 = new THREE.PerspectiveCamera(viewSize, aspectRatio, 1, 1000);
 
-	camera.position.x = 0;
-	camera.position.y = -150;
-	camera.position.z = 50;
-	camera.lookAt(ship.getObject().position);
-
-	camera_1 = false;
-	camera_2 = false;
-	camera_3 = true;
+	camera_3.position.x = ship.getObject().position.x;
+	camera_3.position.y = -150;
+	camera_3.position.z = 50;
+	camera_3.up = new THREE.Vector3(0 , 0, ship.getObject().position.x + viewSize);
+	camera_3.lookAt(new THREE.Vector3(0, 0, 0));
 	
 }
 
@@ -125,7 +119,7 @@ function onResize(){
 
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
-	if(camera_1){
+	if(camera_ort){
 		if(window.innerHeight > 0 && window.innerWidth > 0){
 			viewSize = 100;
 	        camera.left = -aspectRatio * viewSize;
@@ -134,7 +128,7 @@ function onResize(){
 	        camera.bottom = -viewSize;
 		}
 	}
-	else if(camera_2 || camera_3){
+	else if(camera_pers){
 		if(window.innerHeight > 0 && window.innerWidth > 0)
 			camera.aspect = renderer.getSize().width / renderer.getSize().height;
 	}
@@ -157,16 +151,19 @@ function onKeyDown(e){
         	ship.turnOnRightEngine();
         	break;
         case 49: // camera 1
-        	if(!camera1)
-        		createCamera();
+        	camera = camera_1;
+        	camera_ort = true;
+        	camera_pers = false;
         	break;
         case 50: // camera 2
-        	if (!camera2())
-        		camera2();
+        	camera = camera_2;
+        	camera_pers = true;
+        	camera_ort = false;
         	break;
         case 51: // camera 3
-        	if (!camera_3)
-        		camera3();
+        	camera = camera_3;
+        	camera_pers = true;
+        	camera_ort = false;
         	break;
         default:
         	break;
@@ -203,8 +200,7 @@ function animate(){
 
 	ship.moveInercia();
 
-	if (camera_3)
-		camera.position.x = ship.getObject().position.x;
+	camera_3.position.x = ship.getObject().position.x;
 	
 	render();
 
