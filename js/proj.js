@@ -6,6 +6,7 @@ var ship, invaderA, invaderB;
 var obj = [];
 var oldClock, now;
 var delta;
+var camera_1, camera_2, camera_3
 
 function init(){
 	'use strict';
@@ -65,33 +66,79 @@ function createCamera(){
 	var aspectRatio = window.innerWidth / window.innerHeight;
 
 	camera = new THREE.OrthographicCamera(-aspectRatio * viewSize, aspectRatio * viewSize, viewSize, -viewSize, -1000, 1000);
-
-
 	// 2D
 	camera.position.x = 0;
 	camera.position.y = 0;
 	camera.position.z = 1;
 	camera.lookAt(scene.position);
+	camera_1 = true;
+	camera_2 = false;
+	camera_3 = false;
+	
+}
+
+function camera2(){
+	'use strict';
+	var viewSize = 60;
+
+	var aspectRatio = window.innerWidth / window.innerHeight;
+
+	camera = new THREE.PerspectiveCamera(viewSize, aspectRatio, 1, 1000);
+
+	camera.position.x = 0;
+	camera.position.y = -150;
+	camera.position.z = 200;
+	camera.lookAt(scene.position);
+	camera_1 = false;
+	camera_2 = true;
+	camera_3 = false;
+	
+}
+
+function camera3(){
+	'use strict';
+	var x, y,z;
+	var viewSize = 60;
+
+	var aspectRatio = window.innerWidth / window.innerHeight;
+
+	camera = new THREE.PerspectiveCamera(viewSize, aspectRatio, 1, 1000);
+
+	camera.position.x = 0;
+	camera.position.y = -150;
+	camera.position.z = 50;
+	camera.lookAt(ship.getObject().position);
+
+	camera_1 = false;
+	camera_2 = false;
+	camera_3 = true;
+	
 }
 
 function onResize(){
 	'use strict';
 
 	// Check on function createCamera() viewSize is the same (it must be!)
-	var viewSize = 100;
+	var viewSize;
 
 	var aspectRatio = window.innerWidth / window.innerHeight;
 
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
-	if(window.innerHeight > 0 && window.innerWidth > 0){
-        aspectRatio = window.innerWidth / window.innerHeight;
-        camera.left = -aspectRatio * viewSize;
-        camera.right = aspectRatio * viewSize;
-        camera.top = viewSize;
-        camera.bottom = -viewSize;
-        camera.updateProjectionMatrix();
+	if(camera_1){
+		if(window.innerHeight > 0 && window.innerWidth > 0){
+			viewSize = 100;
+	        camera.left = -aspectRatio * viewSize;
+	        camera.right = aspectRatio * viewSize;
+	        camera.top = viewSize;
+	        camera.bottom = -viewSize;
+		}
 	}
+	else if(camera_2 || camera_3){
+		if(window.innerHeight > 0 && window.innerWidth > 0)
+			camera.aspect = renderer.getSize().width / renderer.getSize().height;
+	}
+	camera.updateProjectionMatrix();
 }
 
 function onKeyDown(e){
@@ -105,14 +152,24 @@ function onKeyDown(e){
 			break;
 		case 37: // left
 			ship.turnOnLeftEngine();
-			//ship.moveLeft();
         	break;
         case 39: // right
         	ship.turnOnRightEngine();
-        	//ship.moveRight();
+        	break;
+        case 49: // camera 1
+        	if(!camera1)
+        		createCamera();
+        	break;
+        case 50: // camera 2
+        	if (!camera2())
+        		camera2();
+        	break;
+        case 51: // camera 3
+        	if (!camera_3)
+        		camera3();
         	break;
         default:
-        	//break;
+        	break;
 	}
 }
 
@@ -145,6 +202,9 @@ function animate(){
 	ship.move();
 
 	ship.moveInercia();
+
+	if (camera_3)
+		camera.position.x = ship.getObject().position.x;
 	
 	render();
 
