@@ -149,12 +149,12 @@ var Ship = function(){
 	this.move = function(){
 		if(this._leftEngine){
 			if (this._velocity > 0)
-				this._velocity = -this._velocity/3;
+				this._velocity = 0;
 			this.moveLeft();
 		}
 		else if(this._rightEngine){
 			if (this._velocity < 0)
-				this._velocity = -this._velocity/3;
+				this._velocity = 0;
 			this.moveRight();
 		}
 	}
@@ -166,7 +166,7 @@ var Ship = function(){
 			this._rotateValue = -0.15
 			this._ship.rotateY(this._rotateValue);
 		}
-		if (this._velocity > -0.5)
+		if (this._velocity > -0.6)
 			this._velocity -= this._acceleration * delta;
 		this.moveShip();
 	}
@@ -178,7 +178,7 @@ var Ship = function(){
 			this._rotateValue = 0.15
 			this._ship.rotateY(this._rotateValue);
 		}
-		if (this._velocity < 0.5)
+		if (this._velocity < 0.6)
 			this._velocity += this._acceleration * delta;
 		this.moveShip();
 	}
