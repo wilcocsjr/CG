@@ -34,6 +34,17 @@ var Ship = function(){
 		this._leftEngine = false;
 	}
 
+	this.borderColision  = function(left, right){
+		this._velocity = 0;
+		this._ship.rotateY(-this._rotateValue);
+		this._rotateValue = 0;
+		if (this._ship.position.x > right)
+			this._ship.position.x = right;
+		if (this._ship.position.x < left)
+			this._ship.position.x = left;
+
+	}
+
 	this.createShip = function(x, y, z){
 		'use strict';
 
@@ -49,81 +60,81 @@ var Ship = function(){
 
 	this.addBody = function(x, y, z){
 		'use strict';
-		_material = new THREE.MeshBasicMaterial({color: 0xcacaca, wireframe:true});
+		this._material = new THREE.MeshBasicMaterial({color: 0xcacaca, wireframe:true});
 
-		_geometry = new THREE.CubeGeometry(10, 20, 8);
-		_mesh = new THREE.Mesh(_geometry, _material);
-		_mesh.position.set(x, y, z);
+		this._geometry = new THREE.CubeGeometry(10, 20, 8);
+		this._mesh = new THREE.Mesh(this._geometry, this._material);
+		this._mesh.position.set(x, y, z);
 
-		this._ship.add(_mesh);
+		this._ship.add(this._mesh);
 	}
 
 	this.addEngine = function(x, y, z){
 		'use strict';
-		_material = new THREE.MeshBasicMaterial({color: 0x0077ee, wireframe:true});
+		this._material = new THREE.MeshBasicMaterial({color: 0x0077ee, wireframe:true});
 
-		_geometry = new THREE.SphereGeometry(10, 10, 10);
-		_mesh = new THREE.Mesh(_geometry, _material);
-		_mesh.position.set(x, y, z);
-		_mesh.scale.set(0.2, 0.2, 0.2);
+		this._geometry = new THREE.SphereGeometry(10, 10, 10);
+		this._mesh = new THREE.Mesh(this._geometry, this._material);
+		this._mesh.position.set(x, y, z);
+		this._mesh.scale.set(0.2, 0.2, 0.2);
 
-		this._ship.add(_mesh);
+		this._ship.add(this._mesh);
 	}
 
 	this.addCockpit = function(x, y, z){
 		'use strict';
-		_material = new THREE.MeshBasicMaterial({color: 0xcacaca, wireframe:true});
+		this._material = new THREE.MeshBasicMaterial({color: 0xcacaca, wireframe:true});
 
-		_geometry = new THREE.CylinderGeometry(2, 5, 5, 4, false);
-		_mesh = new THREE.Mesh(_geometry, _material);
-		_mesh.position.set(x, y, z);
+		this._geometry = new THREE.CylinderGeometry(2, 5, 5, 4, false);
+		this._mesh = new THREE.Mesh(this._geometry, this._material);
+		this._mesh.position.set(x, y, z);
 
 		var axis = new THREE.Vector3(0, 1, 0);
-		_mesh.rotateOnAxis(axis, Math.PI/4);
+		this._mesh.rotateOnAxis(axis, Math.PI/4);
 
-		this._ship.add(_mesh);
+		this._ship.add(this._mesh);
 	}
 
 	this.addLeftWing = function(x, y, z){
 		'use strict';
-		_material = new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:true});
+		this._material = new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:true});
 
 		
-		_geometry = this.buildWing();
-		_mesh = new THREE.Mesh(_geometry, _material);
+		this._geometry = this.buildWing();
+		this._mesh = new THREE.Mesh(this._geometry, this._material);
 		
 		var axis = new THREE.Vector3(0, 1, 0);
-		_mesh.rotateOnAxis(axis, -5*Math.PI/4);
-		_mesh.position.set(x, y, z);
-		this._ship.add(_mesh);
+		this._mesh.rotateOnAxis(axis, -5*Math.PI/4);
+		this._mesh.position.set(x, y, z);
+		this._ship.add(this._mesh);
 	}
 
 
 	this.addRightWing = function(x, y, z){
 		'use strict';
-		_material = new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:true});
+		this._material = new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:true});
 
-		_geometry = this.buildWing();
-		_mesh = new THREE.Mesh(_geometry, _material);
+		this._geometry = this.buildWing();
+		this._mesh = new THREE.Mesh(this._geometry, this._material);
 		
 		var axis = new THREE.Vector3(0, 1, 0);
-		_mesh.rotateOnAxis(axis, Math.PI/4);
-		_mesh.position.set(x-(Math.sqrt(2)/2), y, z-(Math.sqrt(2)/2));
-		this._ship.add(_mesh);
+		this._mesh.rotateOnAxis(axis, Math.PI/4);
+		this._mesh.position.set(x-(Math.sqrt(2)/2), y, z-(Math.sqrt(2)/2));
+		this._ship.add(this._mesh);
 	}
 
 	this.addTopWing = function(x, y, z){
 		'use strict';
-		_material = new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:true});
+		this._material = new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:true});
 
-		_geometry = this.buildWing();
-		_mesh = new THREE.Mesh(_geometry, _material);
+		this._geometry = this.buildWing();
+		this._mesh = new THREE.Mesh(this._geometry, this._material);
 		
 		var axis = new THREE.Vector3(0, 1, 0);
-		_mesh.rotateOnAxis(axis, -Math.PI/2);
-		_mesh.position.set(x, y, z);
-		_mesh.translateZ(-0.5);
-		this._ship.add(_mesh);
+		this._mesh.rotateOnAxis(axis, -Math.PI/2);
+		this._mesh.position.set(x, y, z);
+		this._mesh.translateZ(-0.5);
+		this._ship.add(this._mesh);
 	}
 
 	this.buildWing = function(){
@@ -145,6 +156,8 @@ var Ship = function(){
 			object.material.wireframe = !object.material.wireframe;
 		}
 	}
+
+	// SHIP MOVEMENT
 
 	this.move = function(){
 		if(this._leftEngine){

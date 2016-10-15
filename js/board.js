@@ -1,36 +1,64 @@
 
+var ship;
+
 var Board = function(){
 	
-	this._board = new THREE.Object3D();
 	this._children = []; // Vai substituir o obj do ficheiro proj.js
-	this._material;
-	this._geometry;
-	this._mesh;
 
-	this.getObject = function(){
-		return this._board;
+	this._invaderA;
+	this._invaderB;
+
+	this._leftBorder = -150;
+	this._rightBorder = 150;
+
+	this._topBorder = 60; // ou 40? a nave esta no -40
+
+	this.getChildren = function(){
+		return this._children;
 	}
 
-	this.createBoard = function(x, y, z){
-		this.addBoard(x, y, z);
+	this.getShip = function(){
+		return this._children[0];
+	}
+
+	this.createBoard = function(){
+		this.addBoard();
 
 	}
 
-	this.addBoard = function(x, y, z){
+	this.addBoard = function(){
 
-		_material = new THREE.MeshBasicMaterial({color:0x004e00, wireframe:true});
-		_geometry = new THREE.CubeGeometry(10, 10, 5);
-		_mesh = new THREE.Mesh(_geometry, _material);
+		ship = new Ship();
+		ship.createShip(0, -40, 0)
+		scene.add(ship.getObject());
+		this._children.push(ship);
 
-		_mesh.position.set(x, y, z);
+		for (var i = 0; i < 4; i++){
 
-		this._board.add(_mesh);
+			invaderA = new InvaderA();
+			invaderA.createInvaderA(-30 + 20 * i, 20, 0);
+			scene.add(invaderA.getObject());
+			this._children.push(invaderA);
+
+			invaderB = new InvaderB();
+			invaderB.createInvaderB(-30 + 20 * i, 0, 0);
+			scene.add(invaderB.getObject());
+			this._children.push(invaderB);
+		}
+	}
+
+	this.shipInLimits = function(){
+		if (this._children[0].getObject().position.x <= this._rightBorder && this._children[0].getObject().position.x >= this._leftBorder)
+			return true;
+		else{
+			this._children[0].borderColision(this._leftBorder, this._rightBorder);
+			return false;
+		}
 	}
 
 	this.changeWireframe = function(){
-		for(var i=0; i < this._board.children.length; i++){
-			var object = this._board.children[i];
-
-			object.material.wireframe = !object.material.wireframe;
+		for(var i = 0; i < this._children.length; i++){
+			this._children[i].changeWireframe();
+		}
 	}
 }

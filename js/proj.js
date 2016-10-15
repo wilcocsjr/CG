@@ -2,8 +2,7 @@
 
 
 var camera, scene, renderer;
-var ship, invaderA, invaderB;
-var obj = [];
+var board, ship;
 var oldClock, now;
 var delta;
 var camera_1, camera_2, camera_3, camera_ort, camera_pers;
@@ -34,29 +33,12 @@ function createScene(){
 	'use strict';
 
 	scene = new THREE.Scene();
-    
-	//ADD SHIPS HERE
-	for (var i = 0; i < 4; i++){
 
-		invaderA = new InvaderA();
-		invaderA.createInvaderA(-30 + 20 * i, 20, 0);
-		scene.add(invaderA.getObject());
-		obj.push(invaderA);
+	board = new Board();
 
-		invaderB = new InvaderB();
-		invaderB.createInvaderB(-30 + 20 * i, 0, 0);
-		scene.add(invaderB.getObject());
-		obj.push(invaderB);
-	}
-
-	ship = new Ship();
-	ship.createShip(0, -40, 0)
-	scene.add(ship.getObject());
-	obj.push(ship);
+	board.createBoard();
+	
 }
-
-
-
 
 function createCamera(){
 	'use strict';
@@ -140,9 +122,7 @@ function onKeyDown(e){
 
 	switch(e.keyCode){
 		case 65:
-			for(var i = 0; i < obj.length; i++){
-				obj[i].changeWireframe();
-			}
+			board.changeWireframe();
 			break;
 		case 37: // left
 			ship.turnOnLeftEngine();
@@ -196,9 +176,11 @@ function animate(){
 	delta = now - oldClock;
 	oldClock = now;
 
-	ship.move();
+	if(board.shipInLimits()){
+		ship.move();
 
-	ship.moveInercia();
+		ship.moveInercia();
+	}
 
 	camera_3.position.x = ship.getObject().position.x;
 	
