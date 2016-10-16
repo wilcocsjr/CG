@@ -170,6 +170,8 @@ var Ship = function(){
 
 			object.material.wireframe = !object.material.wireframe;
 		}
+
+		//this._bullet.changeWireframe();
 	}
 
 	this.shoot = function(){
