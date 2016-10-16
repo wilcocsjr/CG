@@ -32,7 +32,7 @@ var InvaderB = function(){
 		_mesh.rotateZ(1.55);
 		_mesh.position.set(x, y, z);
 
-		this._invaderB.add(_mesh)
+		this._invaderB.add(_mesh);
 	}
 
 	this.addComunnicater = function(x,y,z){
@@ -79,7 +79,7 @@ var InvaderB = function(){
 		_mesh.rotateZ(rotate)
 		_mesh.position.set(x, y, z);
 
-		this._invaderB.add(_mesh)
+		this._invaderB.add(_mesh);
 	}
 
 	this.changeWireframe = function(){

@@ -11,7 +11,7 @@ var Board = function(){
 	this._leftBorder = -150;
 	this._rightBorder = 150;
 
-	this._topBorder = 60; // ou 40? a nave esta no -40
+	this._topBorder = 80;
 
 	this.getChildren = function(){
 		return this._children;
@@ -54,6 +54,13 @@ var Board = function(){
 			this._children[0].borderColision(this._leftBorder, this._rightBorder);
 			return false;
 		}
+	}
+
+	this.bulletInLimits = function(bullet){
+		if (bullet.position.y < this._topBorder)
+			return true;
+		else
+			return false;
 	}
 
 	this.changeWireframe = function(){

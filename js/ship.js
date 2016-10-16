@@ -157,6 +157,14 @@ var Ship = function(){
 		}
 	}
 
+	this.shoot = function(){
+		var bullet = new Bullet();
+
+		bullet.createBullet(this._ship.position.x, this._ship.position.y, this._ship.position.z);
+
+		return bullet;
+	}
+
 	// SHIP MOVEMENT
 
 	this.move = function(){
