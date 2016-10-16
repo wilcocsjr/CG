@@ -2,7 +2,7 @@
 
 
 var camera, scene, renderer;
-var board, ship, bullet, bullet_shooted = false;
+var board, ship;
 var oldClock, now;
 var delta;
 var camera_1, camera_2, camera_3, camera_ort, camera_pers;
@@ -125,11 +125,8 @@ function onKeyDown(e){
 			board.changeWireframe();
 			break;
 		case 66:
-			if (bullet_shooted == false){
-				bullet = ship.shoot();
-				scene.add(bullet.getObject());
-				bullet_shooted = true;
-			}
+			if (ship.shoot())
+				scene.add(ship.getBullet().getObject());
 			break;
 		case 37: // left
 			ship.turnOnLeftEngine();
@@ -191,12 +188,12 @@ function animate(){
 		camera_3.position.x = ship.getObject().position.x;
 	}
 
-	if (bullet_shooted){
-		if (board.bulletInLimits(bullet.getObject()))
-			bullet.move();
+	if (ship.getBulletBoll()){
+		if (board.bulletInLimits())
+			ship.getBullet().move();
 		else{
-			scene.remove(bullet.getObject())
-			bullet_shooted = false;
+			scene.remove(ship.getBullet().getObject());
+			ship.setBulletFalse();
 		}	
 	}	
 	render();

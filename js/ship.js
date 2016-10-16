@@ -14,6 +14,9 @@ var Ship = function(){
 
 	this._rotateValue = 0;
 
+	this._bullet; 
+	this._bullet_shooted = false;
+
 	this.getObject = function(){
 		return this._ship;
 	}
@@ -32,6 +35,18 @@ var Ship = function(){
 
 	this.turnOfLeftEngine = function(){
 		this._leftEngine = false;
+	}
+
+	this.getBullet = function(){
+		return this._bullet;
+	}
+
+	this.getBulletBoll = function(){
+		return this._bullet_shooted;
+	}
+
+	this.setBulletFalse = function(){
+		this._bullet_shooted = false;
 	}
 
 	this.borderColision  = function(left, right){
@@ -158,11 +173,17 @@ var Ship = function(){
 	}
 
 	this.shoot = function(){
-		var bullet = new Bullet();
+		if (this._bullet_shooted == false){
+			this._bullet = new Bullet();
 
-		bullet.createBullet(this._ship.position.x, this._ship.position.y, this._ship.position.z);
+			this._bullet.createBullet(this._ship.position.x, this._ship.position.y, this._ship.position.z);
 
-		return bullet;
+			this._bullet_shooted = true;
+
+			return true;
+		}
+		else
+			return false;
 	}
 
 	// SHIP MOVEMENT

@@ -56,8 +56,8 @@ var Board = function(){
 		}
 	}
 
-	this.bulletInLimits = function(bullet){
-		if (bullet.position.y < this._topBorder)
+	this.bulletInLimits = function(){
+		if (this.getShip().getBullet().getObject().position.y < this._topBorder)
 			return true;
 		else
 			return false;
