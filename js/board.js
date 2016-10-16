@@ -11,7 +11,7 @@ var Board = function(){
 	this._leftBorder = -150;
 	this._rightBorder = 150;
 
-	this._topBorder = 80;
+	this._topBorder = 120;
 
 	this.getChildren = function(){
 		return this._children;

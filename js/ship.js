@@ -176,7 +176,7 @@ var Ship = function(){
 		if (this._bullet_shooted == false){
 			this._bullet = new Bullet();
 
-			this._bullet.createBullet(this._ship.position.x, this._ship.position.y, this._ship.position.z);
+			this._bullet.createBullet(this._ship.position.x, this._ship.position.y - 30, this._ship.position.z);
 
 			this._bullet_shooted = true;
 
