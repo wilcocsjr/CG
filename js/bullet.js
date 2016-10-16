@@ -13,7 +13,7 @@ var Bullet = function(){
 
 	this.createBullet = function(x, y, z){
 		_material = new THREE.MeshBasicMaterial({color:0x00FF00, wireframe:false});
-		_geometry = new THREE.CylinderGeometry(1,1,5);
+		_geometry = new THREE.CylinderGeometry(0.5,0.5,5);
 		_mesh = new THREE.Mesh(_geometry, _material);
 
 		_mesh.position.set(x, y, z);
