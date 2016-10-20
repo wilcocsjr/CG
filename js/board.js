@@ -43,6 +43,8 @@ var Board = function(){
 			scene.remove(this._children[0].getObject());
 			this._children.shift();
 		}
+		if(scene.children.length > 0)
+			scene.remove(scene.children[0]);
 	}
 
 	this.restartBoard = function(){
