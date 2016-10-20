@@ -37,7 +37,6 @@ function createScene(){
 	board = new Board();
 
 	board.createBoard();
-	
 }
 
 function createCamera(){
@@ -189,14 +188,41 @@ function animate(){
 	}
 
 	if (ship.getBulletBoll()){
-		if (board.bulletInLimits())
+		if (board.bulletInLimits()){
 			ship.getBullet().move();
+			checkColisions(ship.getBullet(), board.getChildren())
+		}
 		else{
 			scene.remove(ship.getBullet().getObject());
 			ship.setBulletFalse();
 		}	
 	}	
 	render();
-
 	requestAnimationFrame(animate);
+}
+
+
+
+function checkColisions(a, b){
+	'use strict';
+	var bulletBox = new THREE.Box3().setFromObject(ship.getBullet().getObject());
+	for(var i = 1; i < board.getNumberOfChildren(); i++){
+		var alienBox = new THREE.Box3().setFromObject(board.getChild(i));
+		if(intersect(bulletBox, alienBox)){
+			console.log("colided");
+			scene.remove(ship.getBullet().getObject());
+			ship.setBulletFalse();
+			scene.remove(board.getChild(i));
+			board.removeChild(i);
+			return;
+		}
+	}
+}
+
+
+function intersect(a, b) {
+	'use strict';
+	return (a.min.x <= b.max.x && a.max.x >= b.min.x) &&
+		(a.min.y <= b.max.y && a.max.y >= b.min.y) &&
+		(a.min.z <= b.max.z && a.max.z >= b.min.z);
 }

@@ -26,6 +26,18 @@ var Board = function(){
 
 	}
 
+	this.getChild = function(a){
+		return this._children[a].getObject();
+	}
+
+	this.removeChild = function(a){
+		return this._children.splice(a, 1);
+	}
+
+	this.getNumberOfChildren = function(){
+		return this._children.length;
+	}
+
 	this.addBoard = function(){
 
 		ship = new Ship();
