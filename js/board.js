@@ -38,6 +38,18 @@ var Board = function(){
 		return this._children.length;
 	}
 
+	this.cleanBoard = function(){
+		while (this._children.length > 0){
+			scene.remove(this._children[0].getObject());
+			this._children.shift();
+		}
+	}
+
+	this.restartBoard = function(){
+		this.cleanBoard();
+		this.createBoard();
+	}
+
 	this.addBoard = function(){
 
 		ship = new Ship();

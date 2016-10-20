@@ -148,6 +148,8 @@ function onKeyDown(e){
         	camera_pers = true;
         	camera_ort = false;
         	break;
+        case 82:
+        	board.restartBoard();
         default:
         	break;
 	}
