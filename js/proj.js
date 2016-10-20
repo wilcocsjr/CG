@@ -56,7 +56,6 @@ function createCamera(){
 	camera_1 = camera;
 	camera2();
 	camera3();
-	
 }
 
 function camera2(){
@@ -71,7 +70,6 @@ function camera2(){
 	camera_2.position.y = -150;
 	camera_2.position.z = 200;
 	camera_2.lookAt(scene.position);
-	
 }
 
 function camera3(){
@@ -87,7 +85,6 @@ function camera3(){
 	camera_3.position.z = 50;
 	camera_3.up = new THREE.Vector3(0 , 0, ship.getObject().position.x + viewSize);
 	camera_3.lookAt(new THREE.Vector3(0, 0, 0));
-	
 }
 
 function onResize(){
