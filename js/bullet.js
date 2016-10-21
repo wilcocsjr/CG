@@ -1,15 +1,9 @@
 
 var Bullet = function(){
-	
-	this._bullet = new THREE.Object3D();
 
-	this._material;
-	this._geometry;
-	this._mesh;
+	MovingObject.apply(this);
 
-	this.getObject = function(){
-		return this._bullet;
-	}
+	this._bullet = this._movingObject;
 
 	this.createBullet = function(x, y, z){
 		_material = new THREE.MeshBasicMaterial({color:0x00FF00, wireframe:false});
@@ -21,16 +15,9 @@ var Bullet = function(){
 		this._bullet.add(_mesh);
 	}
 
-	this.changeWireframe = function(){
-
-		for(var i=0; i < this._bullet.children.length; i++){
-			var object = this._bullet.children[i];
-
-			object.material.wireframe = !object.material.wireframe;
-		}
-	}
-
 	this.move = function(){
 		this._bullet.position.y += 1;
 	}
+
+	this.changeWireframe = function(){}
 }

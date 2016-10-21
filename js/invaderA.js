@@ -1,16 +1,9 @@
 
 var InvaderA = function(){
 
-	this._invaderA = new THREE.Object3D();
-	this._material;
-	this._geometry;
-	this._mesh;
+	Invader.apply(this);
 
-	this.getObject = function(){
-		return this._invaderA;
-	}
-
-	this.createInvaderA = function(x, y ,z){
+	this.createInvader = function(x, y ,z){
 
 		this.addHead(x, y, z);
 		this.addHorn(x + 2.5, y + 5, z);
@@ -32,7 +25,7 @@ var InvaderA = function(){
 
 		_mesh.position.set(x, y, z);
 
-		this._invaderA.add(_mesh)
+		this._invader.add(_mesh)
 	}
 
 	this.addHorn = function(x,y,z){
@@ -43,7 +36,7 @@ var InvaderA = function(){
 
 		_mesh.position.set(x , y, z);
 
-		this._invaderA.add(_mesh);
+		this._invader.add(_mesh);
 	}
 
 	this.addEye = function(x,y,z){
@@ -55,7 +48,7 @@ var InvaderA = function(){
 		_mesh.position.set(x, y, z);
 		_mesh.rotateX(1.57079633);
 
-		this._invaderA.add(_mesh);
+		this._invader.add(_mesh);
 	}
 
 	this.addMouth = function(x,y,z){
@@ -68,7 +61,7 @@ var InvaderA = function(){
 
 		_mesh.rotateX(1.75);
 
-		this._invaderA.add(_mesh);
+		this._invader.add(_mesh);
 	}
 
 	this.addEar = function(x,y,z){
@@ -81,16 +74,7 @@ var InvaderA = function(){
 		_mesh.rotateX(1)
 		_mesh.position.set(x, y, z);
 
-		this._invaderA.add(_mesh)
-	}
-
-	this.changeWireframe = function(){
-
-		for(var i=0; i < this._invaderA.children.length; i++){
-			var object = this._invaderA.children[i];
-
-			object.material.wireframe = !object.material.wireframe;
-		}
+		this._invader.add(_mesh)
 	}
 
 }

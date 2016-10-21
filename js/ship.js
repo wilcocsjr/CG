@@ -1,10 +1,12 @@
 
 var Ship = function(){
 
-	this._ship = new THREE.Object3D();
-	this._material;
-	this._geometry;
-	this._mesh;
+	MovingObject.apply(this);
+
+	this._ship = this._movingObject;
+
+	/* var old_changeWireframe = this.changeWireframe; 
+	// caso seja preciso acrescentar o changeWireframe da bala */
 
 	this._acceleration = 0.0005;
 	this._velocity = 0;
@@ -16,10 +18,6 @@ var Ship = function(){
 
 	this._bullet; 
 	this._bullet_shooted = false;
-
-	this.getObject = function(){
-		return this._ship;
-	}
 
 	this.turnOnRightEngine = function(){
 		this._rightEngine = true;
@@ -163,22 +161,11 @@ var Ship = function(){
 		return new THREE.ExtrudeGeometry(triangleShape, extrudeSettings);
 	}
 
-	this.changeWireframe = function(){
-
-		for(var i=0; i < this._ship.children.length; i++){
-			var object = this._ship.children[i];
-
-			object.material.wireframe = !object.material.wireframe;
-		}
-
-		//this._bullet.changeWireframe();
-	}
-
 	this.shoot = function(){
 		if (this._bullet_shooted == false){
 			this._bullet = new Bullet();
 
-			this._bullet.createBullet(this._ship.position.x, this._ship.position.y - 30, this._ship.position.z);
+			this._bullet.createBullet(this._movingObject.position.x, this._movingObject.position.y - 30, this._movingObject.position.z);
 
 			this._bullet_shooted = true;
 

@@ -131,16 +131,18 @@ function onResize(){
 			camera.aspect = renderer.getSize().width / renderer.getSize().height;
 	}
 	camera.updateProjectionMatrix();
+
+	//board.resize();
 }
 
 function onKeyDown(e){
 	'use strict';
 
 	switch(e.keyCode){
-		case 65:
+		case 65: // A change wireframe
 			board.changeWireframe();
 			break;
-		case 66:
+		case 66: // B shoot
 			if (ship.shoot()){
 				scene.add(ship.getBullet().getObject());
 				shotSound.play();
@@ -152,26 +154,27 @@ function onKeyDown(e){
         case 39: // right
         	ship.turnOnRightEngine();
         	break;
-        case 49: // camera 1
+        case 49: // 1 camera1
         	camera = camera_1;
         	camera_ort = true;
         	camera_pers = false;
         	break;
-        case 50: // camera 2
+        case 50: // 2 camera2
         	camera = camera_2;
         	camera_pers = true;
         	camera_ort = false;
         	break;
-        case 51: // camera 3
+        case 51: // 3 camera3
         	camera = camera_3;
         	camera_pers = true;
         	camera_ort = false;
         	break;
-        case 82:
+        case 82: // R retart game
         	board.restartBoard();
         	if(playing){
         		themeSound.play();
         	}
+        	break;
         case 77: // M music pause
         	if(playing){
         		themeSound.pause();
@@ -196,7 +199,7 @@ function onKeyUp(e){
         	ship.turnOfRightEngine();
         	break;
         default:
-        	//break;
+        	break;
 	}
 }
 

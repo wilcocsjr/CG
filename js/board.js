@@ -3,13 +3,13 @@ var ship;
 
 var Board = function(){
 	
-	this._children = []; // Vai substituir o obj do ficheiro proj.js
+	this._children = []; 
 
 	this._invaderA;
 	this._invaderB;
 
-	this._leftBorder = -150;
-	this._rightBorder = 150;
+	this._leftBorder = -150; // this._leftBorder = - window.innerWidth >> 3; // Dividir por 8
+	this._rightBorder = 150; // this._rightBorder = - this._leftBorder;
 
 	this._topBorder = 120;
 
@@ -38,6 +38,12 @@ var Board = function(){
 		return this._children.length;
 	}
 
+	//FIXME RESIZE
+	this.resize = function(){
+		this._leftBorder = - window.innerWidth >> 3; // Dividir por 8
+		this._rightBorder = - this._leftBorder;
+	}
+
 	this.cleanBoard = function(){
 		while (this._children.length > 0){
 			scene.remove(this._children[0].getObject());
@@ -62,12 +68,12 @@ var Board = function(){
 		for (var i = 0; i < 4; i++){
 
 			invaderA = new InvaderA();
-			invaderA.createInvaderA(-30 + 20 * i, 20, 0);
+			invaderA.createInvader(-30 + 20 * i, 20, 0);
 			scene.add(invaderA.getObject());
 			this._children.push(invaderA);
 
 			invaderB = new InvaderB();
-			invaderB.createInvaderB(-30 + 20 * i, 0, 0);
+			invaderB.createInvader(-30 + 20 * i, 0, 0);
 			scene.add(invaderB.getObject());
 			this._children.push(invaderB);
 		}

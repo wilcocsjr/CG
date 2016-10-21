@@ -1,16 +1,9 @@
 
 var InvaderB = function(){
 
-	this._invaderB = new THREE.Object3D();
-	this._material;
-	this._geometry;
-	this._mesh;
+	Invader.apply(this);
 
-	this.getObject = function(){
-		return this._invaderB;
-	}
-
-	this.createInvaderB = function(x, y, z){
+	this.createInvader = function(x, y, z){
 		'use strict';
 
 		this.addHead(x, y, z);
@@ -32,7 +25,7 @@ var InvaderB = function(){
 		_mesh.rotateZ(1.55);
 		_mesh.position.set(x, y, z);
 
-		this._invaderB.add(_mesh);
+		this._invader.add(_mesh);
 	}
 
 	this.addComunnicater = function(x,y,z){
@@ -43,7 +36,7 @@ var InvaderB = function(){
 
 		_mesh.position.set(x , y, z);
 
-		this._invaderB.add(_mesh);
+		this._invader.add(_mesh);
 	}
 
 	this.addBall = function(x,y,z){
@@ -54,7 +47,7 @@ var InvaderB = function(){
 
 		_mesh.position.set(x, y, z);
 
-		this._invaderB.add(_mesh);
+		this._invader.add(_mesh);
 
 	}
 
@@ -66,7 +59,7 @@ var InvaderB = function(){
 
 		_mesh.position.set(x, y, z);
 
-		this._invaderB.add(_mesh);
+		this._invader.add(_mesh);
 	}
 
 	this.addEar = function(x,y,z,rotate){
@@ -79,15 +72,6 @@ var InvaderB = function(){
 		_mesh.rotateZ(rotate)
 		_mesh.position.set(x, y, z);
 
-		this._invaderB.add(_mesh);
-	}
-
-	this.changeWireframe = function(){
-
-		for(var i=0; i < this._invaderB.children.length; i++){
-			var object = this._invaderB.children[i];
-
-			object.material.wireframe = !object.material.wireframe;
-		}
+		this._invader.add(_mesh);
 	}
 }
