@@ -179,10 +179,12 @@ function onKeyDown(e){
         	if(playing){
         		themeSound.pause();
         		playing = false;
-        	}else{
+        	}
+		else{
         		themeSound.play();
         		playing = true;
         	}
+		break;
         default:
         	break;
 	}

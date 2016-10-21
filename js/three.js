@@ -8131,7 +8131,7 @@
 
     			this.getCenter( result.center );
 
-    			result.radius = this.size( v1 ).length() * 0.5;
+    			result.radius = this.getSize( v1 ).length() * 0.5;
 
     			return result;
 
@@ -40022,7 +40022,7 @@
 
     	this.box.setFromObject( this.object );
 
-    	this.box.size( this.scale );
+    	this.box.getSize( this.scale );
 
     	this.box.getCenter( this.position );
 
