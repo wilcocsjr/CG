@@ -68,7 +68,7 @@ function camera2(){
 
 	camera_2.position.x = 0;
 	camera_2.position.y = -150;
-	camera_2.position.z = 200;
+	camera_2.position.z = 75;
 	camera_2.lookAt(scene.position);
 }
 
@@ -81,8 +81,8 @@ function camera3(){
 	camera_3 = new THREE.PerspectiveCamera(viewSize, aspectRatio, 1, 1000);
 
 	camera_3.position.x = ship.getObject().position.x;
-	camera_3.position.y = -150;
-	camera_3.position.z = 50;
+	camera_3.position.y = -88;
+	camera_3.position.z = 16;
 	camera_3.up = new THREE.Vector3(0 , 0, ship.getObject().position.x + viewSize);
 	camera_3.lookAt(new THREE.Vector3(0, 0, 0));
 }
