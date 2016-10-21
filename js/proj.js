@@ -21,9 +21,16 @@ function init(){
 	createScene();
 	createCamera();
 	
+	getMusic();
 	render();
 	animate();
 
+	window.addEventListener("resize", onResize);
+	window.addEventListener("keydown", onKeyDown);
+	window.addEventListener("keyup", onKeyUp);
+}
+
+function getMusic(){
 	shotSound = document.createElement('audio');
 	var shotSource = document.createElement('source');
 	shotSource.src = 'sounds/shot.mp3';
@@ -37,10 +44,6 @@ function init(){
 	themeSource.src = 'sounds/theme.mp3';
 	themeSound.appendChild(themeSource);
 	themeSound.play();
-
-	window.addEventListener("resize", onResize);
-	window.addEventListener("keydown", onKeyDown);
-	window.addEventListener("keyup", onKeyUp);
 }
 
 //CRIAR A CENA E CHAMAR OS OBJETOS
