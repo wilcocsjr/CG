@@ -205,23 +205,18 @@ function animate(){
 function checkColisions(a, b){
 	'use strict';
 	var bulletBox = new THREE.Box3().setFromObject(ship.getBullet().getObject());
+	var bulletSphere = bulletBox.getBoundingSphere();
 	for(var i = 1; i < board.getNumberOfChildren(); i++){
 		var alienBox = new THREE.Box3().setFromObject(board.getChild(i));
-		if(intersect(bulletBox, alienBox)){
-			console.log("colided");
-			scene.remove(ship.getBullet().getObject());
-			ship.setBulletFalse();
-			scene.remove(board.getChild(i));
-			board.removeChild(i);
-			return;
+		var alienSphere = alienBox.getBoundingSphere();
+		if(bulletSphere.intersectsSphere(alienSphere)){
+			if(bulletBox.intersectsBox(alienBox)){
+				scene.remove(ship.getBullet().getObject());
+				ship.setBulletFalse();
+				scene.remove(board.getChild(i));
+				board.removeChild(i);
+				return;
+			}
 		}
 	}
-}
-
-
-function intersect(a, b) {
-	'use strict';
-	return (a.min.x <= b.max.x && a.max.x >= b.min.x) &&
-		(a.min.y <= b.max.y && a.max.y >= b.min.y) &&
-		(a.min.z <= b.max.z && a.max.z >= b.min.z);
 }
