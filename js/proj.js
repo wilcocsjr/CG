@@ -6,7 +6,7 @@ var board, ship;
 var oldClock, now;
 var delta;
 var camera_1, camera_2, camera_3, camera_ort, camera_pers;
-var shotSound, killSound, themeSound;
+var shotSound, killSound, themeSound, playing;
 
 function init(){
 	'use strict';
@@ -45,6 +45,7 @@ function getMusic(){
 	themeSound.appendChild(themeSource);
 	themeSound.loop = true;
 	themeSound.play();
+	playing = true;
 }
 
 //CRIAR A CENA E CHAMAR OS OBJETOS
@@ -168,6 +169,17 @@ function onKeyDown(e){
         	break;
         case 82:
         	board.restartBoard();
+        	if(playing){
+        		themeSound.play();
+        	}
+        case 77: // M music pause
+        	if(playing){
+        		themeSound.pause();
+        		playing = false;
+        	}else{
+        		themeSound.play();
+        		playing = true;
+        	}
         default:
         	break;
 	}
