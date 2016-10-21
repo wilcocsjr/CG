@@ -43,6 +43,7 @@ function getMusic(){
 	var themeSource = document.createElement('source');
 	themeSource.src = 'sounds/theme.mp3';
 	themeSound.appendChild(themeSource);
+	themeSound.loop = true;
 	themeSound.play();
 }
 
