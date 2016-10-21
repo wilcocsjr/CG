@@ -6,6 +6,7 @@ var board, ship;
 var oldClock, now;
 var delta;
 var camera_1, camera_2, camera_3, camera_ort, camera_pers;
+var shotSound, killSound, themeSound;
 
 function init(){
 	'use strict';
@@ -22,6 +23,20 @@ function init(){
 	
 	render();
 	animate();
+
+	shotSound = document.createElement('audio');
+	var shotSource = document.createElement('source');
+	shotSource.src = 'sounds/shot.mp3';
+	shotSound.appendChild(shotSource);
+	killSound = document.createElement('audio');
+	var killSource = document.createElement('source');
+	killSource.src = 'sounds/kill.mp3';
+	killSound.appendChild(killSource);
+	themeSound = document.createElement('audio');
+	var themeSource = document.createElement('source');
+	themeSource.src = 'sounds/theme.mp3';
+	themeSound.appendChild(themeSource);
+	themeSound.play();
 
 	window.addEventListener("resize", onResize);
 	window.addEventListener("keydown", onKeyDown);
@@ -121,8 +136,10 @@ function onKeyDown(e){
 			board.changeWireframe();
 			break;
 		case 66:
-			if (ship.shoot())
+			if (ship.shoot()){
 				scene.add(ship.getBullet().getObject());
+				shotSound.play();
+			}
 			break;
 		case 37: // left
 			ship.turnOnLeftEngine();
@@ -211,6 +228,7 @@ function checkColisions(a, b){
 		var alienSphere = alienBox.getBoundingSphere();
 		if(bulletSphere.intersectsSphere(alienSphere)){
 			if(bulletBox.intersectsBox(alienBox)){
+				killSound.play();
 				scene.remove(ship.getBullet().getObject());
 				ship.setBulletFalse();
 				scene.remove(board.getChild(i));
