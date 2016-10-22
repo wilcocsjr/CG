@@ -183,11 +183,12 @@ var Ship = function(){
 				this._velocity = 0;
 			this.moveLeft();
 		}
-		else if(this._rightEngine){
+		if(this._rightEngine){
 			if (this._velocity < 0)
 				this._velocity = 0;
 			this.moveRight();
 		}
+		this.moveInercia();
 	}
 
 	this.moveLeft = function(){

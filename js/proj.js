@@ -2,11 +2,11 @@
 
 
 var camera, scene, renderer;
-var board, ship;
+var board, ship, collision;
 var oldClock, now;
 var delta;
 var camera_1, camera_2, camera_3, camera_ort, camera_pers;
-var shotSound, killSound, themeSound, playing;
+var shotSound, killSound;
 
 function init(){
 	'use strict';
@@ -31,21 +31,26 @@ function init(){
 }
 
 function getMusic(){
+	'use strict';
 	shotSound = document.createElement('audio');
 	var shotSource = document.createElement('source');
 	shotSource.src = 'sounds/shot.mp3';
 	shotSound.appendChild(shotSource);
+	shotSound.volume = 0.1;
+
 	killSound = document.createElement('audio');
 	var killSource = document.createElement('source');
 	killSource.src = 'sounds/kill.mp3';
 	killSound.appendChild(killSource);
-	themeSound = document.createElement('audio');
+	killSound.volume = 0.01;
+
+	/*var theme = document.createElement('audio');
 	var themeSource = document.createElement('source');
 	themeSource.src = 'sounds/theme.mp3';
-	themeSound.appendChild(themeSource);
-	themeSound.loop = true;
-	themeSound.play();
-	playing = true;
+	theme.appendChild(themeSource);
+	theme.volume = 0.01;
+	theme.loop = true;
+	theme.play();*/
 }
 
 //CRIAR A CENA E CHAMAR OS OBJETOS
@@ -57,6 +62,8 @@ function createScene(){
 	board = new Board();
 
 	board.createBoard();
+
+	collision = new Collision();
 }
 
 function createCamera(){
@@ -111,7 +118,7 @@ function onResize(){
 	'use strict';
 
 	// Check on function createCamera() viewSize is the same (it must be!)
-	var viewSize;
+	var viewSize = 100;
 
 	var aspectRatio = window.innerWidth / window.innerHeight;
 
@@ -119,7 +126,6 @@ function onResize(){
 
 	if(camera_ort){
 		if(window.innerHeight > 0 && window.innerWidth > 0){
-			viewSize = 100;
 	        camera.left = -aspectRatio * viewSize;
 	        camera.right = aspectRatio * viewSize;
 	        camera.top = viewSize;
@@ -145,6 +151,7 @@ function onKeyDown(e){
 		case 66: // B shoot
 			if (ship.shoot()){
 				scene.add(ship.getBullet().getObject());
+				shotSound.currentTime = 0;
 				shotSound.play();
 			}
 			break;
@@ -171,20 +178,7 @@ function onKeyDown(e){
         	break;
         case 82: // R retart game
         	board.restartBoard();
-        	if(playing){
-        		themeSound.play();
-        	}
         	break;
-        case 77: // M music pause
-        	if(playing){
-        		themeSound.pause();
-        		playing = false;
-        	}
-		else{
-        		themeSound.play();
-        		playing = true;
-        	}
-		break;
         default:
         	break;
 	}
@@ -219,15 +213,13 @@ function animate(){
 	if(board.shipInLimits()){
 		ship.move();
 
-		ship.moveInercia();
-
 		camera_3.position.x = ship.getObject().position.x;
 	}
 
 	if (ship.getBulletBoll()){
 		if (board.bulletInLimits()){
 			ship.getBullet().move();
-			checkColisions(ship.getBullet(), board.getChildren())
+			collision.checkBulletCollisions(ship, board, killSound);
 		}
 		else{
 			scene.remove(ship.getBullet().getObject());
@@ -236,26 +228,4 @@ function animate(){
 	}	
 	render();
 	requestAnimationFrame(animate);
-}
-
-
-
-function checkColisions(a, b){
-	'use strict';
-	var bulletBox = new THREE.Box3().setFromObject(ship.getBullet().getObject());
-	var bulletSphere = bulletBox.getBoundingSphere();
-	for(var i = 1; i < board.getNumberOfChildren(); i++){
-		var alienBox = new THREE.Box3().setFromObject(board.getChild(i));
-		var alienSphere = alienBox.getBoundingSphere();
-		if(bulletSphere.intersectsSphere(alienSphere)){
-			if(bulletBox.intersectsBox(alienBox)){
-				killSound.play();
-				scene.remove(ship.getBullet().getObject());
-				ship.setBulletFalse();
-				scene.remove(board.getChild(i));
-				board.removeChild(i);
-				return;
-			}
-		}
-	}
 }

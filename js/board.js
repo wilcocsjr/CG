@@ -26,12 +26,12 @@ var Board = function(){
 
 	}
 
-	this.getChild = function(a){
-		return this._children[a].getObject();
+	this.getChild = function(i){
+		return this._children[i].getObject();
 	}
 
-	this.removeChild = function(a){
-		return this._children.splice(a, 1);
+	this.removeChild = function(i){
+		return this._children.splice(i, 1);
 	}
 
 	this.getNumberOfChildren = function(){
