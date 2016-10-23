@@ -270,6 +270,8 @@ function animate(){
 		}	
 	}
 
+	board.aliensMove();
+
 	render();
 	requestAnimationFrame(animate);
 }

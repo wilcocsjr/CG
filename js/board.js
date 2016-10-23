@@ -80,6 +80,13 @@ var Board = function(){
 		}
 	}
 
+	this.aliensMove = function(){
+		'use strict';
+		for(var i = 1; i < this.getNumberOfChildren(); i++){
+			this._children[i].move();
+		}
+	}
+
 	this.shipInLimits = function(){
 		if (this._children[0].getObject().position.x <= this._rightBorder && this._children[0].getObject().position.x >= this._leftBorder)
 			return true;
