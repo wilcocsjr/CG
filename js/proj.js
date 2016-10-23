@@ -216,6 +216,9 @@ function onKeyDown(e){
         	break;
         case 82: // R retart game
         	board.restartBoard();
+        	camera = camera_1;
+        	camera_ort = true;
+        	camera_pers = false;
         	rotated1 = true;
 			rotated2 = false;
         	break;

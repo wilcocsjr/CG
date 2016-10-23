@@ -9,6 +9,7 @@ var Board = function(){
 	this._rightBorder = 100; // this._rightBorder = - this._leftBorder;
 
 	this._topBorder = 100;
+	this._botBorder = -100;
 
 	this.getChildren = function(){
 		return this._children;
