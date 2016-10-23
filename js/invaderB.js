@@ -6,13 +6,15 @@ var InvaderB = function(){
 	this.createInvader = function(x, y, z){
 		'use strict';
 
-		this.addHead(x, y, z);
-		this.addComunnicater(x, y + 3, z);
-		this.addBall(x, y + 6, z)
-		this.addEye(x - 2, y, z + 2);
-		this.addEye(x + 2, y, z + 2);
-		this.addEar(x - 5.5, y, z, -1.55);
-		this.addEar(x + 5.5, y, z, 1.55);
+		this.addHead( 0, 0, 0);
+		this.addComunnicater( 0, 3, 0);
+		this.addBall( 0, 6, 0)
+		this.addEye( -2, 0, 2);
+		this.addEye( 2, 0, 2);
+		this.addEar( -5.5, 0, 0, -1.55);
+		this.addEar( 5.5, 0, 0, 1.55);
+
+		this._invader.position.set(x, y, z);
 	}
 
 	this.addHead = function(x, y, z){
@@ -21,9 +23,9 @@ var InvaderB = function(){
 		_geometry = new THREE.CylinderGeometry(2,2,10,10,1,false,20,7); //(2, 10, 10)
 		_mesh = new THREE.Mesh(_geometry, _material);
 
-		_mesh.position.set(0, 0, 0);
-		_mesh.rotateZ(1.55);
 		_mesh.position.set(x, y, z);
+
+		_mesh.rotateZ(1.55);
 
 		this._invader.add(_mesh);
 	}
@@ -68,9 +70,9 @@ var InvaderB = function(){
 		_geometry = new THREE.CylinderGeometry(0, 1.5, 2, 10, false);
 		_mesh = new THREE.Mesh(_geometry, _material);
 
-		_mesh.position.set(0 , 0, 0);
-		_mesh.rotateZ(rotate)
 		_mesh.position.set(x, y, z);
+
+		_mesh.rotateZ(rotate);
 
 		this._invader.add(_mesh);
 	}

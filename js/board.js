@@ -5,13 +5,10 @@ var Board = function(){
 	
 	this._children = []; 
 
-	this._invaderA;
-	this._invaderB;
+	this._leftBorder = -100; // this._leftBorder = - window.innerWidth >> 3; // Dividir por 8
+	this._rightBorder = 100; // this._rightBorder = - this._leftBorder;
 
-	this._leftBorder = -150; // this._leftBorder = - window.innerWidth >> 3; // Dividir por 8
-	this._rightBorder = 150; // this._rightBorder = - this._leftBorder;
-
-	this._topBorder = 120;
+	this._topBorder = 100;
 
 	this.getChildren = function(){
 		return this._children;
@@ -59,23 +56,26 @@ var Board = function(){
 	}
 
 	this.addBoard = function(){
+		'use strict';
+
+		var invader;
 
 		ship = new Ship();
-		ship.createShip(0, -40, 0)
+		ship.createShip(0, -80, 0)
 		scene.add(ship.getObject());
 		this._children.push(ship);
 
 		for (var i = 0; i < 4; i++){
 
-			invaderA = new InvaderA();
-			invaderA.createInvader(-30 + 20 * i, 20, 0);
-			scene.add(invaderA.getObject());
-			this._children.push(invaderA);
+			invader = new InvaderA();
+			invader.createInvader(-30 + 20 * i, 20, 0);
+			scene.add(invader.getObject());
+			this._children.push(invader);
 
-			invaderB = new InvaderB();
-			invaderB.createInvader(-30 + 20 * i, 0, 0);
-			scene.add(invaderB.getObject());
-			this._children.push(invaderB);
+			invader = new InvaderB();
+			invader.createInvader(-30 + 20 * i, 0, 0);
+			scene.add(invader.getObject());
+			this._children.push(invader);
 		}
 	}
 
