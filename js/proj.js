@@ -44,13 +44,13 @@ function getMusic(){
 	killSound.appendChild(killSource);
 	killSound.volume = 0.01;
 
-	/*var theme = document.createElement('audio');
+	/*var themeSound = document.createElement('audio');
 	var themeSource = document.createElement('source');
-	themeSource.src = 'sounds/theme.mp3';
-	theme.appendChild(themeSource);
-	theme.volume = 0.01;
-	theme.loop = true;
-	theme.play();*/
+	themeSource.src = 'sounds/themeSound.mp3';
+	themeSound.appendChild(themeSource);
+	themeSound.volume = 0.01;
+	themeSound.loop = true;
+	themeSound.play();*/
 }
 
 //CRIAR A CENA E CHAMAR OS OBJETOS
@@ -225,7 +225,8 @@ function animate(){
 			scene.remove(ship.getBullet().getObject());
 			ship.setBulletFalse();
 		}	
-	}	
+	}
+
 	render();
 	requestAnimationFrame(animate);
 }

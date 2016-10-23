@@ -5,16 +5,18 @@ var InvaderA = function(){
 
 	this.createInvader = function(x, y ,z){
 
-		this.addHead(x, y, z);
-		this.addHorn(x + 2.5, y + 5, z);
-		this.addHorn(x - 2.5, y + 5, z)
-		this.addEye(x - 3.5, y, z + 2.5);
-		this.addEye(x + 3, y, z + 2.5);
-		this.addEye(x - 1, y + 1, z + 2.5);
-		this.addEye(x + 1, y + 1, z + 2.5);
-		this.addMouth(x, y - 1.5, z + 2.5);
-		this.addEar(x - 4.25, y, z, -1.55);
-		this.addEar(x + 4.75, y, z, 1.55);
+		this.addHead( 0, 0, 0);
+		this.addHorn( 2.5, 5, 0);
+		this.addHorn( -2.5, 5, 0)
+		this.addEye( -3.5, 0, 2.5);
+		this.addEye( 3, 0, 2.5);
+		this.addEye( -1, 1, 2.5);
+		this.addEye( 1, 1, 2.5);
+		this.addMouth( 0, 1.5, 2.5);
+		this.addEar( -4.25, 0, 0, -1.55);
+		this.addEar( 4.75, 0, 0, 1.55);
+
+		this._invader.position.set(x,y,z);
 	}
 
 	this.addHead = function(x, y, z){
@@ -46,6 +48,7 @@ var InvaderA = function(){
 		_mesh = new THREE.Mesh(_geometry, _material);
 
 		_mesh.position.set(x, y, z);
+
 		_mesh.rotateX(1.57079633);
 
 		this._invader.add(_mesh);
@@ -70,9 +73,9 @@ var InvaderA = function(){
 		_geometry = new THREE.SphereGeometry(2, 10, 10);
 		_mesh = new THREE.Mesh(_geometry, _material);
 
-		_mesh.position.set(0 , 0, 0);
-		_mesh.rotateX(1)
 		_mesh.position.set(x, y, z);
+
+		_mesh.rotateX(1);
 
 		this._invader.add(_mesh)
 	}

@@ -61,13 +61,14 @@ var Ship = function(){
 	this.createShip = function(x, y, z){
 		'use strict';
 
-		this.addBody(x, y, z);
-		this.addCockpit(x, y + 12.5, z);
-		this.addLeftWing(x - 5, y + 10, z + 4);
-		this.addRightWing(x + 5, y + 10, z + 4);
-		this.addTopWing(x, y + 10, z + 4);
-		this.addEngine(x + 2.5, y - 10, z);
-		this.addEngine(x - 2.5, y - 10, z);
+		this.addBody( 0, 0, 0);
+		this.addCockpit( 0, 12.5, 0);
+		this.addLeftWing( -5, 10, 4);
+		this.addRightWing( 5, 10, 4);
+		this.addTopWing( 0, 10, 4);
+		this.addEngine( 2.5, -10, 0);
+		this.addEngine( -2.5, -10, 0);
+
 		this._ship.position.set(x, y, z);
 	}
 
@@ -165,7 +166,7 @@ var Ship = function(){
 		if (this._bullet_shooted == false){
 			this._bullet = new Bullet();
 
-			this._bullet.createBullet(this._movingObject.position.x, this._movingObject.position.y - 30, this._movingObject.position.z);
+			this._bullet.createBullet(this._ship.position.x, this._ship.position.y + 6, this._ship.position.z);
 
 			this._bullet_shooted = true;
 
