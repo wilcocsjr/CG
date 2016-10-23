@@ -6,6 +6,7 @@ var board, ship, collision;
 var oldClock, now;
 var delta;
 var camera_1, camera_2, camera_3, camera_ort, camera_pers;
+var rotated1, rotated2;
 var shotSound, killSound;
 
 function init(){
@@ -83,6 +84,8 @@ function createCamera(){
 	camera_1 = camera;
 	camera2();
 	camera3();
+	rotated1 = true;
+	rotated2 = false;
 }
 
 function camera2(){
@@ -112,6 +115,28 @@ function camera3(){
 	camera_3.position.z = 16;
 	camera_3.up = new THREE.Vector3(0 , 0, ship.getObject().position.x + viewSize);
 	camera_3.lookAt(new THREE.Vector3(0, 0, 0));
+}
+
+function cameraRotateBack(){
+	if (rotated1 == false && rotated2 == true)
+		for(var i=1; i < board.getNumberOfChildren(); i++){
+			var object = board.getChild(i);
+
+			object.rotateX(-1.5);
+		}
+		rotated1 = true;
+		rotated2 = false;
+}
+
+function cameraRotateFront(){
+	if (rotated1 == true && rotated2 == false)
+		for(var i=1; i < board.getNumberOfChildren(); i++){
+			var object = board.getChild(i);
+
+			object.rotateX(1.5);
+		}
+		rotated1 = false;
+		rotated2 = true;
 }
 
 function onResize(){
@@ -162,22 +187,27 @@ function onKeyDown(e){
         	ship.turnOnRightEngine();
         	break;
         case 49: // 1 camera1
+        	cameraRotateBack();
         	camera = camera_1;
         	camera_ort = true;
         	camera_pers = false;
         	break;
         case 50: // 2 camera2
+        	cameraRotateFront();
         	camera = camera_2;
         	camera_pers = true;
         	camera_ort = false;
         	break;
         case 51: // 3 camera3
+        	cameraRotateFront();
         	camera = camera_3;
         	camera_pers = true;
         	camera_ort = false;
         	break;
         case 82: // R retart game
         	board.restartBoard();
+        	rotated1 = true;
+			rotated2 = false;
         	break;
         default:
         	break;

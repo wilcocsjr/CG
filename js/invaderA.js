@@ -8,11 +8,11 @@ var InvaderA = function(){
 		this.addHead( 0, 0, 0);
 		this.addHorn( 2.5, 5, 0);
 		this.addHorn( -2.5, 5, 0)
-		this.addEye( -3.5, 0, 2.5);
-		this.addEye( 3, 0, 2.5);
-		this.addEye( -1, 1, 2.5);
-		this.addEye( 1, 1, 2.5);
-		this.addMouth( 0, 1.5, 2.5);
+		this.addEye( -3.5, 0, 3);
+		this.addEye( 3, 0, 3);
+		this.addEye( -1, 1, 3);
+		this.addEye( 1, 1, 3);
+		this.addMouth( 0, -1.5, 2.5);
 		this.addEar( -4.25, 0, 0, -1.55);
 		this.addEar( 4.75, 0, 0, 1.55);
 
