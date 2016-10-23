@@ -6,7 +6,7 @@ var board, ship, collision;
 var oldClock, now;
 var delta;
 var camera_1, camera_2, camera_3, camera_ort, camera_pers;
-var shotSound, killSound;
+var shotSound, killSound, themeSound, playing;
 
 function init(){
 	'use strict';
@@ -36,21 +36,22 @@ function getMusic(){
 	var shotSource = document.createElement('source');
 	shotSource.src = 'sounds/shot.mp3';
 	shotSound.appendChild(shotSource);
-	shotSound.volume = 0.1;
+	shotSound.volume = 1;
 
 	killSound = document.createElement('audio');
 	var killSource = document.createElement('source');
 	killSource.src = 'sounds/kill.mp3';
 	killSound.appendChild(killSource);
-	killSound.volume = 0.01;
+	killSound.volume = 0.5;
 
-	/*var theme = document.createElement('audio');
+	themeSound = document.createElement('audio');
 	var themeSource = document.createElement('source');
 	themeSource.src = 'sounds/theme.mp3';
-	theme.appendChild(themeSource);
-	theme.volume = 0.01;
-	theme.loop = true;
-	theme.play();*/
+	themeSound.appendChild(themeSource);
+	themeSound.volume = 0.6;
+	themeSound.loop = true;
+	//themeSound.play();
+	playing = false;
 }
 
 //CRIAR A CENA E CHAMAR OS OBJETOS
@@ -175,6 +176,15 @@ function onKeyDown(e){
         	camera = camera_3;
         	camera_pers = true;
         	camera_ort = false;
+        	break;
+        case 77: // M music
+        	if(playing){
+        		themeSound.pause();
+        		playing = false;
+        	}else{
+        		themeSound.play();
+        		playing = true;
+        	}
         	break;
         case 82: // R retart game
         	board.restartBoard();
