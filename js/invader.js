@@ -50,7 +50,7 @@ var Invader = function(){
 	}	
 
 	function CreateDir(){
-		dir = (RandomNum(0, 360)* Math.PI) / 180 ; //degrees->radians
+		var dir = (RandomNum(0, 360)* Math.PI) / 180 ; //degrees->radians
 		return dir;
 	}
 
