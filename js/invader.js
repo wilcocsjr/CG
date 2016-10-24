@@ -56,7 +56,7 @@ var Invader = function(){
 	}
 
 	this.reverseDirection = function(){
-		this._invader.direction = -this._invader.direction;
+		this._invader.direction += Math.PI;
 	}
 
 }

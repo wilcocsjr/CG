@@ -24,6 +24,10 @@ var Board = function(){
 
 	}
 
+	this.getAlien = function(i){
+		return this._children[i];
+	}
+
 	this.getChild = function(i){
 		return this._children[i].getObject();
 	}

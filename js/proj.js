@@ -270,8 +270,11 @@ function animate(){
 		}	
 	}
 
+	collision.checkAlienCollisions(board);
 	board.aliensMove();
-
+	
+	
+		
 	render();
 	requestAnimationFrame(animate);
 }

@@ -22,6 +22,32 @@ var Collision = function(){
 		}
 	}
 
-	this.checkAlienCollisions = function(){}
-	
+	this.checkAlienCollisions = function(board){
+		for (var i = 1; i < board.getNumberOfChildren(); i++){
+			var alienBox = new THREE.Box3().setFromObject(board.getChild(i));
+			var alienSphere = alienBox.getBoundingSphere();
+			for(var k = 1; k < board.getNumberOfChildren(); k++){
+				if(k!=i){
+					var otheralienBox = new THREE.Box3().setFromObject(board.getChild(k));
+					var otheralienSphere = otheralienBox.getBoundingSphere();
+					if(alienSphere.intersectsSphere(otheralienSphere)){
+						if(alienBox.intersectsBox(otheralienBox)){
+							board.getAlien(i).reverseDirection();
+							board.getAlien(k).reverseDirection();
+
+						}
+					}
+				}
+				
+			}
+
+		}
+
+		for(var i = 1; i < board.getNumberOfChildren(); i++){
+			if (board.getChild(i).position.x >= 100 && board.getChild(i).position.x <= -100  && board.getChild(i).position.y <= -40 && board.getChild(i).position.y >= 95){
+				board.getAlien(i).reverseDirection();
+			}
+		}
+
+	}
 }
