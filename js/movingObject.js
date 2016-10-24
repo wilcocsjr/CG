@@ -3,12 +3,24 @@ var MovingObject = function(){
 
 	this._movingObject = new THREE.Object3D();
 
+	// To check collisions
+	this._box;
+	this._sphere;
+
 	this._material;
 	this._geometry;
 	this._mesh;
 
 	this.getObject = function(){
 		return this._movingObject;
+	}
+
+	this.getBox = function(){
+		return this._box;
+	}
+
+	this.getSphere = function(){
+		return this._sphere;
 	}
 	
 	this.move = function(){
