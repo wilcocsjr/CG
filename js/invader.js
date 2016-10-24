@@ -55,7 +55,7 @@ var Invader = function(){
 	}
 
 	this.reverseDirection = function(){
-		this._direction += Math.PI;
+		this._direction += Math.PI/2;
 	}
 
     this.reflectDirection = function(){
