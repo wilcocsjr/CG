@@ -89,6 +89,7 @@ var Board = function(){
 		for(var i = 1; i < this.getNumberOfChildren(); i++){
 			this._children[i].move();
 		}
+		this.aliensInLimits();
 	}
 
 	this.aliensInLimits = function(){

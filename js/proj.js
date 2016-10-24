@@ -272,7 +272,6 @@ function animate(){
 
 	collision.checkAlienCollisions(board);
 	board.aliensMove();
-	board.aliensInLimits();
 	
 	render();
 	requestAnimationFrame(animate);
