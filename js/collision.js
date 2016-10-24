@@ -44,8 +44,11 @@ var Collision = function(){
 		}
 
 		for(var i = 1; i < board.getNumberOfChildren(); i++){
-			if (board.getChild(i).position.x >= 100 && board.getChild(i).position.x <= -100  && board.getChild(i).position.y <= -40 && board.getChild(i).position.y >= 95){
-				board.getAlien(i).reverseDirection();
+			if (board.getChild(i).position.x >= 100 || board.getChild(i).position.x <= -100){
+				board.getAlien(i).reflectDirectionSides();
+            }
+            else if(board.getChild(i).position.y <= -60 || board.getChild(i).position.y >= 90){
+                board.getAlien(i).reflectDirection();
 			}
 		}
 

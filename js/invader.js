@@ -4,7 +4,7 @@ var Invader = function(){
 	MovingObject.apply(this);
 
 	this._invader = this._movingObject;
-	this._invader.direction = CreateDir();
+	this._direction = CreateDir();
 
 	this._velocity = 0.5;
 
@@ -13,7 +13,7 @@ var Invader = function(){
 	}
 
 	this.move = function(dir){
-		var dir = this._invader.direction;
+		var dir = this._direction;
 		if (0 < dir < (Math.PI / 2)){
 			this._invader.position.x += Math.cos(dir)/2;
 			this._invader.position.y += Math.sin(dir)/2;
@@ -43,7 +43,6 @@ var Invader = function(){
 			this._invader.position.y -= this._velocity;
 		}
 
-		this._invader.position.set(this._invader.position.x, this._invader.position.y, this._invader.position.z);
 	}
 
 	function RandomNum(min, max) {
@@ -56,7 +55,14 @@ var Invader = function(){
 	}
 
 	this.reverseDirection = function(){
-		this._invader.direction += Math.PI;
+		this._direction += Math.PI;
 	}
 
+    this.reflectDirection = function(){
+		this._direction = (2*Math.PI) - this._direction;
+	}
+	
+	 this.reflectDirectionSides = function(){
+		this._direction = (Math.PI) - this._direction;
+     }
 }
