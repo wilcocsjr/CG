@@ -121,7 +121,7 @@ function camera3(){
 function cameraRotateBack(){
 	if (rotated1 == false && rotated2 == true)
 		for(var i=1; i < board.getNumberOfChildren(); i++){
-			var object = board.getChild(i);
+			var object = board.getChildObject(i);
 
 			object.rotateX(-1.5);
 		}
@@ -132,7 +132,7 @@ function cameraRotateBack(){
 function cameraRotateFront(){
 	if (rotated1 == true && rotated2 == false)
 		for(var i=1; i < board.getNumberOfChildren(); i++){
-			var object = board.getChild(i);
+			var object = board.getChildObject(i);
 
 			object.rotateX(1.5);
 		}
