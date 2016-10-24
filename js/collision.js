@@ -6,13 +6,13 @@ var Collision = function(){
 		var bulletBox = new THREE.Box3().setFromObject(ship.getBullet().getObject());
 		var bulletSphere = bulletBox.getBoundingSphere();
 		for(var i = 1; i < board.getNumberOfChildren(); i++){
-			var alienBox = new THREE.Box3().setFromObject(board.getChild(i));
+			var alienBox = new THREE.Box3().setFromObject(board.getChildObject(i));
 			var alienSphere = alienBox.getBoundingSphere();
 			if(bulletSphere.intersectsSphere(alienSphere)){
 				if(bulletBox.intersectsBox(alienBox)){
 					scene.remove(ship.getBullet().getObject());
 					ship.setBulletFalse();
-					scene.remove(board.getChild(i));
+					scene.remove(board.getChildObject(i));
 					board.removeChild(i);
 					killSound.currentTime = 0;
 					killSound.play();
@@ -24,16 +24,16 @@ var Collision = function(){
 
 	this.checkAlienCollisions = function(board){
 		for (var i = 1; i < board.getNumberOfChildren(); i++){
-			var alienBox = new THREE.Box3().setFromObject(board.getChild(i));
+			var alienBox = new THREE.Box3().setFromObject(board.getChildObject(i));
 			var alienSphere = alienBox.getBoundingSphere();
 			for(var k = 1; k < board.getNumberOfChildren(); k++){
 				if(k!=i){
-					var otheralienBox = new THREE.Box3().setFromObject(board.getChild(k));
+					var otheralienBox = new THREE.Box3().setFromObject(board.getChildObject(k));
 					var otheralienSphere = otheralienBox.getBoundingSphere();
 					if(alienSphere.intersectsSphere(otheralienSphere)){
 						if(alienBox.intersectsBox(otheralienBox)){
-							board.getAlien(i).reverseDirection();
-							board.getAlien(k).reverseDirection();
+							board.getChild(i).reverseDirection();
+							board.getChild(k).reverseDirection();
 
 						}
 					}
@@ -41,15 +41,6 @@ var Collision = function(){
 				
 			}
 
-		}
-
-		for(var i = 1; i < board.getNumberOfChildren(); i++){
-			if (board.getChild(i).position.x >= 100 || board.getChild(i).position.x <= -100){
-				board.getAlien(i).reflectDirectionSides();
-            }
-            else if(board.getChild(i).position.y <= -60 || board.getChild(i).position.y >= 90){
-                board.getAlien(i).reflectDirection();
-			}
 		}
 
 	}

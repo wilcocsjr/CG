@@ -24,11 +24,11 @@ var Board = function(){
 
 	}
 
-	this.getAlien = function(i){
+	this.getChild = function(i){
 		return this._children[i];
 	}
 
-	this.getChild = function(i){
+	this.getChildObject = function(i){
 		return this._children[i].getObject();
 	}
 
@@ -88,6 +88,17 @@ var Board = function(){
 		'use strict';
 		for(var i = 1; i < this.getNumberOfChildren(); i++){
 			this._children[i].move();
+		}
+	}
+
+	this.aliensInLimits = function(){
+		for(var i = 1; i < this.getNumberOfChildren(); i++){
+			if (this.getChildObject(i).position.x >= 100 || this.getChildObject(i).position.x <= -100){
+				this.getChild(i).reflectDirectionSides();
+            }
+            else if(this.getChildObject(i).position.y <= -60 || this.getChildObject(i).position.y >= 90){
+                this.getChild(i).reflectDirection();
+			}
 		}
 	}
 
