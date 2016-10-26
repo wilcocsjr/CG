@@ -167,7 +167,7 @@ var Ship = function(){
 			this._bullet = new Bullet();
 
 			this._bullet.createBullet(this._ship.position.x, this._ship.position.y + 6, this._ship.position.z);
-
+			this._bullet.setBoundingForms();
 			this._bullet_shooted = true;
 
 			return true;

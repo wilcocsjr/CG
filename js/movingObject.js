@@ -15,10 +15,6 @@ var MovingObject = function(){
 		return this._movingObject;
 	}
 
-	this.getBox = function(){
-		return this._box;
-	}
-
 	this.getSphere = function(){
 		return this._sphere;
 	}
@@ -28,10 +24,8 @@ var MovingObject = function(){
 	}
 
 	this.setBoundingForms = function(){
-		var boundingForm = new BoundingForm();
-
-		boundingForm.setBox(this._movingObject);
-		boundingForm.setSphere(this._movingObject);
+		this._sphere = new BoundingForm();
+		this._sphere.setSphere(this._movingObject);
 	}
 
 	this.changeWireframe = function(){

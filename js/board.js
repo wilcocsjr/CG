@@ -67,6 +67,7 @@ var Board = function(){
 
 		ship = new Ship();
 		ship.createShip(0, -80, 0)
+		ship.setBoundingForms();
 		scene.add(ship.getObject());
 		this._children.push(ship);
 
@@ -74,11 +75,13 @@ var Board = function(){
 
 			invader = new InvaderA();
 			invader.createInvader(-30 + 20 * i, 20, 0);
+			invader.setBoundingForms();
 			scene.add(invader.getObject());
 			this._children.push(invader);
 
 			invader = new InvaderB();
 			invader.createInvader(-30 + 20 * i, 0, 0);
+			invader.setBoundingForms();
 			scene.add(invader.getObject());
 			this._children.push(invader);
 		}
