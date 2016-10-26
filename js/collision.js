@@ -21,12 +21,12 @@ var Collision = function(){
 	this.checkAlienCollisions = function(board){
 		for (var i = 1; i < board.getNumberOfChildren(); i++){
 			var alienSphere = board.getChild(i).getSphere();
-			for(var k = 1; k < board.getNumberOfChildren(); k++){
+			for(var k = 0; k < board.getNumberOfChildren(); k++){
 				if(k!=i){
-					var otheralienSphere = board.getChild(i).getSphere();
+					var otheralienSphere = board.getChild(k).getSphere();
 					if(intersect(alienSphere, otheralienSphere)){
-						//board.getChild(i).reverseDirection();   //ele fica todo queimado ao fazer qualquer açao neste if
-						//board.getChild(k).reverseDirection();
+						board.getChild(i).reverseDirection();   //ele fica todo queimado ao fazer qualquer açao neste if
+						if(k != 0) board.getChild(k).reverseDirection();
 					}
 				}
 				

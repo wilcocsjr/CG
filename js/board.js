@@ -100,7 +100,7 @@ var Board = function(){
 			if(this.getChildObject(i).position.x >= this._rightBorder || this.getChildObject(i).position.x <= this._leftBorder)
 				this.getChild(i).reflectDirectionSides();
 
-            else if( this.getChildObject(i).position.y >= (this._topBorder - 10) || this.getChildObject(i).position.y <= (this._botBorder + 40))
+            else if( this.getChildObject(i).position.y >= (this._topBorder - 10) || this.getChildObject(i).position.y <= (this._botBorder + 10))
                 this.getChild(i).reflectDirection();
 		}
 	}

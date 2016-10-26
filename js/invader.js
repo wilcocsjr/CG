@@ -6,7 +6,7 @@ var Invader = function(){
 	this._invader = this._movingObject;
 	this._direction = CreateDir();
 
-	this._velocity = 0.5;
+	this._velocity = 0.1;
 
 	this.createInvader = function(x, y, z){
 		throw new Error('Cannot call abstract class \"Invader\" ');
