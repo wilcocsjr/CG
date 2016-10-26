@@ -8,8 +8,8 @@ var Board = function(){
 	this._leftBorder = -100; // this._leftBorder = - window.innerWidth >> 3; // Dividir por 8
 	this._rightBorder = 100; // this._rightBorder = - this._leftBorder;
 
-	this._topBorder = 100;
-	this._botBorder = -100;
+	this._topBorder = 90;
+	this._botBorder = -90;
 
 	this.getChildren = function(){
 		return this._children;
@@ -84,6 +84,15 @@ var Board = function(){
 		}
 	}
 
+	this.shipMove = function(camera3){
+		if(this.x_Limits(board.getShip().getObject())){
+			this.getShip().move();
+			camera_3.position.x = this.getShip().getObject().position.x;
+		}
+		else
+			this.getShip().borderColision(this._leftBorder, this._rightBorder);
+	}
+
 	this.aliensMove = function(){
 		'use strict';
 		for(var i = 1; i < this.getNumberOfChildren(); i++){
@@ -94,25 +103,23 @@ var Board = function(){
 
 	this.aliensInLimits = function(){
 		for(var i = 1; i < this.getNumberOfChildren(); i++){
-			if(this.getChildObject(i).position.x >= this._rightBorder || this.getChildObject(i).position.x <= this._leftBorder)
+			if(!this.x_Limits(this.getChildObject(i)))
 				this.getChild(i).reflectDirectionSides();
 
-            else if( this.getChildObject(i).position.y >= (this._topBorder - 10) || this.getChildObject(i).position.y <= (this._botBorder + 10))
+            else if(!this.y_Limits(this.getChildObject(i)))
                 this.getChild(i).reflectDirection();
 		}
 	}
 
-	this.shipInLimits = function(){
-		if (this._children[0].getObject().position.x <= this._rightBorder && this._children[0].getObject().position.x >= this._leftBorder)
+	this.x_Limits = function(object){
+		if (object.position.x <= this._rightBorder && object.position.x >= this._leftBorder)
 			return true;
-		else{
-			this._children[0].borderColision(this._leftBorder, this._rightBorder);
+		else
 			return false;
-		}
 	}
 
-	this.bulletInLimits = function(){
-		if (this.getShip().getBullet().getObject().position.y < this._topBorder)
+	this.y_Limits = function(object){
+		if (object.position.y <= this._topBorder && object.position.y >= this._botBorder)
 			return true;
 		else
 			return false;

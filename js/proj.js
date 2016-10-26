@@ -37,19 +37,19 @@ function getMusic(){
 	var shotSource = document.createElement('source');
 	shotSource.src = 'sounds/shot.mp3';
 	shotSound.appendChild(shotSource);
-	shotSound.volume = 1;
+	shotSound.volume = 0.1;
 
 	killSound = document.createElement('audio');
 	var killSource = document.createElement('source');
 	killSource.src = 'sounds/kill.mp3';
 	killSound.appendChild(killSource);
-	killSound.volume = 0.5;
+	killSound.volume = 0.1;
 
 	themeSound = document.createElement('audio');
 	var themeSource = document.createElement('source');
 	themeSource.src = 'sounds/theme.mp3';
 	themeSound.appendChild(themeSource);
-	themeSound.volume = 0.6;
+	themeSound.volume = 0.1;
 	themeSound.loop = true;
 	//themeSound.play();
 	playing = false;
@@ -253,14 +253,10 @@ function animate(){
 	delta = now - oldClock;
 	oldClock = now;
 
-	if(board.shipInLimits()){
-		ship.move();
-
-		camera_3.position.x = ship.getObject().position.x;
-	}
+	board.shipMove();
 
 	if (ship.getBulletBoll()){
-		if (board.bulletInLimits()){
+		if (board.y_Limits(ship.getBullet().getObject())){
 			ship.getBullet().move();
 			collision.checkBulletCollisions(ship, board, killSound);
 		}
