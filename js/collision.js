@@ -27,6 +27,7 @@ var Collision = function(){
 					if(intersect(alienSphere, otheralienSphere)){
 						board.getChild(i).reverseDirection();   //ele fica todo queimado ao fazer qualquer açao neste if
 						if(k != 0) board.getChild(k).reverseDirection();
+                        else board.getChild(k)._velocity = 0;
 					}
 				}
 				
