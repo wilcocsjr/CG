@@ -23,9 +23,9 @@ var MovingObject = function(){
 		throw new Error('Cannot call abstract method \"move\" ');
 	}
 
-	this.setBoundingForms = function(){
+	this.setBoundingForms = function(radius){
 		this._sphere = new BoundingForm();
-		this._sphere.setSphere(this._movingObject);
+		this._sphere.setSphere(this._movingObject, radius);
 	}
 
 	this.changeWireframe = function(){

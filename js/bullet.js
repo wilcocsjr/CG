@@ -15,6 +15,8 @@ var Bullet = function(){
 		this._bullet.add(_mesh);
 
 		this._bullet.position.set(x,y,z);
+
+		this.setBoundingForms(5);
 	}
 
 	this.move = function(){
@@ -22,4 +24,11 @@ var Bullet = function(){
 	}
 
 	this.changeWireframe = function(){}
+
+	this.collidesWith = function(scene, board, ship, alien_number){
+		scene.remove(ship.getBullet().getObject());
+		ship.setBulletFalse();
+		scene.remove(board.getChildObject(alien_number));
+		board.removeChild(alien_number);
+	}
 }

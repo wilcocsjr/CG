@@ -7,10 +7,7 @@ var Collision = function(){
 		for(var i = 1; i < board.getNumberOfChildren(); i++){
 			var alienSphere = board.getChild(i).getSphere();
 			if(intersect(alienSphere, bulletSphere)){
-				scene.remove(ship.getBullet().getObject());
-				ship.setBulletFalse();
-				scene.remove(board.getChildObject(i));
-				board.removeChild(i);
+				ship.getBullet().collidesWith(scene, board, ship, i);
 				killSound.currentTime = 0;
 				killSound.play();
 				return;
@@ -25,9 +22,8 @@ var Collision = function(){
 				if(k!=i){
 					var otheralienSphere = board.getChild(k).getSphere();
 					if(intersect(alienSphere, otheralienSphere)){
-						board.getChild(i).reverseDirection();   //ele fica todo queimado ao fazer qualquer açao neste if
-						if(k != 0) board.getChild(k).reverseDirection();
-                        else board.getChild(k)._velocity = 0;
+						board.getChild(i).collidesWith(); 
+						board.getChild(k).collidesWith();
 					}
 				}
 				

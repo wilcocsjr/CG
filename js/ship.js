@@ -70,6 +70,8 @@ var Ship = function(){
 		this.addEngine( -2.5, -10, 0);
 
 		this._ship.position.set(x, y, z);
+
+		this.setBoundingForms(12.5);
 	}
 
 	this.addBody = function(x, y, z){
@@ -167,7 +169,6 @@ var Ship = function(){
 			this._bullet = new Bullet();
 
 			this._bullet.createBullet(this._ship.position.x, this._ship.position.y + 6, this._ship.position.z);
-			this._bullet.setBoundingForms();
 			this._bullet_shooted = true;
 
 			return true;
@@ -236,6 +237,10 @@ var Ship = function(){
 	this.moveShip = function(){
 		this._ship.position.x += this._velocity;
 		this._ship.position.set(this._ship.position.x, this._ship.position.y, this._ship.position.z);
+	}
+
+	this.collidesWith = function(){
+		this._velocity = 0;
 	}
 }
 

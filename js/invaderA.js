@@ -17,6 +17,8 @@ var InvaderA = function(){
 		this.addEar( 4.75, 0, 0, 1.55);
 
 		this._invader.position.set(x,y,z);
+
+		this.setBoundingForms(4.75);
 	}
 
 	this.addHead = function(x, y, z){
