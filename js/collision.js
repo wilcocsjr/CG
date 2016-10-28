@@ -22,6 +22,16 @@ var Collision = function(){
 				if(k!=i){
 					var otheralienSphere = board.getChild(k).getSphere();
 					if(intersect(alienSphere, otheralienSphere)){
+                        if (board.getChildObject(i).position.x < board.getChildObject(k).position.x){
+                            board.getChildObject(i).position.x -= 1;
+                            if(k > 0)
+                                board.getChildObject(k).position.x += 1;
+                        }
+                        if (board.getChildObject(i).position.x > board.getChildObject(k).position.x){
+                            board.getChildObject(i).position.x += 1;
+                            if(k > 0)
+                                board.getChildObject(k).position.x -= 1;
+                        }
 						board.getChild(i).collidesWith(); 
 						board.getChild(k).collidesWith();
 					}
