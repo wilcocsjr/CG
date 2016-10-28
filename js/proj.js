@@ -8,6 +8,7 @@ var delta;
 var camera_1, camera_2, camera_3, camera_ort, camera_pers;
 var shotSound, killSound, themeSound, playing;
 var rotated1, rotated2;
+var dLight, day, stars = [], starOn;
 
 function init(){
 	'use strict';
@@ -29,6 +30,41 @@ function init(){
 	window.addEventListener("resize", onResize);
 	window.addEventListener("keydown", onKeyDown);
 	window.addEventListener("keyup", onKeyUp);
+
+    // Create Lights
+    createLight();
+
+}
+
+function createLight(){
+    'use strict'
+    dLight = new THREE.DirectionalLight(0xffffff);
+    dLight.position.set(0, -0.5, 1);
+    dLight.shadowCameraVisible = true;
+    dLight.shadowCameraNear = 1;
+    dLight.shadowCameraFar = 150;
+    dLight.castshadow = true;
+    scene.add(dLight);
+    day = true;
+    
+    createPointLight();
+}
+
+function createPointLight(){
+    var starobject = new THREE.Object3D();
+    var material = new THREE.MeshBasicMaterial({color:0xcccccc, wireframe:false});
+	var geometry = new THREE.SphereGeometry(1, 10, 10);
+	var mesh = new THREE.Mesh(geometry, material);
+	mesh.position.set(0, 0, 0);
+	starobject.add(mesh);
+    scene.add(starobject);
+    var star = new THREE.PointLight(0xffffff, 3, 200); 
+    star.position.set(0, 0, 0);
+    scene.add(star);
+    
+    stars.push(star);
+    stars.push(starobject);
+    starOn = true;
 }
 
 function getMusic(){
@@ -181,6 +217,15 @@ function onKeyDown(e){
 				shotSound.play();
 			}
 			break;
+        case 67: // C stars
+			for(var i = 0; i < stars.length; i++){
+                if(starOn)
+                    scene.remove(stars[i]);
+                else
+                    scene.add(stars[i]);
+            }
+            starOn = !starOn;
+			break;
 		case 37: // left
 			ship.turnOnLeftEngine();
         	break;
@@ -214,8 +259,18 @@ function onKeyDown(e){
         		playing = true;
         	}
         	break;
+        case 78: // N day/night
+        	if(day){
+        		scene.remove(dLight);
+                day = false;
+        	}else{
+                scene.add(dLight);
+                day = true;
+            }
+        	break;
         case 82: // R retart game
         	board.restartBoard();
+            scene.add(dLight);
         	camera = camera_1;
         	camera_ort = true;
         	camera_pers = false;

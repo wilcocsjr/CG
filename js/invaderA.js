@@ -23,7 +23,7 @@ var InvaderA = function(){
 
 	this.addHead = function(x, y, z){
 
-		_material = new THREE.MeshBasicMaterial({color:0x004e00, wireframe:false})
+		_material = new THREE.MeshLambertMaterial({color:0x004e00, wireframe:false})
 		_geometry = new THREE.CubeGeometry(10, 5, 5);
 		_mesh = new THREE.Mesh(_geometry, _material);
 
@@ -34,7 +34,7 @@ var InvaderA = function(){
 
 	this.addHorn = function(x,y,z){
 
-		_material = new THREE.MeshBasicMaterial({color:0xc3c3c3, wireframe:false});
+		_material = new THREE.MeshLambertMaterial({color:0xc3c3c3, wireframe:false});
 		_geometry = new THREE.CylinderGeometry(0, 1.5, 5, 10, false);
 		_mesh = new THREE.Mesh(_geometry, _material);
 
@@ -45,7 +45,7 @@ var InvaderA = function(){
 
 	this.addEye = function(x,y,z){
 
-		_material = new THREE.MeshBasicMaterial({color:0xaf0000, wireframe:false});
+		_material = new THREE.MeshLambertMaterial({color:0xaf0000, wireframe:false});
 		_geometry = new THREE.CylinderGeometry(1, 1, 0, 0, false);
 		_mesh = new THREE.Mesh(_geometry, _material);
 
@@ -58,7 +58,7 @@ var InvaderA = function(){
 
 	this.addMouth = function(x,y,z){
 
-		_material = new THREE.MeshBasicMaterial({color:0xa1e1e1e, wireframe:false});
+		_material = new THREE.MeshLambertMaterial({color:0xa1e1e1e, wireframe:false});
 		_geometry = new THREE.CylinderGeometry(1, 1, 0, 0, false);
 		_mesh = new THREE.Mesh(_geometry, _material);
 
@@ -71,7 +71,7 @@ var InvaderA = function(){
 
 	this.addEar = function(x,y,z){
 
-		_material = new THREE.MeshBasicMaterial({color:0x3232ff, wireframe:false});
+		_material = new THREE.MeshLambertMaterial({color:0x3232ff, wireframe:false});
 		_geometry = new THREE.SphereGeometry(2, 10, 10);
 		_mesh = new THREE.Mesh(_geometry, _material);
 

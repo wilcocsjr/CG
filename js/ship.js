@@ -76,7 +76,7 @@ var Ship = function(){
 
 	this.addBody = function(x, y, z){
 		'use strict';
-		this._material = new THREE.MeshBasicMaterial({color: 0xcacaca, wireframe:false});
+		this._material = new THREE.MeshLambertMaterial({color: 0xcacaca, wireframe:false});
 
 		this._geometry = new THREE.CubeGeometry(10, 20, 8);
 		this._mesh = new THREE.Mesh(this._geometry, this._material);
@@ -87,7 +87,7 @@ var Ship = function(){
 
 	this.addEngine = function(x, y, z){
 		'use strict';
-		this._material = new THREE.MeshBasicMaterial({color: 0x0077ee, wireframe:false});
+		this._material = new THREE.MeshLambertMaterial({color: 0x0077ee, wireframe:false});
 
 		this._geometry = new THREE.SphereGeometry(10, 10, 10);
 		this._mesh = new THREE.Mesh(this._geometry, this._material);
@@ -99,7 +99,7 @@ var Ship = function(){
 
 	this.addCockpit = function(x, y, z){
 		'use strict';
-		this._material = new THREE.MeshBasicMaterial({color: 0xcacaca, wireframe:false});
+		this._material = new THREE.MeshLambertMaterial({color: 0xcacaca, wireframe:false});
 
 		this._geometry = new THREE.CylinderGeometry(2, 5, 5, 4, false);
 		this._mesh = new THREE.Mesh(this._geometry, this._material);
@@ -113,7 +113,7 @@ var Ship = function(){
 
 	this.addLeftWing = function(x, y, z){
 		'use strict';
-		this._material = new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:false});
+		this._material = new THREE.MeshLambertMaterial({color: 0xaa5555, wireframe:false});
 
 		
 		this._geometry = this.buildWing();
@@ -128,7 +128,7 @@ var Ship = function(){
 
 	this.addRightWing = function(x, y, z){
 		'use strict';
-		this._material = new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:false});
+		this._material = new THREE.MeshLambertMaterial({color: 0xaa5555, wireframe:false});
 
 		this._geometry = this.buildWing();
 		this._mesh = new THREE.Mesh(this._geometry, this._material);
@@ -141,7 +141,7 @@ var Ship = function(){
 
 	this.addTopWing = function(x, y, z){
 		'use strict';
-		this._material = new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:false});
+		this._material = new THREE.MeshLambertMaterial({color: 0xaa5555, wireframe:false});
 
 		this._geometry = this.buildWing();
 		this._mesh = new THREE.Mesh(this._geometry, this._material);
