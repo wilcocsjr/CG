@@ -55,10 +55,9 @@ var Invader = function(){
 	}
 
 	this.collidesWith = function(){
-		if (0 <= this._direction < Math.PI)
-			this._direction += Math.PI/2;
-		else if (Math.PI < this._direction < (2 * Math.PI))
-			this._direction -= Math.PI/2;
+		this._direction += Math.PI;
+		if(this._direction > (2 * Math.PI))
+			this._direction -= (2 * Math.PI)
 	}
 
     this.reflectDirection = function(){
