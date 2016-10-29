@@ -16,6 +16,8 @@ function init(){
 
 	renderer = new THREE.WebGLRenderer({antialias: true});
 
+	renderer.shadowMapEnable = true;
+
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
 	document.body.appendChild(renderer.domElement);
@@ -40,10 +42,14 @@ function createLight(){
     'use strict'
     dLight = new THREE.DirectionalLight(0xffffff);
     dLight.position.set(0, -0.5, 1);
+
     dLight.shadowCameraVisible = true;
-    dLight.shadowCameraNear = 1;
-    dLight.shadowCameraFar = 150;
-    dLight.castshadow = true;
+    dLight.shadow.camera.bottom = -100;
+    dLight.shadow.camera.right = 100;
+    dLight.shadow.camera.near = -100;
+    dLight.shadow.camera.far = 100;
+    dLight.castShadow = true;
+    
     scene.add(dLight);
     day = true;
     
@@ -57,12 +63,15 @@ function createPointLight(){
 	var mesh = new THREE.Mesh(geometry, material);
 	mesh.position.set(0, 0, 0);
 	starobject.add(mesh);
-    scene.add(starobject);
+
     var star = new THREE.PointLight(0xffffff, 3, 200); 
     star.position.set(0, 0, 0);
-    scene.add(star);
-    
-    stars.push(star);
+    // star.castShadow = true;
+
+    starobject.add(star);
+
+    scene.add(starobject);
+
     stars.push(starobject);
     starOn = true;
 }
@@ -250,23 +259,22 @@ function onKeyDown(e){
         	camera_pers = true;
         	camera_ort = false;
         	break;
+        case 76: // L enable/disable lighting
+        	dLight.castshadow = !dLight.castshadow;
+        	break;
         case 77: // M music
-        	if(playing){
+        	if(playing)
         		themeSound.pause();
-        		playing = false;
-        	}else{
+        	else
         		themeSound.play();
-        		playing = true;
-        	}
+        	playing = !playing;
         	break;
         case 78: // N day/night
-        	if(day){
+        	if(day)
         		scene.remove(dLight);
-                day = false;
-        	}else{
+        	else
                 scene.add(dLight);
-                day = true;
-            }
+            day = !day;
         	break;
         case 82: // R retart game
         	board.restartBoard();
