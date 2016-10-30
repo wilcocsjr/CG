@@ -8,7 +8,7 @@ var delta;
 var camera_1, camera_2, camera_3, camera_ort, camera_pers;
 var shotSound, killSound, themeSound, playing;
 var rotated1, rotated2;
-var dLight, day, stars = [], starOn;
+var dLight, day, stars = [], starOn, plights = [];
 
 function init(){
 	'use strict';
@@ -44,35 +44,39 @@ function init(){
 	window.addEventListener("keyup", onKeyUp);
 
     // Create Lights
+    fillplights();
     createLight();
 
-    var table = new THREE.Object3D();
-    var material = new THREE.MeshLambertMaterial({color:0xffffff, wireframe:false});
-	var geometry = new THREE.CubeGeometry(200 , 1, 100); //(2, 10, 10)
-	var mesh = new THREE.Mesh(geometry, material);
+    
 
-	mesh.position.set(0,0, -10);
+}
 
-	mesh.rotateX(1.5);
+function fillplights(){
+	for(var i=0; i<9; i++) {
+    plights[i] = [];
+    for(var j=0; j<9; j++) {
+        plights[i][j] = undefined;
+    }
+}
+	plights[0][0]= 40;
+	plights[0][1]= 0;
+	plights[0][2]= 0;
+	plights[1][0]= 80;
+	plights[1][1]= 80;
+	plights[1][2]= 0;
+	plights[2][0]= -80;
+	plights[2][1]= 80;
+	plights[2][2]= 0;
+	plights[3][0]= 80;
+	plights[3][1]= -80;
+	plights[3][2]= 0;
+	plights[4][0]= -80;
+	plights[4][1]= -80;
+	plights[4][2]= 0;
+	plights[5][0]= -40;
+	plights[5][1]= 0;
+	plights[5][2]= 0;
 
-	mesh.receiveShadow = true;
-
-	table.add(mesh);
-
-	scene.add(table);
-
-	table = new THREE.Object3D();
-    material = new THREE.MeshLambertMaterial({color:0xffffff, wireframe:false});
-	geometry = new THREE.CubeGeometry(200 , 1, 100); //(2, 10, 10)
-	mesh = new THREE.Mesh(geometry, material);
-
-	mesh.position.set(0,98, 0);
-
-	mesh.receiveShadow = true;
-
-	table.add(mesh);
-
-	scene.add(table);
 
 }
 
@@ -93,20 +97,21 @@ function createLight(){
     
     scene.add(dLight);
     day = true;
-    
-    createPointLight();
+    for(var i = 0; i < 6; i++){
+    	createPointLight(plights[i][0], plights[i][1], plights[i][2]);
+    }
 }
 
-function createPointLight(){
+function createPointLight(x, y, z){
     var starobject = new THREE.Object3D();
     var material = new THREE.MeshBasicMaterial({color:0xcccccc, wireframe:false});
 	var geometry = new THREE.SphereGeometry(1, 10, 10);
 	var mesh = new THREE.Mesh(geometry, material);
-	mesh.position.set(0, 0, 0);
+	mesh.position.set(x, y, z);
 	starobject.add(mesh);
 
-    var star = new THREE.PointLight(0xffffff, 3, 200); 
-    star.position.set(0, 0, 1);
+    var star = new THREE.PointLight(0xffffff, 2, 200); 
+    star.position.set(x, y, 1);
     star.castShadow = true;
     star.shadow.camera.near = -10;
     star.shadow.camera.far = 10;
