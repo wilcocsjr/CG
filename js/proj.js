@@ -16,7 +16,13 @@ function init(){
 
 	renderer = new THREE.WebGLRenderer({antialias: true});
 
-	renderer.shadowMapEnable = true;
+	renderer.shadowMapEnabled = true;
+	renderer.shadowMapSoft = true;
+
+	renderer.shadowMapBias = 0.0039;
+	renderer.shadowMapDarkness = 0.5;
+	renderer.shadowMapWidth = 1024;
+	renderer.shadowMapHeight = 1024;
 
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -24,6 +30,10 @@ function init(){
 
 	createScene();
 	createCamera();
+
+	renderer.shadowCameraNear = 3;
+	renderer.shadowCameraFar = camera.far;
+	renderer.shadowCameraFov = 50;
 	
 	getMusic();
 	render();
@@ -36,6 +46,34 @@ function init(){
     // Create Lights
     createLight();
 
+    var table = new THREE.Object3D();
+    var material = new THREE.MeshLambertMaterial({color:0xffffff, wireframe:false});
+	var geometry = new THREE.CubeGeometry(200 , 1, 100); //(2, 10, 10)
+	var mesh = new THREE.Mesh(geometry, material);
+
+	mesh.position.set(0,0, -10);
+
+	mesh.rotateX(1.5);
+
+	mesh.receiveShadow = true;
+
+	table.add(mesh);
+
+	scene.add(table);
+
+	table = new THREE.Object3D();
+    material = new THREE.MeshLambertMaterial({color:0xffffff, wireframe:false});
+	geometry = new THREE.CubeGeometry(200 , 1, 100); //(2, 10, 10)
+	mesh = new THREE.Mesh(geometry, material);
+
+	mesh.position.set(0,98, 0);
+
+	mesh.receiveShadow = true;
+
+	table.add(mesh);
+
+	scene.add(table);
+
 }
 
 function createLight(){
@@ -44,10 +82,13 @@ function createLight(){
     dLight.position.set(0, -0.5, 1);
 
     dLight.shadowCameraVisible = true;
-    dLight.shadow.camera.bottom = -100;
+    dLight.shadow.camera.left = -100;
     dLight.shadow.camera.right = 100;
+    dLight.shadow.camera.bottom = -100;
+    dLight.shadow.camera.top = 100;
     dLight.shadow.camera.near = -100;
     dLight.shadow.camera.far = 100;
+
     dLight.castShadow = true;
     
     scene.add(dLight);
@@ -65,8 +106,10 @@ function createPointLight(){
 	starobject.add(mesh);
 
     var star = new THREE.PointLight(0xffffff, 3, 200); 
-    star.position.set(0, 0, 0);
-    // star.castShadow = true;
+    star.position.set(0, 0, 1);
+    star.castShadow = true;
+    star.shadow.camera.near = -10;
+    star.shadow.camera.far = 10;
 
     starobject.add(star);
 
@@ -260,7 +303,13 @@ function onKeyDown(e){
         	camera_ort = false;
         	break;
         case 76: // L enable/disable lighting
-        	dLight.castshadow = !dLight.castshadow;
+        	dLight.castShadow = !dLight.castShadow;
+        	
+        	/* Como a estrela so tem uma esfera e a pointLight que 
+        	e adicionada em segundo lugar podemos ter a certeza que 
+        	star.children[1] e uma pointLight */
+        	for(var i=0; i < stars.length; i++)
+        		stars[i].children[1].castShadow = !stars[i].children[1].castShadow;
         	break;
         case 77: // M music
         	if(playing)
