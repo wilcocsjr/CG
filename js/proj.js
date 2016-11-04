@@ -1,5 +1,8 @@
 /*global THREE*/
 
+/*
+    O Prof disse para n nos preocuparmos com as sombras que faziamos isso depois da cadeira, significa que n e para fazermos as sombras? pus todas as sombras em comentario
+ */
 
 /* Para fazer as malhas
  
@@ -12,6 +15,8 @@
  Cuidado com as normais
  
  Nao exagerar no numero de pontos
+ 
+ O prof para a nave usou 4 para cada asa e 11 para o corpo (pontos)
  
  */
 
@@ -39,13 +44,13 @@ function init(){
 
 	renderer = new THREE.WebGLRenderer({antialias: true});
 
-	renderer.shadowMapEnabled = true;
+	/*renderer.shadowMapEnabled = true;
 	renderer.shadowMapSoft = true;
 
 	renderer.shadowMapBias = 0.0039;
 	renderer.shadowMapDarkness = 0.5;
 	renderer.shadowMapWidth = 1024;
-	renderer.shadowMapHeight = 1024;
+	renderer.shadowMapHeight = 1024;*/
 
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -54,9 +59,9 @@ function init(){
 	createScene();
 	createCamera();
 
-	renderer.shadowCameraNear = 3;
+	/*renderer.shadowCameraNear = 3;
 	renderer.shadowCameraFar = camera.far;
-	renderer.shadowCameraFov = 50;
+	renderer.shadowCameraFov = 50;*/
 	
 	getMusic();
 	render();
@@ -113,7 +118,7 @@ function createLight(){
     dLight = new THREE.DirectionalLight(0xffffff);
     dLight.position.set(0, -0.5, 1);
 
-    dLight.shadowCameraVisible = true;
+    /*dLight.shadowCameraVisible = true;
     dLight.shadow.camera.left = -100;
     dLight.shadow.camera.right = 100;
     dLight.shadow.camera.bottom = -100;
@@ -121,7 +126,7 @@ function createLight(){
     dLight.shadow.camera.near = -100;
     dLight.shadow.camera.far = 100;
 
-    dLight.castShadow = true;
+    dLight.castShadow = true;*/
     
     scene.add(dLight);
     day = true;
@@ -140,9 +145,9 @@ function createPointLight(x, y, z){
 
     var star = new THREE.PointLight(0xffffff, 2, 200, 2); 
     star.position.set(x, y, 1);
-    star.castShadow = true;
+    /*star.castShadow = true;
     star.shadow.camera.near = -10;
-    star.shadow.camera.far = 10;
+    star.shadow.camera.far = 10;*/
 
     starobject.add(star);
 
@@ -336,13 +341,13 @@ function onKeyDown(e){
         	camera_ort = false;
         	break;
         case 76: // L enable/disable lighting
-        	dLight.castShadow = !dLight.castShadow;
+        	/*dLight.castShadow = !dLight.castShadow;
         	
-        	/* Como a estrela so tem uma esfera e a pointLight que 
+        	Como a estrela so tem uma esfera e a pointLight que 
         	e adicionada em segundo lugar podemos ter a certeza que 
-        	star.children[1] e uma pointLight */
+        	star.children[1] e uma pointLight 
         	for(var i=0; i < stars.length; i++)
-        		stars[i].children[1].castShadow = !stars[i].children[1].castShadow;
+        		stars[i].children[1].castShadow = !stars[i].children[1].castShadow;*/
         	break;
         case 77: // M music
         	if(playing)

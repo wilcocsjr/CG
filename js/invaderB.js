@@ -29,8 +29,8 @@ var InvaderB = function(){
 
 		this._mesh.rotateZ(1.55);
 
-		this._mesh.castShadow = true;
-		this._mesh.receiveShadow = true;
+		//this._mesh.castShadow = true;
+		//this._mesh.receiveShadow = true;
 
 		this._invader.add(this._mesh);
 	}
@@ -43,8 +43,8 @@ var InvaderB = function(){
 
 		this._mesh.position.set(x , y, z);
 
-		this._mesh.castShadow = true;
-		this._mesh.receiveShadow = true;
+		//this._mesh.castShadow = true;
+		//this._mesh.receiveShadow = true;
 
 		this._invader.add(this._mesh);
 	}
@@ -57,8 +57,8 @@ var InvaderB = function(){
 
 		this._mesh.position.set(x, y, z);
 
-		this._mesh.castShadow = true;
-		this._mesh.receiveShadow = true;
+		//this._mesh.castShadow = true;
+		//this._mesh.receiveShadow = true;
 
 		this._invader.add(this._mesh);
 
@@ -72,8 +72,8 @@ var InvaderB = function(){
 
 		this._mesh.position.set(x, y, z);
 
-		this._mesh.castShadow = true;
-		this._mesh.receiveShadow = true;
+		//this._mesh.castShadow = true;
+		//this._mesh.receiveShadow = true;
 
 		this._invader.add(this._mesh);
 	}
@@ -88,8 +88,8 @@ var InvaderB = function(){
 
 		this._mesh.rotateZ(rotate);
 
-		this._mesh.castShadow = true;
-		this._mesh.receiveShadow = true;
+		//this._mesh.castShadow = true;
+		//this._mesh.receiveShadow = true;
 
 		this._invader.add(this._mesh);
 	}
