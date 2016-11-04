@@ -130,4 +130,21 @@ var Board = function(){
 			this._children[i].changeWireframe();
 		}
 	}
+
+	this.changeLighting = function(lighting, gouraud){
+		if(lighting)
+			for(var i = 0; i < this._children.length; i++){
+				this._children[i].changeLighting();
+			}
+		else
+			for(var i = 0; i < this._children.length; i++){
+				this._children[i].changeSombreamento(gouraud);
+			}
+	}
+
+	this.changeSombreamento = function(gouraud){
+		for(var i = 0; i < this._children.length; i++){
+				this._children[i].changeSombreamento(gouraud);
+			}
+	}
 }

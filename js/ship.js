@@ -82,9 +82,6 @@ var Ship = function(){
 		this._mesh = new THREE.Mesh(this._geometry, this._material);
 		this._mesh.position.set(x, y, z);
 
-		//this._mesh.castShadow = true;
-		//this._mesh.receiveShadow = true;
-
 		this._ship.add(this._mesh);
 	}
 
@@ -96,9 +93,6 @@ var Ship = function(){
 		this._mesh = new THREE.Mesh(this._geometry, this._material);
 		this._mesh.position.set(x, y, z);
 		this._mesh.scale.set(0.2, 0.2, 0.2);
-
-		//this._mesh.castShadow = true;
-		//this._mesh.receiveShadow = true;
 
 		this._ship.add(this._mesh);
 	}
@@ -113,9 +107,6 @@ var Ship = function(){
 
 		var axis = new THREE.Vector3(0, 1, 0);
 		this._mesh.rotateOnAxis(axis, Math.PI/4);
-
-		//this._mesh.castShadow = true;
-		//this._mesh.receiveShadow = true;
 
 		this._ship.add(this._mesh);
 	}
@@ -132,9 +123,6 @@ var Ship = function(){
 		this._mesh.rotateOnAxis(axis, -5*Math.PI/4);
 		this._mesh.position.set(x, y, z);
 
-		//this._mesh.castShadow = true;
-		//this._mesh.receiveShadow = true;
-
 		this._ship.add(this._mesh);
 	}
 
@@ -150,9 +138,6 @@ var Ship = function(){
 		this._mesh.rotateOnAxis(axis, Math.PI/4);
 		this._mesh.position.set(x-(Math.sqrt(2)/2), y, z-(Math.sqrt(2)/2));
 
-		//this._mesh.castShadow = true;
-		//this._mesh.receiveShadow = true;
-
 		this._ship.add(this._mesh);
 	}
 
@@ -167,9 +152,6 @@ var Ship = function(){
 		this._mesh.rotateOnAxis(axis, -Math.PI/2);
 		this._mesh.position.set(x, y, z);
 		this._mesh.translateZ(-0.5);
-
-		//this._mesh.castShadow = true;
-		//this._mesh.receiveShadow = true;
 
 		this._ship.add(this._mesh);
 	}

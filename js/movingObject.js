@@ -7,6 +7,7 @@ var MovingObject = function(){
 	this._box;
 	this._sphere;
 
+	this._materials = [];
 	this._material;
 	this._geometry;
 	this._mesh;
@@ -36,4 +37,8 @@ var MovingObject = function(){
 			object.material.wireframe = !object.material.wireframe;
 		}
 	}
+
+	this.changeLighting = function(){}
+
+	this.changeSombreamento = function(gouraud){}
 }

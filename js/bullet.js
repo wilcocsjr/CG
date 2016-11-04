@@ -6,13 +6,19 @@ var Bullet = function(){
 	this._bullet = this._movingObject;
 
 	this.createBullet = function(x, y, z){
-		_material = new THREE.MeshBasicMaterial({color:0x00FF00, wireframe:false});
-		_geometry = new THREE.CylinderGeometry(0.5,0.5,5);
-		_mesh = new THREE.Mesh(_geometry, _material);
 
-		_mesh.position.set(0, 0, 0);
+		this._materials.push(new THREE.MeshBasicMaterial({color:0x00FF00, wireframe:false}));
 
-		this._bullet.add(_mesh);
+		this._materials.push(new THREE.MeshLambertMaterial({color:0x00FF00, wireframe:false}));
+
+		this._materials.push(new THREE.MeshPhongMaterial({color:0x00FF00, wireframe:false}));
+
+		this._geometry = new THREE.CylinderGeometry(0.5,0.5,5);
+		this._mesh = new THREE.Mesh(this._geometry, this._materials[this._materials.length - 2]);
+
+		this._mesh.position.set(0, 0, 0);
+
+		this._bullet.add(this._mesh);
 
 		this._bullet.position.set(x,y,z);
 

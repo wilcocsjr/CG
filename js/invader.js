@@ -67,4 +67,23 @@ var Invader = function(){
 	 this.reflectDirectionSides = function(){
 		this._direction = (Math.PI) - this._direction;
      }
+
+     this.changeLighting = function(){
+     	for(var i=0; i < this._movingObject.children.length - 1; i++){
+			var object = this._movingObject.children[i];
+
+			object.material = this._materials[3*i];
+     	}
+    }
+
+     this.changeSombreamento = function(gouraud){
+     	for(var i=0; i < this._movingObject.children.length - 1; i++){
+			var object = this._movingObject.children[i];
+
+			if(gouraud == true)
+				object.material = this._materials[3 * (i + 1) - 1];
+			else
+				object.material = this._materials[3 * (i + 1) - 2];
+		}
+     }
 }
