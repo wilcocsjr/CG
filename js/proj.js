@@ -1,6 +1,29 @@
 /*global THREE*/
 
 
+/* Para fazer as malhas
+ 
+ var xyz = new geometry()
+ var xpto = new Mesh()
+ xyz.merge(xpto.geometry, xpto.matrix)
+ 
+ Vector de vertices
+ Vector de faces
+ Cuidado com as normais
+ 
+ Nao exagerar no numero de pontos
+ 
+ */
+
+/* Mudança de Materiais
+ 
+ clicar no L muda entre MeshBasicMaterial e LamberMaterial/PhongMaterial
+ 
+ clicar no G muda entre LambertMaterial e PhongMaterial
+ 
+ */
+
+
 var camera, scene, renderer;
 var board, ship, collision;
 var oldClock, now;
@@ -60,22 +83,27 @@ function fillplights(){
 }
 	plights[0][0]= 40;
 	plights[0][1]= 0;
-	plights[0][2]= 0;
+	plights[0][2]= 20;
+    
 	plights[1][0]= 80;
 	plights[1][1]= 80;
-	plights[1][2]= 0;
+	plights[1][2]= 20;
+    
 	plights[2][0]= -80;
 	plights[2][1]= 80;
-	plights[2][2]= 0;
+	plights[2][2]= 20;
+    
 	plights[3][0]= 80;
 	plights[3][1]= -80;
-	plights[3][2]= 0;
+	plights[3][2]= 20;
+    
 	plights[4][0]= -80;
 	plights[4][1]= -80;
-	plights[4][2]= 0;
+	plights[4][2]= 20;
+    
 	plights[5][0]= -40;
 	plights[5][1]= 0;
-	plights[5][2]= 0;
+	plights[5][2]= 20;
 
 
 }
@@ -110,7 +138,7 @@ function createPointLight(x, y, z){
 	mesh.position.set(x, y, z);
 	starobject.add(mesh);
 
-    var star = new THREE.PointLight(0xffffff, 2, 200); 
+    var star = new THREE.PointLight(0xffffff, 2, 200, 2); 
     star.position.set(x, y, 1);
     star.castShadow = true;
     star.shadow.camera.near = -10;
