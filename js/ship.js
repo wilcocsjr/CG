@@ -76,13 +76,35 @@ var Ship = function(){
 
 	this.addBody = function(x, y, z){
 		'use strict';
-		this._material = new THREE.MeshLambertMaterial({color: 0xcacaca, wireframe:false});
+		var meshes = [], geometry, material, mesh;
+
+		geometry = new THREE.CubeGeometry(10, 20, 8);
+		material = new THREE.MeshLambertMaterial({color: 0xcacaca, wireframe:false});
+		mesh = new THREE.Mesh(geometry, material);
+		meshes.push(mesh);
+
+		geometry = this.mergeMeshes(meshes);
+		mesh = new THREE.Mesh(geometry, material);
+		this._ship.add(mesh);
+
+		/*this._material = new THREE.MeshLambertMaterial({color: 0xcacaca, wireframe:false});
 
 		this._geometry = new THREE.CubeGeometry(10, 20, 8);
 		this._mesh = new THREE.Mesh(this._geometry, this._material);
 		this._mesh.position.set(x, y, z);
 
-		this._ship.add(this._mesh);
+		this._ship.add(this._mesh);*/
+	}
+
+	this.mergeMeshes = function(meshes) {
+	  var combined = new THREE.Geometry();
+
+	  for (var i = 0; i < meshes.length; i++) {
+	    meshes[i].updateMatrix();
+	    combined.merge(meshes[i].geometry, meshes[i].matrix);
+	  }
+
+	  return combined;
 	}
 
 	this.addEngine = function(x, y, z){
@@ -129,6 +151,24 @@ var Ship = function(){
 
 	this.addRightWing = function(x, y, z){
 		'use strict'; 
+
+		/*var geom = new THREE.Geometry(); 
+		var v1 = new THREE.Vector3(0,0,0);
+		var v2 = new THREE.Vector3(0,10,0);
+		var v3 = new THREE.Vector3(10,10,0);
+
+		geom.vertices.push(v1);
+		geom.vertices.push(v2);
+		geom.vertices.push(v3);
+
+		geom.faces.push( new THREE.Face3( 0, 1, 2 ) );
+		geom.computeFaceNormals();
+
+		var object = new THREE.Mesh( geom, new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:false}) );
+
+		object.rotation.y = -Math.PI * .5;//triangle is pointing in depth, rotate it -90 degrees on Y
+
+		this._ship.add(object);*/
 		this._material = new THREE.MeshLambertMaterial({color: 0xaa5555, wireframe:false});
 
 		this._geometry = this.buildWing();
