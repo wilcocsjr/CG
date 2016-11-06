@@ -128,7 +128,7 @@ var Ship = function(){
 
 
 	this.addRightWing = function(x, y, z){
-		'use strict';
+		'use strict'; 
 		this._material = new THREE.MeshLambertMaterial({color: 0xaa5555, wireframe:false});
 
 		this._geometry = this.buildWing();
