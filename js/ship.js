@@ -5,8 +5,8 @@ var Ship = function(){
 
 	this._ship = this._movingObject;
 
-	/* var old_changeWireframe = this.changeWireframe; 
-	// caso seja preciso acrescentar o changeWireframe da bala */
+	var old_changeLighting = this.changeLighting;
+	var old_changeSombreamento = this.changeSombreamento;
 
 	this._acceleration = 0.0005;
 	this._velocity = 0;
@@ -245,5 +245,17 @@ var Ship = function(){
 	this.collidesWith = function(){
 		this._velocity = 0;
 	}
+
+	this.changeLighting = function(){
+		if(this._bullet_shooted)
+			this._bullet.changeLighting();
+		//old_changeLighting.call(this)
+	}
+
+    this.changeSombreamento = function(gouraud){
+    	if(this._bullet_shooted)
+			this._bullet.changeSombreamento(gouraud);
+		//old_changeSombreamento.call(this, gouraud);
+    }
 }
 

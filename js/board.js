@@ -103,7 +103,11 @@ var Board = function(){
 
 	this.aliensInLimits = function(){
 		for(var i = 1; i < this.getNumberOfChildren(); i++){
-			if(!this.x_Limits(this.getChildObject(i)))
+			if (!this.x_Limits(this.getChildObject(i)) && !this.y_Limits(this.getChildObject(i))){
+				scene.remove(this.getChildObject(i));
+				this.removeChild(i);
+			}
+			else if(!this.x_Limits(this.getChildObject(i)))
 				this.getChild(i).reflectDirectionSides();
 
             else if(!this.y_Limits(this.getChildObject(i)))

@@ -335,6 +335,8 @@ function onKeyDown(e){
         case 82: // R retart game
         	board.restartBoard();
             scene.add(dLight);
+            for (var i = 0; i < stars.length; i++)
+        		scene.add(stars[i]);
         	camera = camera_1;
         	camera_ort = true;
         	camera_pers = false;
