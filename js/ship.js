@@ -66,8 +66,8 @@ var Ship = function(){
 		this.addLeftWing( -5, 10, 4);
 		this.addRightWing( 5, 10, 4);
 		this.addTopWing( 0, 10, 4);
-		this.addEngine( 2.5, -10, 0);
-		this.addEngine( -2.5, -10, 0);
+		/*this.addEngine( 2.5, -10, 0);
+		this.addEngine( -2.5, -10, 0);*/
 
 		this._ship.position.set(x, y, z);
 
