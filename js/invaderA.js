@@ -23,11 +23,11 @@ var InvaderA = function(){
 
 	this.addHead = function(x, y, z){
 
-		this._materials.push(new THREE.MeshBasicMaterial({color:0x004e00, wireframe:false}));
+		this._materials.push(new THREE.MeshBasicMaterial({color:0x004e00}));
 
-		this._materials.push(new THREE.MeshLambertMaterial({color:0x004e00, wireframe:false}));
+		this._materials.push(new THREE.MeshLambertMaterial({color:0x004e00}));
 
-		this._materials.push(new THREE.MeshPhongMaterial({color:0x004e00, wireframe:false}));
+		this._materials.push(new THREE.MeshPhongMaterial({color:0x004e00, specular: 0x000000, shininess: 100}));
 
 		this._geometry = new THREE.CubeGeometry(10, 5, 5);
 		this._mesh = new THREE.Mesh(this._geometry, this._materials[this._materials.length - 2]);
@@ -39,11 +39,11 @@ var InvaderA = function(){
 
 	this.addHorn = function(x,y,z){
 
-		this._materials.push(new THREE.MeshBasicMaterial({color:0xc3c3c3, wireframe:false}));
+		this._materials.push(new THREE.MeshBasicMaterial({color:0xc3c3c3}));
 
-		this._materials.push(new THREE.MeshLambertMaterial({color:0xc3c3c3, wireframe:false}));
+		this._materials.push(new THREE.MeshLambertMaterial({color:0xc3c3c3}));
 
-		this._materials.push(new THREE.MeshPhongMaterial({color:0xc3c3c3, wireframe:false}));
+		this._materials.push(new THREE.MeshPhongMaterial({color:0xc3c3c3, specular: 0xffffff, shininess: 100}));
 
 		this._geometry = new THREE.CylinderGeometry(0, 1.5, 5, 10, false);
 		this._mesh = new THREE.Mesh(this._geometry, this._materials[this._materials.length - 2]);
@@ -55,11 +55,11 @@ var InvaderA = function(){
 
 	this.addEye = function(x,y,z){
 
-		this._materials.push(new THREE.MeshBasicMaterial({color:0xaf0000, wireframe:false}));
+		this._materials.push(new THREE.MeshBasicMaterial({color:0xaf0000}));
 
-		this._materials.push(new THREE.MeshLambertMaterial({color:0xaf0000, wireframe:false}));
+		this._materials.push(new THREE.MeshLambertMaterial({color:0xaf0000}));
 
-		this._materials.push(new THREE.MeshPhongMaterial({color:0xaf0000, wireframe:false}));
+		this._materials.push(new THREE.MeshPhongMaterial({color:0xaf0000, specular: 0xffffff, shininess: 100}));
 
 		this._geometry = new THREE.CylinderGeometry(1, 1, 0, 0, false);
 		this._mesh = new THREE.Mesh(this._geometry, this._materials[this._materials.length - 2]);
@@ -73,11 +73,11 @@ var InvaderA = function(){
 
 	this.addMouth = function(x,y,z){
 
-		this._materials.push(new THREE.MeshBasicMaterial({color:0xa1e1e1e, wireframe:false}));
+		this._materials.push(new THREE.MeshBasicMaterial({color:0xa1e1e1e}));
 
-		this._materials.push(new THREE.MeshLambertMaterial({color:0xa1e1e1e, wireframe:false}));
+		this._materials.push(new THREE.MeshLambertMaterial({color:0xa1e1e1e}));
 
-		this._materials.push(new THREE.MeshPhongMaterial({color:0xa1e1e1e, wireframe:false}));
+		this._materials.push(new THREE.MeshPhongMaterial({color:0xa1e1e1e, specular: 0xffffff, shininess: 100}));
 
 		this._geometry = new THREE.CylinderGeometry(1, 1, 0, 0, false);
 		this._mesh = new THREE.Mesh(this._geometry, this._materials[this._materials.length - 2]);
@@ -91,11 +91,11 @@ var InvaderA = function(){
 
 	this.addEar = function(x,y,z){
 
-		this._materials.push(new THREE.MeshBasicMaterial({color:0x3232ff, wireframe:false}));
+		this._materials.push(new THREE.MeshBasicMaterial({color:0x3232ff}));
 
-		this._materials.push(new THREE.MeshLambertMaterial({color:0x3232ff, wireframe:false}));
+		this._materials.push(new THREE.MeshLambertMaterial({color:0x3232ff}));
 
-		this._materials.push(new THREE.MeshPhongMaterial({color:0x3232ff, wireframe:false}));
+		this._materials.push(new THREE.MeshPhongMaterial({color:0x3232ff, specular: 0xffffff, shininess: 100}));
 
 		this._geometry = new THREE.SphereGeometry(2, 10, 10);
 		this._mesh = new THREE.Mesh(this._geometry, this._materials[this._materials.length - 2]);
