@@ -76,35 +76,45 @@ var Ship = function(){
 
 	this.addBody = function(x, y, z){
 		'use strict';
-		var meshes = [], geometry, material, mesh;
+		var geom = new THREE.Geometry(); 
+		var v1 = new THREE.Vector3(-5,10,4);
+		var v2 = new THREE.Vector3(5,10,4);
+		var v3 = new THREE.Vector3(-5,-10,4);		
+		var v4 = new THREE.Vector3(5,-10,4);
+		var v5 = new THREE.Vector3(-5,10,-4);
+		var v6 = new THREE.Vector3(5,10,-4);
+		var v7 = new THREE.Vector3(-5,-10,-4);		
+		var v8 = new THREE.Vector3(5,-10,-4);
 
-		geometry = new THREE.CubeGeometry(10, 20, 8);
-		material = new THREE.MeshLambertMaterial({color: 0xcacaca, wireframe:false});
-		mesh = new THREE.Mesh(geometry, material);
-		meshes.push(mesh);
 
-		geometry = this.mergeMeshes(meshes);
-		mesh = new THREE.Mesh(geometry, material);
-		this._ship.add(mesh);
+		geom.vertices.push(v1);
+		geom.vertices.push(v2);
+		geom.vertices.push(v3);
+		geom.vertices.push(v4);
+		geom.vertices.push(v5);
+		geom.vertices.push(v6);
+		geom.vertices.push(v7);
+		geom.vertices.push(v8);
 
-		/*this._material = new THREE.MeshLambertMaterial({color: 0xcacaca, wireframe:false});
+		geom.faces.push(new THREE.Face3(1,0,2));
+		geom.faces.push(new THREE.Face3(2,3,1));
+		geom.faces.push(new THREE.Face3(5,7,6));
+		geom.faces.push(new THREE.Face3(6,4,5));
+		geom.faces.push(new THREE.Face3(7,3,2));
+		geom.faces.push(new THREE.Face3(2,6,7));
+		geom.faces.push(new THREE.Face3(4,0,1));
+		geom.faces.push(new THREE.Face3(1,5,4));
+		geom.faces.push(new THREE.Face3(1,3,7));
+		geom.faces.push(new THREE.Face3(7,5,1));
+		geom.faces.push(new THREE.Face3(2,0,4));
+		geom.faces.push(new THREE.Face3(4,6,2));
 
-		this._geometry = new THREE.CubeGeometry(10, 20, 8);
-		this._mesh = new THREE.Mesh(this._geometry, this._material);
-		this._mesh.position.set(x, y, z);
+		geom.computeFaceNormals();
 
-		this._ship.add(this._mesh);*/
-	}
+		var object = new THREE.Mesh( geom, new THREE.MeshBasicMaterial({color: 0xcacaca, wireframe:false}) );
 
-	this.mergeMeshes = function(meshes) {
-	  var combined = new THREE.Geometry();
-
-	  for (var i = 0; i < meshes.length; i++) {
-	    meshes[i].updateMatrix();
-	    combined.merge(meshes[i].geometry, meshes[i].matrix);
-	  }
-
-	  return combined;
+		object.position.set(x, y, z);
+		this._ship.add(object);
 	}
 
 	this.addEngine = function(x, y, z){
@@ -121,90 +131,115 @@ var Ship = function(){
 
 	this.addCockpit = function(x, y, z){
 		'use strict';
-		this._material = new THREE.MeshLambertMaterial({color: 0xcacaca, wireframe:false});
+		var geom = new THREE.Geometry(); 
+		var v1 = new THREE.Vector3(-4,4,2.5);
+		var v2 = new THREE.Vector3(4,4,2.5);
+		var v3 = new THREE.Vector3(-4,-4,2.5);		
+		var v4 = new THREE.Vector3(4,-4,2.5);
+		var v5 = new THREE.Vector3(-2,2,-2.5);
+		var v6 = new THREE.Vector3(2,2,-2.5);
+		var v7 = new THREE.Vector3(-2,-2,-2.5);		
+		var v8 = new THREE.Vector3(2,-2,-2.5);
 
-		this._geometry = new THREE.CylinderGeometry(2, 5, 5, 4, false);
-		this._mesh = new THREE.Mesh(this._geometry, this._material);
-		this._mesh.position.set(x, y, z);
 
-		var axis = new THREE.Vector3(0, 1, 0);
-		this._mesh.rotateOnAxis(axis, Math.PI/4);
+		geom.vertices.push(v1);
+		geom.vertices.push(v2);
+		geom.vertices.push(v3);
+		geom.vertices.push(v4);
+		geom.vertices.push(v5);
+		geom.vertices.push(v6);
+		geom.vertices.push(v7);
+		geom.vertices.push(v8);
 
-		this._ship.add(this._mesh);
+		geom.faces.push(new THREE.Face3(1,0,2));
+		geom.faces.push(new THREE.Face3(2,3,1));
+		geom.faces.push(new THREE.Face3(5,7,6));
+		geom.faces.push(new THREE.Face3(6,4,5));
+		geom.faces.push(new THREE.Face3(7,3,2));
+		geom.faces.push(new THREE.Face3(2,6,7));
+		geom.faces.push(new THREE.Face3(4,0,1));
+		geom.faces.push(new THREE.Face3(1,5,4));
+		geom.faces.push(new THREE.Face3(1,3,7));
+		geom.faces.push(new THREE.Face3(7,5,1));
+		geom.faces.push(new THREE.Face3(2,0,4));
+		geom.faces.push(new THREE.Face3(4,6,2));
+
+		geom.computeFaceNormals();
+
+		var object = new THREE.Mesh( geom, new THREE.MeshBasicMaterial({color: 0xcacaca, wireframe:false}) );
+		var axis = new THREE.Vector3(1, 0, 0);
+		object.rotateOnAxis(axis, Math.PI/2);
+		object.position.set(x, y, z);
+		this._ship.add(object);
 	}
 
 	this.addLeftWing = function(x, y, z){
 		'use strict';
-		this._material = new THREE.MeshLambertMaterial({color: 0xaa5555, wireframe:false});
-
-		
-		this._geometry = this.buildWing();
-		this._mesh = new THREE.Mesh(this._geometry, this._material);
-		
+		var object = this.buildWing();
 		var axis = new THREE.Vector3(0, 1, 0);
-		this._mesh.rotateOnAxis(axis, -5*Math.PI/4);
-		this._mesh.position.set(x, y, z);
+		object.rotateOnAxis(axis, -5*Math.PI/4);
+		object.position.set(x+0.5, y, z-0.5);
 
-		this._ship.add(this._mesh);
+		this._ship.add(object);
 	}
 
 
 	this.addRightWing = function(x, y, z){
 		'use strict'; 
-
-		/*var geom = new THREE.Geometry(); 
-		var v1 = new THREE.Vector3(0,0,0);
-		var v2 = new THREE.Vector3(0,10,0);
-		var v3 = new THREE.Vector3(10,10,0);
-
-		geom.vertices.push(v1);
-		geom.vertices.push(v2);
-		geom.vertices.push(v3);
-
-		geom.faces.push( new THREE.Face3( 0, 1, 2 ) );
-		geom.computeFaceNormals();
-
-		var object = new THREE.Mesh( geom, new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:false}) );
-
-		object.rotation.y = -Math.PI * .5;//triangle is pointing in depth, rotate it -90 degrees on Y
-
-		this._ship.add(object);*/
-		this._material = new THREE.MeshLambertMaterial({color: 0xaa5555, wireframe:false});
-
-		this._geometry = this.buildWing();
-		this._mesh = new THREE.Mesh(this._geometry, this._material);
-		
+		var object = this.buildWing();
 		var axis = new THREE.Vector3(0, 1, 0);
-		this._mesh.rotateOnAxis(axis, Math.PI/4);
-		this._mesh.position.set(x-(Math.sqrt(2)/2), y, z-(Math.sqrt(2)/2));
-
-		this._ship.add(this._mesh);
+		object.rotateOnAxis(axis, Math.PI/4);
+		object.position.set(x-0.5,y,z-0.5);
+		this._ship.add(object);
 	}
 
 	this.addTopWing = function(x, y, z){
 		'use strict';
-		this._material = new THREE.MeshLambertMaterial({color: 0xaa5555, wireframe:false});
-
-		this._geometry = this.buildWing();
-		this._mesh = new THREE.Mesh(this._geometry, this._material);
-		
+		var object = this.buildWing();
 		var axis = new THREE.Vector3(0, 1, 0);
-		this._mesh.rotateOnAxis(axis, -Math.PI/2);
-		this._mesh.position.set(x, y, z);
-		this._mesh.translateZ(-0.5);
+		object.rotateOnAxis(axis, -Math.PI/2);
+		object.position.set(x, y, z);
 
-		this._ship.add(this._mesh);
+		this._ship.add(object);
 	}
 
 	this.buildWing = function(){
-		var triangleShape = new THREE.Shape();
-		triangleShape.moveTo(0, 0);
-		triangleShape.lineTo(10, -10);
-		triangleShape.lineTo(10, -20); 
-		triangleShape.lineTo(0, -20); 
-		triangleShape.lineTo(0, 0);
-		var extrudeSettings = {amount: 1, bevelEnabled: false, bevelSegments: 1, steps: 1, bevelSize: 1, bevelThickness: 1};
-		return new THREE.ExtrudeGeometry(triangleShape, extrudeSettings);
+		var geom = new THREE.Geometry(); 
+		var v1 = new THREE.Vector3(0,0,0.5);
+		var v2 = new THREE.Vector3(10,-10,0.5);
+		var v3 = new THREE.Vector3(0,-20,0.5);
+		var v4 = new THREE.Vector3(10,-20,0.5);		
+		var v5 = new THREE.Vector3(0,0,-0.5);
+		var v6 = new THREE.Vector3(10,-10,-0.5);	
+		var v7 = new THREE.Vector3(0,-20,-0.5);
+		var v8 = new THREE.Vector3(10,-20,-0.5);	
+
+
+		geom.vertices.push(v1);
+		geom.vertices.push(v2);
+		geom.vertices.push(v3);
+		geom.vertices.push(v4);
+		geom.vertices.push(v5);
+		geom.vertices.push(v6);
+		geom.vertices.push(v7);
+		geom.vertices.push(v8);
+
+		geom.faces.push(new THREE.Face3(1,0,2));
+		geom.faces.push(new THREE.Face3(2,3,1));
+		geom.faces.push(new THREE.Face3(5,7,6));
+		geom.faces.push(new THREE.Face3(6,4,5));
+		geom.faces.push(new THREE.Face3(7,3,2));
+		geom.faces.push(new THREE.Face3(2,6,7));
+		geom.faces.push(new THREE.Face3(4,0,1));
+		geom.faces.push(new THREE.Face3(1,5,4));
+		geom.faces.push(new THREE.Face3(1,3,7));
+		geom.faces.push(new THREE.Face3(7,5,1));
+		geom.faces.push(new THREE.Face3(2,0,4));
+		geom.faces.push(new THREE.Face3(4,6,2));
+
+		geom.computeFaceNormals();
+
+		return new THREE.Mesh( geom, new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:false}) );
 	}
 
 	this.shoot = function(){

@@ -48,7 +48,6 @@ function init(){
 	window.addEventListener("resize", onResize);
 	window.addEventListener("keydown", onKeyDown);
 	window.addEventListener("keyup", onKeyUp);
-
     // Create Lights
     fillplights();
     createLight();
