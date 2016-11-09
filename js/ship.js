@@ -111,7 +111,12 @@ var Ship = function(){
 
 		geom.computeFaceNormals();
 
-		var object = new THREE.Mesh( geom, new THREE.MeshBasicMaterial({color: 0xcacaca, wireframe:false}) );
+		this._materials.push(new THREE.MeshBasicMaterial({color: 0xcacaca}));
+		this._materials.push(new THREE.MeshLambertMaterial({color: 0xcacaca}));
+		this._materials.push(new THREE.MeshPhongMaterial({color: 0xcacaca, specular: 0xffffff, shininess: 100}));
+
+
+		var object = new THREE.Mesh( geom, this._materials[this._materials.length - 2]);
 
 		object.position.set(x, y, z);
 		this._ship.add(object);
@@ -119,10 +124,12 @@ var Ship = function(){
 
 	this.addEngine = function(x, y, z){
 		'use strict';
-		this._material = new THREE.MeshLambertMaterial({color: 0x0077ee, wireframe:false});
+		this._materials.push(new THREE.MeshBasicMaterial({color: 0x0077ee}));
+		this._materials.push(new THREE.MeshLambertMaterial({color: 0x0077ee}));
+		this._materials.push(new THREE.MeshPhongMaterial({color: 0x0077ee, specular: 0xffffff, shininess: 100}));
 
 		this._geometry = new THREE.SphereGeometry(10, 10, 10);
-		this._mesh = new THREE.Mesh(this._geometry, this._material);
+		this._mesh = new THREE.Mesh(this._geometry, this._materials[this._materials.length - 2]);
 		this._mesh.position.set(x, y, z);
 		this._mesh.scale.set(0.2, 0.2, 0.2);
 
@@ -166,7 +173,11 @@ var Ship = function(){
 
 		geom.computeFaceNormals();
 
-		var object = new THREE.Mesh( geom, new THREE.MeshBasicMaterial({color: 0xcacaca, wireframe:false}) );
+		this._materials.push(new THREE.MeshBasicMaterial({color: 0xcacaca}));
+		this._materials.push(new THREE.MeshLambertMaterial({color: 0xcacaca}));
+		this._materials.push(new THREE.MeshPhongMaterial({color: 0xcacaca, specular: 0xffffff, shininess: 100}));
+
+		var object = new THREE.Mesh( geom, this._materials[this._materials.length - 2]);
 		var axis = new THREE.Vector3(1, 0, 0);
 		object.rotateOnAxis(axis, Math.PI/2);
 		object.position.set(x, y, z);
@@ -239,7 +250,11 @@ var Ship = function(){
 
 		geom.computeFaceNormals();
 
-		return new THREE.Mesh( geom, new THREE.MeshBasicMaterial({color: 0xaa5555, wireframe:false}) );
+		this._materials.push(new THREE.MeshBasicMaterial({color: 0xaa5555}));
+		this._materials.push(new THREE.MeshLambertMaterial({color: 0xaa5555}));
+		this._materials.push(new THREE.MeshPhongMaterial({color: 0xaa5555, specular: 0xffffff, shininess: 100}));
+
+		return new THREE.Mesh( geom, this._materials[this._materials.length - 2]);
 	}
 
 	this.shoot = function(){
@@ -324,13 +339,13 @@ var Ship = function(){
 	this.changeLighting = function(){
 		if(this._bullet_shooted)
 			this._bullet.changeLighting();
-		//old_changeLighting.call(this)
+		old_changeLighting.call(this);
 	}
 
     this.changeSombreamento = function(gouraud){
     	if(this._bullet_shooted)
 			this._bullet.changeSombreamento(gouraud);
-		//old_changeSombreamento.call(this, gouraud);
+		old_changeSombreamento.call(this, gouraud);
     }
 }
 

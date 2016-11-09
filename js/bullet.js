@@ -14,7 +14,7 @@ var Bullet = function(){
 		this._materials.push(new THREE.MeshPhongMaterial({color:0x00FF00, specular: 0xffffff, shininess: 100}));
 
 		this._geometry = new THREE.CylinderGeometry(0.5,0.5,5);
-		this._mesh = new THREE.Mesh(this._geometry, this._materials[this._materials.length - 2]);
+		this._mesh = new THREE.Mesh(this._geometry, this._materials[this._materials.length - 3]);
 
 		this._mesh.position.set(0, 0, 0);
 
@@ -30,6 +30,10 @@ var Bullet = function(){
 	}
 
 	this.changeWireframe = function(){}
+
+	this.changeLighting = function(){}
+
+    this.changeSombreamento = function(gouraud){}
 
 	this.collidesWith = function(scene, board, ship, alien_number){
 		scene.remove(ship.getBullet().getObject());
