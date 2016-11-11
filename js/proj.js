@@ -22,6 +22,7 @@ var shotSound, killSound, themeSound, playing;
 var rotated1, rotated2;
 var dLight, day, stars = [], starOn, plights = [];
 var sombreamentoGouraud, lighting;
+var stop;
 
 function init(){
 	'use strict';
@@ -152,6 +153,7 @@ function createScene(){
 
 	sombreamentoGouraud = true;
 	lighting = true;
+	stop = false;
 
 	collision = new Collision();
 }
@@ -260,9 +262,11 @@ function onKeyDown(e){
 
 	switch(e.keyCode){
 		case 65: // A change wireframe
+			if(stop) break;
 			board.changeWireframe();
 			break;
 		case 66: // B shoot
+			if(stop) break;
 			if (ship.shoot()){
 				scene.add(ship.getBullet().getObject());
 				shotSound.currentTime = 0;
@@ -270,6 +274,7 @@ function onKeyDown(e){
 			}
 			break;
         case 67: // C stars
+        	if(stop) break;
 			for(var i = 0; i < stars.length; i++){
                 if(starOn)
                     scene.remove(stars[i]);
@@ -279,40 +284,48 @@ function onKeyDown(e){
             starOn = !starOn;
 			break;
 		case 71: // G change between Gouraud and Phong
+			if(stop) break;
 			if(lighting){
 				board.changeSombreamento(sombreamentoGouraud);
 				sombreamentoGouraud = !sombreamentoGouraud;
 			}
 			break;
 		case 37: // left
+			if(stop) break;
 			ship.turnOnLeftEngine();
         	break;
         case 39: // right
+        	if(stop) break;
         	ship.turnOnRightEngine();
         	break;
         case 49: // 1 camera1
+        	if(stop) break;
         	cameraRotateBack();
         	camera = camera_1;
         	camera_ort = true;
         	camera_pers = false;
         	break;
         case 50: // 2 camera2
+        	if(stop) break;
         	cameraRotateFront();
         	camera = camera_2;
         	camera_pers = true;
         	camera_ort = false;
         	break;
         case 51: // 3 camera3
+        	if(stop) break;
         	cameraRotateFront();
         	camera = camera_3;
         	camera_pers = true;
         	camera_ort = false;
         	break;
         case 76: // L enable/disable lighting
+        	if(stop) break;
         	board.changeLighting(lighting, !sombreamentoGouraud);
         	lighting = !lighting;
         	break;
         case 77: // M music
+        	if(stop) break;
         	if(playing)
         		themeSound.pause();
         	else
@@ -320,6 +333,7 @@ function onKeyDown(e){
         	playing = !playing;
         	break;
         case 78: // N day/night
+        	if(stop) break;
         	if(day)
         		scene.remove(dLight);
         	else
@@ -327,6 +341,7 @@ function onKeyDown(e){
             day = !day;
         	break;
         case 82: // R retart game
+        	if(stop) break;
         	board.restartBoard();
             scene.add(dLight);
             for (var i = 0; i < stars.length; i++)
@@ -337,6 +352,8 @@ function onKeyDown(e){
         	rotated1 = true;
 			rotated2 = false;
         	break;
+        case 83:
+        	stop = !stop;
         default:
         	break;
 	}
@@ -368,21 +385,24 @@ function animate(){
 	delta = now - oldClock;
 	oldClock = now;
 
-	board.shipMove();
+	if(!stop){
 
-	if (ship.getBulletBoll()){
-		if (board.y_Limits(ship.getBullet().getObject())){
-			ship.getBullet().move();
-			collision.checkBulletCollisions(ship, board, killSound);
+		board.shipMove();
+
+		if (ship.getBulletBoll()){
+			if (board.y_Limits(ship.getBullet().getObject())){
+				ship.getBullet().move();
+				collision.checkBulletCollisions(ship, board, killSound);
+			}
+			else{
+				scene.remove(ship.getBullet().getObject());
+				ship.setBulletFalse();
+			}	
 		}
-		else{
-			scene.remove(ship.getBullet().getObject());
-			ship.setBulletFalse();
-		}	
-	}
 
-	collision.checkAlienCollisions(board);
-	board.aliensMove();
+		collision.checkAlienCollisions(board);
+		board.aliensMove();
+	}
 	
 	render();
 	requestAnimationFrame(animate);
