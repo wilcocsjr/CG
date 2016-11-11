@@ -1,20 +1,15 @@
 /*global THREE*/
 
 
-/* Para fazer as malhas
- 
- var xyz = new geometry()
- var xpto = new Mesh()
- xyz.merge(xpto.geometry, xpto.matrix)
- 
- Vector de vertices
- Vector de faces
- Cuidado com as normais
- 
- Nao exagerar no numero de pontos
- 
- O prof para a nave usou 4 para cada asa e 11 para o corpo (pontos)
- 
+/* 
+ * Adicionar HeadLight 
+ * 1)
+ * scene.add(luz.target);
+ * luz.target.position.set(...);
+ * 
+ * 2)
+ * luz.target.position.set(...);
+ * luz.target.updateMatrixWorld();
  */
 
 
