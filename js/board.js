@@ -29,11 +29,11 @@ var Board = function(){
         //texture = THREE.ImageUtils.loadTexture('http://i683.photobucket.com/albums/vv193/livingdead0666/animations/starfield.gif', {}, function() {renderer.render(scene);});
 		var mesh_floor = new THREE.Mesh(geo_floor, new THREE.MeshBasicMaterial({map: texture_floor}));
 
-		mesh_floor.position.set(0, 0, -550);
+		mesh_floor.position.set(0, 0, -100);
 
-		scene.add(mesh_floor)
-        
-        var geo_wall = new THREE.CubeGeometry(500, 500, 0);
+		scene.add(mesh_floor);
+
+        var geo_wall = new THREE.CubeGeometry(500, 0, 500);
         var texture_wall = new THREE.TextureLoader().load("textures/wall.gif");
         texture_wall.wrapS = THREE.RepeatWrapping;
         texture_wall.wrapT = THREE.RepeatWrapping;
@@ -41,9 +41,9 @@ var Board = function(){
         //texture = THREE.ImageUtils.loadTexture('http://i683.photobucket.com/albums/vv193/livingdead0666/animations/starfield.gif', {}, function() {renderer.render(scene);});
 		var mesh_wall = new THREE.Mesh(geo_wall, new THREE.MeshBasicMaterial({map: texture_wall}));
 
-		mesh_wall.position.set(0, 0, -550);
+		mesh_wall.position.set(0, 100, 0);
 
-		scene.add(mesh_wall)
+		scene.add(mesh_wall);
         
         
 		this.addBoard();
@@ -153,6 +153,10 @@ var Board = function(){
 			return true;
 		else
 			return false;
+	}
+
+	this.gameEnd = function(){
+		return true;
 	}
 
 	this.changeWireframe = function(){

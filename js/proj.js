@@ -22,7 +22,7 @@ var shotSound, killSound, themeSound, playing;
 var rotated1, rotated2;
 var dLight, day, stars = [], starOn, plights = [];
 var sombreamentoGouraud, lighting;
-var stop;
+var stop, pause_game, end_game;
 
 function init(){
 	'use strict';
@@ -354,6 +354,20 @@ function onKeyDown(e){
         	break;
         case 83:
         	stop = !stop;
+        	if (stop){
+        		if (camera_ort)
+	        		var pause = new THREE.CubeGeometry(50, 50, 0);
+	        	else
+	        		var pause = new THREE.CubeGeometry(50, 0, 50);
+	        	var texture = new THREE.TextureLoader().load("textures/pause_game.png");
+				pause_game = new THREE.Mesh(pause, new THREE.MeshBasicMaterial({map: texture}));
+
+				pause_game.position.set(0, 0, 0);
+
+				scene.add(pause_game);
+			}
+			else
+				scene.remove(pause_game);
         default:
         	break;
 	}
@@ -402,6 +416,14 @@ function animate(){
 
 		collision.checkAlienCollisions(board);
 		board.aliensMove();
+
+		if(board.gameEnd()){
+			var end = new THREE.CubeGeometry(50, 50, 0);
+	        var texture = new THREE.TextureLoader().load("textures/game_over.png");
+			end_game = new THREE.Mesh(end, new THREE.MeshBasicMaterial({map: texture}));
+
+			end_game.position.set(0, 0, 0);
+		}
 	}
 	
 	render();
