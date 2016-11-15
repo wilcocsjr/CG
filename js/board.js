@@ -19,6 +19,10 @@ var Board = function(){
 		return this._children[0];
 	}
 
+	this.getNumberOfAliens = function(){
+		return this._children.length - 1;
+	}
+
 	this.createBoard = function(){
         'use strict';
         var geo_floor = new THREE.CubeGeometry(500, 500, 0);
@@ -156,7 +160,10 @@ var Board = function(){
 	}
 
 	this.gameEnd = function(){
-		return true;
+		if (this.getShip().getLives() == 0 || this.getNumberOfAliens() == 0)
+			return true;
+		else
+			return false;
 	}
 
 	this.changeWireframe = function(){

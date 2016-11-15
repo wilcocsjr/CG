@@ -22,7 +22,7 @@ var shotSound, killSound, themeSound, playing;
 var rotated1, rotated2;
 var dLight, day, stars = [], starOn, plights = [];
 var sombreamentoGouraud, lighting;
-var stop, pause_game, end_game;
+var stop, pause_game, end_game, game_over;
 
 function init(){
 	'use strict';
@@ -154,6 +154,7 @@ function createScene(){
 	sombreamentoGouraud = true;
 	lighting = true;
 	stop = false;
+	game_over = false;
 
 	collision = new Collision();
 }
@@ -262,11 +263,11 @@ function onKeyDown(e){
 
 	switch(e.keyCode){
 		case 65: // A change wireframe
-			if(stop) break;
+			if(stop && !game_over) break;
 			board.changeWireframe();
 			break;
 		case 66: // B shoot
-			if(stop) break;
+			if(stop && !game_over) break;
 			if (ship.shoot()){
 				scene.add(ship.getBullet().getObject());
 				shotSound.currentTime = 0;
@@ -274,7 +275,7 @@ function onKeyDown(e){
 			}
 			break;
         case 67: // C stars
-        	if(stop) break;
+        	if(stop && !game_over) break;
 			for(var i = 0; i < stars.length; i++){
                 if(starOn)
                     scene.remove(stars[i]);
@@ -284,48 +285,48 @@ function onKeyDown(e){
             starOn = !starOn;
 			break;
 		case 71: // G change between Gouraud and Phong
-			if(stop) break;
+			if(stop && !game_over) break;
 			if(lighting){
 				board.changeSombreamento(sombreamentoGouraud);
 				sombreamentoGouraud = !sombreamentoGouraud;
 			}
 			break;
 		case 37: // left
-			if(stop) break;
+			if(stop && !game_over) break;
 			ship.turnOnLeftEngine();
         	break;
         case 39: // right
-        	if(stop) break;
+        	if(stop && !game_over) break;
         	ship.turnOnRightEngine();
         	break;
         case 49: // 1 camera1
-        	if(stop) break;
+        	if(stop && !game_over) break;
         	cameraRotateBack();
         	camera = camera_1;
         	camera_ort = true;
         	camera_pers = false;
         	break;
         case 50: // 2 camera2
-        	if(stop) break;
+        	if(stop && !game_over) break;
         	cameraRotateFront();
         	camera = camera_2;
         	camera_pers = true;
         	camera_ort = false;
         	break;
         case 51: // 3 camera3
-        	if(stop) break;
+        	if(stop && !game_over) break;
         	cameraRotateFront();
         	camera = camera_3;
         	camera_pers = true;
         	camera_ort = false;
         	break;
         case 76: // L enable/disable lighting
-        	if(stop) break;
+        	if(stop && !game_over) break;
         	board.changeLighting(lighting, !sombreamentoGouraud);
         	lighting = !lighting;
         	break;
         case 77: // M music
-        	if(stop) break;
+        	if(stop && !game_over) break;
         	if(playing)
         		themeSound.pause();
         	else
@@ -333,7 +334,7 @@ function onKeyDown(e){
         	playing = !playing;
         	break;
         case 78: // N day/night
-        	if(stop) break;
+        	if(stop && !game_over) break;
         	if(day)
         		scene.remove(dLight);
         	else
@@ -341,7 +342,10 @@ function onKeyDown(e){
             day = !day;
         	break;
         case 82: // R retart game
-        	if(stop) break;
+        	if(game_over)
+        		scene.remove(end_game);
+        	if(stop)
+        		scene.remove(pause_game);
         	board.restartBoard();
             scene.add(dLight);
             for (var i = 0; i < stars.length; i++)
@@ -351,10 +355,12 @@ function onKeyDown(e){
         	camera_pers = false;
         	rotated1 = true;
 			rotated2 = false;
+			stop = false;
+			game_over = false;
         	break;
         case 83:
         	stop = !stop;
-        	if (stop){
+        	if (stop && !game_over){
         		if (camera_ort)
 	        		var pause = new THREE.CubeGeometry(50, 50, 0);
 	        	else
@@ -399,7 +405,7 @@ function animate(){
 	delta = now - oldClock;
 	oldClock = now;
 
-	if(!stop){
+	if(!stop && !game_over){
 
 		board.shipMove();
 
@@ -418,11 +424,14 @@ function animate(){
 		board.aliensMove();
 
 		if(board.gameEnd()){
+			game_over = true;
 			var end = new THREE.CubeGeometry(50, 50, 0);
 	        var texture = new THREE.TextureLoader().load("textures/game_over.png");
 			end_game = new THREE.Mesh(end, new THREE.MeshBasicMaterial({map: texture}));
 
 			end_game.position.set(0, 0, 0);
+
+			scene.add(end_game);
 		}
 	}
 	
