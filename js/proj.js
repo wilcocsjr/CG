@@ -425,7 +425,10 @@ function animate(){
 
 		if(board.gameEnd()){
 			game_over = true;
-			var end = new THREE.CubeGeometry(50, 50, 0);
+			if (camera_ort)
+	        	var end = new THREE.CubeGeometry(50, 50, 0);
+	        else
+	        	var end = new THREE.CubeGeometry(50, 0, 50);
 	        var texture = new THREE.TextureLoader().load("textures/game_over.png");
 			end_game = new THREE.Mesh(end, new THREE.MeshBasicMaterial({map: texture}));
 
