@@ -346,6 +346,10 @@ function onKeyDown(e){
         		scene.remove(end_game);
         	if(stop)
         		scene.remove(pause_game);
+        	
+        	if(board.getShip().getBulletBoll())
+        		scene.remove(board.getShip().getBullet().getObject());
+
         	board.restartBoard();
             scene.add(dLight);
             for (var i = 0; i < stars.length; i++)
@@ -358,7 +362,7 @@ function onKeyDown(e){
 			stop = false;
 			game_over = false;
         	break;
-        case 83:
+        case 83: // S pause game
         	stop = !stop;
         	if (stop && !game_over){
         		if (camera_ort)
