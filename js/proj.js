@@ -263,11 +263,11 @@ function onKeyDown(e){
 
 	switch(e.keyCode){
 		case 65: // A change wireframe
-			if(stop && !game_over) break;
+			if(stop || game_over) break;
 			board.changeWireframe();
 			break;
 		case 66: // B shoot
-			if(stop && !game_over) break;
+			if(stop || game_over) break;
 			if (ship.shoot()){
 				scene.add(ship.getBullet().getObject());
 				shotSound.currentTime = 0;
@@ -275,7 +275,7 @@ function onKeyDown(e){
 			}
 			break;
         case 67: // C stars
-        	if(stop && !game_over) break;
+        	if(stop || game_over) break;
 			for(var i = 0; i < stars.length; i++){
                 if(starOn)
                     scene.remove(stars[i]);
@@ -285,48 +285,48 @@ function onKeyDown(e){
             starOn = !starOn;
 			break;
 		case 71: // G change between Gouraud and Phong
-			if(stop && !game_over) break;
+			if(stop || game_over) break;
 			if(lighting){
 				board.changeSombreamento(sombreamentoGouraud);
 				sombreamentoGouraud = !sombreamentoGouraud;
 			}
 			break;
 		case 37: // left
-			if(stop && !game_over) break;
+			if(stop || game_over) break;
 			ship.turnOnLeftEngine();
         	break;
         case 39: // right
-        	if(stop && !game_over) break;
+        	if(stop || game_over) break;
         	ship.turnOnRightEngine();
         	break;
         case 49: // 1 camera1
-        	if(stop && !game_over) break;
+        	if(stop || game_over) break;
         	cameraRotateBack();
         	camera = camera_1;
         	camera_ort = true;
         	camera_pers = false;
         	break;
         case 50: // 2 camera2
-        	if(stop && !game_over) break;
+        	if(stop || game_over) break;
         	cameraRotateFront();
         	camera = camera_2;
         	camera_pers = true;
         	camera_ort = false;
         	break;
         case 51: // 3 camera3
-        	if(stop && !game_over) break;
+        	if(stop || game_over) break;
         	cameraRotateFront();
         	camera = camera_3;
         	camera_pers = true;
         	camera_ort = false;
         	break;
         case 76: // L enable/disable lighting
-        	if(stop && !game_over) break;
+        	if(stop || game_over) break;
         	board.changeLighting(lighting, !sombreamentoGouraud);
         	lighting = !lighting;
         	break;
         case 77: // M music
-        	if(stop && !game_over) break;
+        	if(stop || game_over) break;
         	if(playing)
         		themeSound.pause();
         	else
@@ -334,7 +334,7 @@ function onKeyDown(e){
         	playing = !playing;
         	break;
         case 78: // N day/night
-        	if(stop && !game_over) break;
+        	if(stop || game_over) break;
         	if(day)
         		scene.remove(dLight);
         	else
@@ -429,7 +429,11 @@ function animate(){
 	        	var end = new THREE.CubeGeometry(50, 50, 0);
 	        else
 	        	var end = new THREE.CubeGeometry(50, 0, 50);
-	        var texture = new THREE.TextureLoader().load("textures/game_over.png");
+	        
+	        if(board.getNumberOfAliens() !=0 )
+				var texture = new THREE.TextureLoader().load("textures/game_over.png");
+			else
+				var texture = new THREE.TextureLoader().load("textures/winner.jpg");
 			end_game = new THREE.Mesh(end, new THREE.MeshBasicMaterial({map: texture}));
 
 			end_game.position.set(0, 0, 0);

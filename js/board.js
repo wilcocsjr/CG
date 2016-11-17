@@ -25,8 +25,8 @@ var Board = function(){
 
 	this.createBoard = function(){
         'use strict';
-        var geo_floor = new THREE.CubeGeometry(500, 500, 0);
-        var texture_floor = new THREE.TextureLoader().load("textures/floor.gif");
+        var geo_floor = new THREE.CubeGeometry(850, 500, 0);
+        var texture_floor = new THREE.TextureLoader().load("textures/stars.jpg");
         texture_floor.wrapS = THREE.RepeatWrapping;
         texture_floor.wrapT = THREE.RepeatWrapping;
         texture_floor.repeat.set( 4, 4 );
@@ -37,8 +37,8 @@ var Board = function(){
 
 		scene.add(mesh_floor);
 
-        var geo_wall = new THREE.CubeGeometry(500, 0, 500);
-        var texture_wall = new THREE.TextureLoader().load("textures/wall.gif");
+        var geo_wall = new THREE.CubeGeometry(850, 0, 500);
+        var texture_wall = new THREE.TextureLoader().load("textures/stars.jpg");
         texture_wall.wrapS = THREE.RepeatWrapping;
         texture_wall.wrapT = THREE.RepeatWrapping;
         texture_wall.repeat.set( 4, 4 );
