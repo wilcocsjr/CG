@@ -24,12 +24,24 @@ var Collision = function(){
 					if(intersect(alienSphere, otheralienSphere)){
                         if (board.getChildObject(i).position.x < board.getChildObject(k).position.x){
                             board.getChildObject(i).position.x -= 1;
-                            if(k > 0)
+                            if(k == 0){
+                            	scene.remove(board.getChildObject(i));
+                            	board.removeChild(i);
+                            	board.getChild(k).collidesWith();
+                            	continue;
+                            }
+                            else if(k > 0)
                                 board.getChildObject(k).position.x += 1;
                         }
                         if (board.getChildObject(i).position.x > board.getChildObject(k).position.x){
                             board.getChildObject(i).position.x += 1;
-                            if(k > 0)
+                            if(k == 0){
+                            	scene.remove(board.getChildObject(i));
+                            	board.removeChild(i);
+                            	board.getChild(k).collidesWith();
+                            	continue
+                            }
+                            else if(k > 0)
                                 board.getChildObject(k).position.x -= 1;
                         }
 						board.getChild(i).collidesWith(); 
