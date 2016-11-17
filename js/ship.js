@@ -19,6 +19,12 @@ var Ship = function(){
 	this._bullet; 
 	this._bullet_shooted = false;
 
+	this._lives;
+
+	this.getLives = function(){
+		return this._lives;
+	}
+
 	this.turnOnRightEngine = function(){
 		this._rightEngine = true;
 	}
@@ -60,6 +66,8 @@ var Ship = function(){
 
 	this.createShip = function(x, y, z){
 		'use strict';
+
+		this._lives = 3;
 
 		this.addBody( 0, 0, 0);
 		this.addCockpit( 0, 12.5, 0);
@@ -334,6 +342,7 @@ var Ship = function(){
 
 	this.collidesWith = function(){
 		this._velocity = 0;
+		this._lives -= 1;
 	}
 
 	this.changeLighting = function(){
