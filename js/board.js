@@ -25,7 +25,7 @@ var Board = function(){
 
 	this.createBoard = function(){
         'use strict';
-        var geo_floor = new THREE.CubeGeometry(850, 500, 0);
+        var geo_floor = new THREE.CubeGeometry(1500, 1500, 0);
         var texture_floor = new THREE.TextureLoader().load("textures/stars.jpg");
         texture_floor.wrapS = THREE.RepeatWrapping;
         texture_floor.wrapT = THREE.RepeatWrapping;
@@ -34,21 +34,9 @@ var Board = function(){
 		var mesh_floor = new THREE.Mesh(geo_floor, new THREE.MeshBasicMaterial({map: texture_floor}));
 
 		mesh_floor.position.set(0, 0, -100);
-
-		scene.add(mesh_floor);
-
-        var geo_wall = new THREE.CubeGeometry(850, 0, 500);
-        var texture_wall = new THREE.TextureLoader().load("textures/stars.jpg");
-        texture_wall.wrapS = THREE.RepeatWrapping;
-        texture_wall.wrapT = THREE.RepeatWrapping;
-        texture_wall.repeat.set( 4, 4 );
-        //texture = THREE.ImageUtils.loadTexture('http://i683.photobucket.com/albums/vv193/livingdead0666/animations/starfield.gif', {}, function() {renderer.render(scene);});
-		var mesh_wall = new THREE.Mesh(geo_wall, new THREE.MeshBasicMaterial({map: texture_wall}));
-
-		mesh_wall.position.set(0, 100, 0);
-
-		scene.add(mesh_wall);
+        mesh_floor.rotateX(10);
         
+		scene.add(mesh_floor);
         
 		this.addBoard();
 
