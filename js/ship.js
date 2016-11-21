@@ -342,7 +342,20 @@ var Ship = function(){
 
 	this.collidesWith = function(){
 		this._velocity = 0;
-		this._lives -= 1;
+		if(this._lives == 3){
+			document.getElementById('life2').style.display = 'none';
+			this._lives -= 1;
+		}
+		else if(this._lives == 2){
+			document.getElementById('life1').style.display = 'none';
+			this._lives -= 1;
+		}
+		else if(this._lives == 1){
+			document.getElementById('life0').style.display = 'none';
+			this._lives -= 1;
+		}
+		
+
 	}
 
 	this.changeLighting = function(){

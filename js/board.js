@@ -76,6 +76,9 @@ var Board = function(){
 	this.restartBoard = function(){
 		this.cleanBoard();
 		this.createBoard();
+		document.getElementById('life2').style.display = 'inline-block';
+		document.getElementById('life1').style.display = 'inline-block';
+		document.getElementById('life0').style.display = 'inline-block';
 	}
 
 	this.addBoard = function(){
