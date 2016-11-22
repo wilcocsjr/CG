@@ -16,9 +16,11 @@ var Ship = function(){
 
 	this._rotateValue = 0;
 
+	this._light;
 	this._bullet; 
 	this._bullet_shooted = false;
 
+	this._slintensity = 0;
 	this._lives;
 
 	this.getLives = function(){
@@ -231,7 +233,27 @@ var Ship = function(){
 
 		object.scale.set(size,size,size);
 
+		this.buildSpotlight(x,y,z,object);
+
 		this._ship.add(object);
+	}
+
+
+	this.buildSpotlight = function(x, y, z, obj){
+		this._light = new THREE.SpotLight(0xFFFFFF, this._slintensity, 75);
+		this._light.position.set(x,y,z);
+		this._light.target.position.set(x,y+5,z-50);
+		this._light.target.updateMatrixWorld();
+		obj.add(this._light);
+	}
+
+	this.turnOnSpotlight = function(){
+		this._slintensity = 50;
+		this._light.intensity = this._slintensity;
+	}
+	this.turnOffSpotlight = function(){
+		this._slintensity = 0;
+		this._light.intensity = this._slintensity;
 	}
 
 	this.buildWing = function(){

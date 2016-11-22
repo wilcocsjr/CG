@@ -20,7 +20,7 @@ var delta;
 var camera_1, camera_2, camera_3, camera_ort, camera_pers;
 var shotSound, killSound, themeSound, playing;
 var rotated1, rotated2;
-var dLight, day, stars = [], starOn, plights = [];
+var dLight, day, stars = [], starOn, plights = [], headlight;
 var sombreamentoGouraud, lighting;
 var stop, pause_game, end_game, game_over;
 
@@ -47,8 +47,6 @@ function init(){
     // Create Lights
     fillplights();
     createLight();
-
-    
 
 }
 
@@ -155,6 +153,7 @@ function createScene(){
 	lighting = true;
 	stop = false;
 	game_over = false;
+	headlight = false;
 
 	collision = new Collision();
 }
@@ -319,6 +318,17 @@ function onKeyDown(e){
         	camera = camera_3;
         	camera_pers = true;
         	camera_ort = false;
+        	break;
+        case 72: // H enable/disable spotlight
+        	if(stop || game_over) break;
+        	if(headlight){
+        		ship.turnOffSpotlight();
+        		console.log("off");
+        	}else{
+        		ship.turnOnSpotlight();
+        		console.log("on");
+        	}
+        	headlight = !headlight;
         	break;
         case 76: // L enable/disable lighting
         	if(stop || game_over) break;
