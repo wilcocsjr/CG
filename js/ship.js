@@ -64,16 +64,15 @@ var Ship = function(){
 
 	}
 
-	this.createShip = function(x, y, z){
-		'use strict';
+	this.createShip = function(x, y, z, size = 1){
 
 		this._lives = 3;
 
-		this.addBody( 0, 0, 0);
-		this.addCockpit( 0, 12.5, 0);
-		this.addLeftWing( -5, 10, 4);
-		this.addRightWing( 5, 10, 4);
-		this.addTopWing( 0, 10, 4);
+		this.addBody( 0 * size, 0 * size, 0 * size, size);
+		this.addCockpit( 0 * size, 12.5 * size, 0 * size, size);
+		this.addLeftWing( -5 * size, 10 * size, 4 * size, size);
+		this.addRightWing( 5 * size, 10 * size, 4 * size, size);
+		this.addTopWing( 0 * size, 10 * size, 4 * size, size);
 		/*this.addEngine( 2.5, -10, 0);
 		this.addEngine( -2.5, -10, 0);*/
 
@@ -82,7 +81,7 @@ var Ship = function(){
 		this.setBoundingForms(12.5);
 	}
 
-	this.addBody = function(x, y, z){
+	this.addBody = function(x, y, z, size){
 		'use strict';
 		var geom = new THREE.Geometry(); 
 		var v1 = new THREE.Vector3(-5,10,4);
@@ -127,10 +126,13 @@ var Ship = function(){
 		var object = new THREE.Mesh( geom, this._materials[this._materials.length - 2]);
 
 		object.position.set(x, y, z);
+
+		object.scale.set(size, size, size);
+
 		this._ship.add(object);
 	}
 
-	this.addEngine = function(x, y, z){
+	this.addEngine = function(x, y, z, size){
 		'use strict';
 		this._materials.push(new THREE.MeshBasicMaterial({color: 0x0077ee}));
 		this._materials.push(new THREE.MeshLambertMaterial({color: 0x0077ee}));
@@ -139,12 +141,12 @@ var Ship = function(){
 		this._geometry = new THREE.SphereGeometry(10, 10, 10);
 		this._mesh = new THREE.Mesh(this._geometry, this._materials[this._materials.length - 2]);
 		this._mesh.position.set(x, y, z);
-		this._mesh.scale.set(0.2, 0.2, 0.2);
+		this._mesh.scale.set(0.2*size, 0.2*size, 0.2*size);
 
 		this._ship.add(this._mesh);
 	}
 
-	this.addCockpit = function(x, y, z){
+	this.addCockpit = function(x, y, z, size){
 		'use strict';
 		var geom = new THREE.Geometry(); 
 		var v1 = new THREE.Vector3(-4,4,2.5);
@@ -189,35 +191,45 @@ var Ship = function(){
 		var axis = new THREE.Vector3(1, 0, 0);
 		object.rotateOnAxis(axis, Math.PI/2);
 		object.position.set(x, y, z);
+
+		object.scale.set(size,size,size);
+
 		this._ship.add(object);
 	}
 
-	this.addLeftWing = function(x, y, z){
+	this.addLeftWing = function(x, y, z, size){
 		'use strict';
 		var object = this.buildWing();
 		var axis = new THREE.Vector3(0, 1, 0);
 		object.rotateOnAxis(axis, -5*Math.PI/4);
 		object.position.set(x+0.5, y, z-0.5);
 
+		object.scale.set(size,size,size);
+
 		this._ship.add(object);
 	}
 
 
-	this.addRightWing = function(x, y, z){
+	this.addRightWing = function(x, y, z, size){
 		'use strict'; 
 		var object = this.buildWing();
 		var axis = new THREE.Vector3(0, 1, 0);
 		object.rotateOnAxis(axis, Math.PI/4);
 		object.position.set(x-0.5,y,z-0.5);
+
+		object.scale.set(size,size,size);
+
 		this._ship.add(object);
 	}
 
-	this.addTopWing = function(x, y, z){
+	this.addTopWing = function(x, y, z, size){
 		'use strict';
 		var object = this.buildWing();
 		var axis = new THREE.Vector3(0, 1, 0);
 		object.rotateOnAxis(axis, -Math.PI/2);
 		object.position.set(x, y, z);
+
+		object.scale.set(size,size,size);
 
 		this._ship.add(object);
 	}
