@@ -13,8 +13,8 @@
  */
 
 
-var camera, scene, renderer;
-var board, ship, collision;
+var camera, camera_lives, scene, scene_lives, renderer;
+var board, board_lives, ship, collision;
 var oldClock, now;
 var delta;
 var camera_1, camera_2, camera_3, camera_ort, camera_pers;
@@ -35,6 +35,7 @@ function init(){
 	document.body.appendChild(renderer.domElement);
 
 	createScene();
+	createSceneForLives();
 	createCamera();
 	
 	getMusic();
@@ -47,6 +48,8 @@ function init(){
     // Create Lights
     fillplights();
     createLight();
+
+    
 
 }
 
@@ -158,6 +161,23 @@ function createScene(){
 	collision = new Collision();
 }
 
+function createSceneForLives(){
+	'use strict';
+
+	scene_lives = new THREE.Scene();
+
+	board_lives = new Board();
+
+	board_lives.createBoardLives();
+
+    dLight = new THREE.DirectionalLight(0xffffff);
+    dLight.position.set(0, -0.5, 1);
+    
+    scene_lives.add(dLight);
+
+
+}
+
 function createCamera(){
 	'use strict';
 	// Check on function onResize() viewSize is the same (it must be!)
@@ -171,12 +191,14 @@ function createCamera(){
 	camera.position.y = 0;
 	camera.position.z = 1;
 	camera.lookAt(scene.position);
+	camera_lives = camera;
 	camera_ort = true;
 	camera_1 = camera;
 	camera2();
 	camera3();
 	rotated1 = true;
 	rotated2 = false;
+	
 }
 
 function camera2(){
@@ -410,7 +432,30 @@ function onKeyUp(e){
 
 function render() {
 	'use strict';
-	renderer.render(scene, camera);
+	 //renderer.render(scene, camera);
+	 var SCREEN_W, SCREEN_H;
+	 SCREEN_W = window.innerWidth;
+	 SCREEN_H = window.innerHeight;
+
+	 var left,bottom,width,height;
+
+	 
+
+	 left = 1; bottom = 1; width = SCREEN_W; height = SCREEN_H;
+	 renderer.setViewport (left,bottom,width,height);
+	 renderer.setScissor(left,bottom,width,height);
+ 	 renderer.setScissorTest (false); 
+	 camera.aspect = width/height;
+	 camera.updateProjectionMatrix();
+	 renderer.render (scene,camera);
+
+	 left = - 50; bottom = 870; width = 0.15*SCREEN_W; height = 0.1*SCREEN_H;
+	 renderer.setViewport (left,bottom,width,height);
+	 renderer.setScissor(left,bottom,width,height);
+ 	 renderer.setScissorTest (true); 
+	 camera_lives.aspect = width/height;
+	 camera_lives.updateProjectionMatrix();
+	 renderer.render (scene_lives,camera_lives);
 }
 
 function animate(){

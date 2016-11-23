@@ -67,14 +67,15 @@ var Ship = function(){
 	}
 
 	this.createShip = function(x, y, z, size = 1){
+		'use strict';
 
 		this._lives = 3;
 
-		this.addBody( 0 * size, 0 * size, 0 * size, size);
-		this.addCockpit( 0 * size, 12.5 * size, 0 * size, size);
-		this.addLeftWing( -5 * size, 10 * size, 4 * size, size);
-		this.addRightWing( 5 * size, 10 * size, 4 * size, size);
-		this.addTopWing( 0 * size, 10 * size, 4 * size, size);
+		this.addBody( 0* size, 0* size, 0* size, size);
+		this.addCockpit( 0* size, 12.5* size, 0* size, size);
+		this.addLeftWing( -5* size, 10* size, 4* size, size);
+		this.addRightWing( 5* size, 10* size, 4* size, size);
+		this.addTopWing( 0* size, 10* size, 4* size,size);
 		/*this.addEngine( 2.5, -10, 0);
 		this.addEngine( -2.5, -10, 0);*/
 
@@ -377,15 +378,15 @@ var Ship = function(){
 	this.collidesWith = function(){
 		this._velocity = 0;
 		if(this._lives == 3){
-			document.getElementById('life2').style.display = 'none';
+			scene_lives.remove(board_lives._children[2].getObject());
 			this._lives -= 1;
 		}
 		else if(this._lives == 2){
-			document.getElementById('life1').style.display = 'none';
+			scene_lives.remove(board_lives._children[1].getObject());
 			this._lives -= 1;
 		}
 		else if(this._lives == 1){
-			document.getElementById('life0').style.display = 'none';
+			scene_lives.remove(board_lives._children[0].getObject());
 			this._lives -= 1;
 		}
 		

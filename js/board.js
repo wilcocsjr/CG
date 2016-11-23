@@ -1,7 +1,7 @@
-
 var ship;
 
 var Board = function(){
+	var shipLeft, shipRight, shipMid;
 	
 	this._children = []; 
 
@@ -42,6 +42,13 @@ var Board = function(){
 
 	}
 
+	this.createBoardLives = function(){
+        'use strict';
+        var geo_floor = new THREE.CubeGeometry(1500, 1500, 0);
+		this.addBoardLives();
+
+	}
+
 	this.getChild = function(i){
 		return this._children[i];
 	}
@@ -52,6 +59,10 @@ var Board = function(){
 
 	this.removeChild = function(i){
 		return this._children.splice(i, 1);
+	}
+
+	this.removeShipLeft = function(){
+
 	}
 
 	this.getNumberOfChildren = function(){
@@ -73,12 +84,20 @@ var Board = function(){
 			scene.remove(scene.children[0]);
 	}
 
+	this.cleanBoardLives = function(){
+			scene.remove(this._children[0].getObject());
+			scene.remove(this._children[1].getObject());
+			scene.remove(this._children[2].getObject());
+			this._children = [];
+		
+	}
+
 	this.restartBoard = function(){
 		this.cleanBoard();
 		this.createBoard();
-		document.getElementById('life2').style.display = 'inline-block';
-		document.getElementById('life1').style.display = 'inline-block';
-		document.getElementById('life0').style.display = 'inline-block';
+		board_lives.cleanBoardLives();
+		board_lives.createBoardLives();
+		
 	}
 
 	this.addBoard = function(){
@@ -90,6 +109,7 @@ var Board = function(){
 		ship.createShip(0, -80, 0);
 		scene.add(ship.getObject());
 		this._children.push(ship);
+
 
 		for (var i = 0; i < 4; i++){
 
@@ -103,6 +123,26 @@ var Board = function(){
 			scene.add(invader.getObject());
 			this._children.push(invader);
 		}
+	}
+
+	this.addBoardLives = function(){
+		'use strict';
+
+		shipLeft = new Ship();
+		shipLeft.createShip(-40, -80, 0);
+		scene_lives.add(shipLeft.getObject());
+		this._children.push(shipLeft);
+
+		shipMid = new Ship();
+		shipMid.createShip(0, -80, 0);
+		scene_lives.add(shipMid.getObject());
+		this._children.push(shipMid);
+
+		shipRight = new Ship();
+		shipRight.createShip(40, -80, 0);
+		scene_lives.add(shipRight.getObject());
+		this._children.push(shipRight);
+
 	}
 
 	this.shipMove = function(camera3){
