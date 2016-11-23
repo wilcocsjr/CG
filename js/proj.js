@@ -162,7 +162,6 @@ function createSceneForLives(){
     
     scene_lives.add(dLight);
 
-
 }
 
 function createCamera(){
