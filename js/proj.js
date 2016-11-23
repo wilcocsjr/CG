@@ -435,7 +435,7 @@ function render() {
 	 camera.updateProjectionMatrix();
 	 renderer.render (scene,camera);
 
-	 left = - 50; bottom = 870; width = 0.15*SCREEN_W; height = 0.1*SCREEN_H;
+	 left = 200; bottom = 570; width = 0.1*SCREEN_W; height = 0.1*SCREEN_H;
 	 renderer.setViewport (left,bottom,width,height);
 	 renderer.setScissor(left,bottom,width,height);
  	 renderer.setScissorTest (true); 

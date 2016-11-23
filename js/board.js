@@ -85,10 +85,10 @@ var Board = function(){
 	}
 
 	this.cleanBoardLives = function(){
-			scene.remove(this._children[0].getObject());
-			scene.remove(this._children[1].getObject());
-			scene.remove(this._children[2].getObject());
-			this._children = [];
+			scene_lives.remove(this._children[0].getObject());
+			scene_lives.remove(this._children[1].getObject());
+			scene_lives.remove(this._children[2].getObject());
+			board_lives._children = [];
 		
 	}
 
@@ -129,17 +129,17 @@ var Board = function(){
 		'use strict';
 
 		shipLeft = new Ship();
-		shipLeft.createShip(-40, -80, 0);
+		shipLeft.createShip(-120, -80, 0, 4);
 		scene_lives.add(shipLeft.getObject());
 		this._children.push(shipLeft);
 
 		shipMid = new Ship();
-		shipMid.createShip(0, -80, 0);
+		shipMid.createShip(0, -80, 0, 4);
 		scene_lives.add(shipMid.getObject());
 		this._children.push(shipMid);
 
 		shipRight = new Ship();
-		shipRight.createShip(40, -80, 0);
+		shipRight.createShip(120, -80, 0, 4);
 		scene_lives.add(shipRight.getObject());
 		this._children.push(shipRight);
 
