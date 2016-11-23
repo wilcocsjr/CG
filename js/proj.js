@@ -1,18 +1,5 @@
 /*global THREE*/
 
-
-/* 
- * Adicionar HeadLight 
- * 1)
- * scene.add(luz.target);
- * luz.target.position.set(...);
- * 
- * 2)
- * luz.target.position.set(...);
- * luz.target.updateMatrixWorld();
- */
-
-
 var camera, camera_lives, scene, scene_lives, renderer;
 var board, board_lives, ship, collision;
 var oldClock, now;

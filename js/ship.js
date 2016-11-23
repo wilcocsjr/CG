@@ -67,7 +67,6 @@ var Ship = function(){
 	}
 
 	this.createShip = function(x, y, z, size = 1){
-		'use strict';
 
 		this._lives = 3;
 
