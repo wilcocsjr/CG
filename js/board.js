@@ -85,10 +85,10 @@ var Board = function(){
 	}
 
 	this.cleanBoardLives = function(){
-			scene.remove(this._children[0].getObject());
-			scene.remove(this._children[1].getObject());
-			scene.remove(this._children[2].getObject());
-			this._children = [];
+			scene_lives.remove(this._children[0].getObject());
+			scene_lives.remove(this._children[1].getObject());
+			scene_lives.remove(this._children[2].getObject());
+			board_lives._children = [];
 		
 	}
 
