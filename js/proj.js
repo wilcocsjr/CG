@@ -331,10 +331,8 @@ function onKeyDown(e){
         	if(stop || game_over) break;
         	if(headlight){
         		ship.turnOffSpotlight();
-        		console.log("off");
         	}else{
         		ship.turnOnSpotlight();
-        		console.log("on");
         	}
         	headlight = !headlight;
         	break;

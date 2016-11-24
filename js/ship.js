@@ -241,9 +241,11 @@ var Ship = function(){
 
 	this.buildSpotlight = function(x, y, z, obj){
 		this._light = new THREE.SpotLight(0xFFFFFF, this._slintensity, 100, 45);
-		this._light.position.set(x,y,z);
-		this._light.target.position.set(x,y+10,z);
+		this._light.position.set(x+10, y-25, z-5);
+		obj.add(this._light.target);
+		this._light.target.position.set(x, y+50,0);
 		this._light.target.updateMatrixWorld();
+		console.log(x,y,z);
 		obj.add(this._light);
 	}
 

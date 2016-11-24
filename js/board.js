@@ -32,7 +32,6 @@ var Board = function(){
         texture_floor.repeat.set( 4, 4 );
         //texture = THREE.ImageUtils.loadTexture('http://i683.photobucket.com/albums/vv193/livingdead0666/animations/starfield.gif', {}, function() {renderer.render(scene);});
 		var mesh_floor = new THREE.Mesh(geo_floor, new THREE.MeshBasicMaterial({map: texture_floor}));
-
 		mesh_floor.position.set(0, 0, -100);
         mesh_floor.rotateX(10);
         
