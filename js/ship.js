@@ -240,15 +240,15 @@ var Ship = function(){
 
 
 	this.buildSpotlight = function(x, y, z, obj){
-		this._light = new THREE.SpotLight(0xFFFFFF, this._slintensity, 75);
-		this._light.position.set(x,y,z);
-		this._light.target.position.set(x,y+5,z-50);
+		this._light = new THREE.SpotLight(0xFFFFFF, this._slintensity, 100, 45);
+		this._light.position.set(x+25,y-30,z);
+		this._light.target.position.set(x,y,z);
 		this._light.target.updateMatrixWorld();
 		obj.add(this._light);
 	}
 
 	this.turnOnSpotlight = function(){
-		this._slintensity = 50;
+		this._slintensity = 5;
 		this._light.intensity = this._slintensity;
 	}
 	this.turnOffSpotlight = function(){
