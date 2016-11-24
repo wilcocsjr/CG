@@ -173,12 +173,12 @@ function createCamera(){
 	var aspectRatio = window.innerWidth / window.innerHeight;
 
 	camera = new THREE.OrthographicCamera(-aspectRatio * viewSize, aspectRatio * viewSize, viewSize, -viewSize, -1000, 1000);
+	camera_lives = new THREE.OrthographicCamera(-aspectRatio * viewSize, aspectRatio * viewSize, viewSize, -viewSize, -1000, 1000);
 	// 2D
 	camera.position.x = 0;
 	camera.position.y = 0;
 	camera.position.z = 1;
 	camera.lookAt(scene.position);
-	camera_lives = camera;
 	camera_ort = true;
 	camera_1 = camera;
 	camera2();
@@ -419,7 +419,6 @@ function onKeyUp(e){
 
 function render() {
 	'use strict';
-	 //renderer.render(scene, camera);
 	 var SCREEN_W, SCREEN_H;
 	 SCREEN_W = window.innerWidth;
 	 SCREEN_H = window.innerHeight;
@@ -436,7 +435,7 @@ function render() {
 	 camera.updateProjectionMatrix();
 	 renderer.render (scene,camera);
 
-	 left = 200; bottom = 570; width = 0.1*SCREEN_W; height = 0.1*SCREEN_H;
+	 left = 0.1*SCREEN_W; bottom = 0.8*SCREEN_H; width = 200; height = 90;
 	 renderer.setViewport (left,bottom,width,height);
 	 renderer.setScissor(left,bottom,width,height);
  	 renderer.setScissorTest (true); 
